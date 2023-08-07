@@ -11,6 +11,7 @@
 		75F6051E2A8015D400A65218 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F6051D2A8015D400A65218 /* ContentView.swift */; };
 		75F605202A8015D500A65218 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 75F6051F2A8015D500A65218 /* Assets.xcassets */; };
 		75F605232A8015D500A65218 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 75F605222A8015D500A65218 /* Preview Assets.xcassets */; };
+		75F605302A81084600A65218 /* Color + ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F6052F2A81084600A65218 /* Color + ext.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -19,6 +20,7 @@
 		75F6051D2A8015D400A65218 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		75F6051F2A8015D500A65218 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		75F605222A8015D500A65218 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		75F6052F2A81084600A65218 /* Color + ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color + ext.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,6 +53,7 @@
 		75F6051A2A8015D400A65218 /* Bomb */ = {
 			isa = PBXGroup;
 			children = (
+				75F605312A81085800A65218 /* Extentions */,
 				75F6051B2A8015D400A65218 /* BombApp.swift */,
 				75F6051D2A8015D400A65218 /* ContentView.swift */,
 				75F6051F2A8015D500A65218 /* Assets.xcassets */,
@@ -65,6 +68,14 @@
 				75F605222A8015D500A65218 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		75F605312A81085800A65218 /* Extentions */ = {
+			isa = PBXGroup;
+			children = (
+				75F6052F2A81084600A65218 /* Color + ext.swift */,
+			);
+			path = Extentions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -139,6 +150,7 @@
 			files = (
 				75F6051E2A8015D400A65218 /* ContentView.swift in Sources */,
 				75F6051C2A8015D400A65218 /* BombApp.swift in Sources */,
+				75F605302A81084600A65218 /* Color + ext.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
