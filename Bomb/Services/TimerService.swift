@@ -16,8 +16,9 @@ protocol TimerProtocol: AnyObject {
 }
 
 final class TimerService: TimerProtocol {
-    let timerTick = PassthroughSubject<Date, Never>()
     private var cancelable: Cancellable?
+    
+    let timerTick = PassthroughSubject<Date, Never>()
     
     func startTimer() {
         cancelable = Timer

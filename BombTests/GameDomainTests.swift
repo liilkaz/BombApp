@@ -36,6 +36,13 @@ final class GameDomainTests: XCTestCase {
         
         try await super.tearDown()
     }
+    
+    func test_initialState() {
+        _ = sut.reduce(&state, action: .viewAppeared)
+        
+        XCTAssertEqual(state.title, "Нажмите запустить, чтобы начать игру")
+        XCTAssertEqual(state.gameState, .initial)
+    }
 
     func test_launchButtonTapStartsTimer() {
         _ = sut.reduce(&state, action: .launchButtonTap)
@@ -49,6 +56,12 @@ final class GameDomainTests: XCTestCase {
         XCTAssertTrue(mockPlayer.isRequestSend)
     }
     
+    func test_launchButtonChangeGameStateToPlay() {
+        _ = sut.reduce(&state, action: .launchButtonTap)
+        
+        XCTAssertEqual(state.gameState, .play)
+    }
+    
     func test_timerTickEmitReducerAction() {
         let spy = StateSpy(publisher: sut.reduce(&state, action: .viewAppeared))
         
@@ -57,12 +70,30 @@ final class GameDomainTests: XCTestCase {
         XCTAssertEqual(spy.actions, [.timerTicked])
     }
     
+    func test_timerTickActionIncreaseCounter() {
+        state.counter = 0
+        
+        _ = sut.reduce(&state, action: .timerTicked)
+        
+        XCTAssertEqual(state.counter, 1)
+    }
     
+    func test_timerTickActionEmitGameOverState() {
+        state.counter = 30
+        
+        _ = sut.reduce(&state, action: .timerTicked)
+            .sink(receiveValue: { [unowned self] action in
+                exp.fulfill()
+                XCTAssertEqual(action, .gameOver)
+            })
+        
+        wait(for: [exp], timeout: 0.1)
+    }
 }
 
 final class MockTimer: TimerProtocol {
     let timerTick: PassthroughSubject<Date, Never> = .init()
-    var isRequestSend = false
+    private(set) var isRequestSend = false
     
     func startTimer() {
         isRequestSend = true
@@ -78,7 +109,7 @@ final class MockTimer: TimerProtocol {
 }
 
 final class MockPlayer: AudioPlayerProtocol {
-    var isRequestSend = false
+    private(set) var isRequestSend = false
     
     func play() {
         isRequestSend = true
@@ -92,11 +123,11 @@ final class MockPlayer: AudioPlayerProtocol {
 final class StateSpy {
     private var cancellable: Set<AnyCancellable> = .init()
     
-    var actions: [GameDomain.Action] = .init()
+    private(set) var actions: [GameDomain.Action] = .init()
     
     init(publisher: AnyPublisher<GameDomain.Action, Never>) {
         publisher
-            .sink{ [unowned self] action in
+            .sink { [unowned self] action in
                 actions.append(action)
             }
             .store(in: &cancellable)
