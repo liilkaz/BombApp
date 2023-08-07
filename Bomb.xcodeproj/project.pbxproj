@@ -12,11 +12,26 @@
 		75F605202A8015D500A65218 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 75F6051F2A8015D500A65218 /* Assets.xcassets */; };
 		75F605232A8015D500A65218 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 75F605222A8015D500A65218 /* Preview Assets.xcassets */; };
 		75F605302A81084600A65218 /* Color + ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F6052F2A81084600A65218 /* Color + ext.swift */; };
+		8612B2F22A81865A00CD7CE4 /* TimerService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8612B2F12A81865A00CD7CE4 /* TimerService.swift */; };
 		865E46D02A81733F00B26707 /* GameStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 865E46CF2A81733F00B26707 /* GameStore.swift */; };
+		86A1B1932A81782B00587042 /* GameDomainTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86A1B1922A81782B00587042 /* GameDomainTests.swift */; };
 		86A324F72A816F180031B71D /* GameDomain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86A324F62A816F180031B71D /* GameDomain.swift */; };
 		86A324FA2A81717F0031B71D /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 86A324F92A81717F0031B71D /* Lottie */; };
 		86A324FD2A8172370031B71D /* BombAnimation.json in Resources */ = {isa = PBXBuildFile; fileRef = 86A324FC2A8172370031B71D /* BombAnimation.json */; };
+		86B9B3B32A818D05001C1E63 /* GameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86B9B3B22A818D04001C1E63 /* GameView.swift */; };
+		86E8D1352A8194E300B74EBA /* AudioPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86E8D1342A8194E300B74EBA /* AudioPlayer.swift */; };
+		86E8D1382A81965F00B74EBA /* bombTick.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 86E8D1372A81965F00B74EBA /* bombTick.mp3 */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		865E46D92A81778D00B26707 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 75F605102A8015D400A65218 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 75F605172A8015D400A65218;
+			remoteInfo = Bomb;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		75F605182A8015D400A65218 /* Bomb.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Bomb.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -25,9 +40,15 @@
 		75F6051F2A8015D500A65218 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		75F605222A8015D500A65218 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		75F6052F2A81084600A65218 /* Color + ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color + ext.swift"; sourceTree = "<group>"; };
+		8612B2F12A81865A00CD7CE4 /* TimerService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimerService.swift; sourceTree = "<group>"; };
 		865E46CF2A81733F00B26707 /* GameStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameStore.swift; sourceTree = "<group>"; };
+		865E46D52A81778D00B26707 /* BombTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BombTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		86A1B1922A81782B00587042 /* GameDomainTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameDomainTests.swift; sourceTree = "<group>"; };
 		86A324F62A816F180031B71D /* GameDomain.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameDomain.swift; sourceTree = "<group>"; };
 		86A324FC2A8172370031B71D /* BombAnimation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = BombAnimation.json; sourceTree = "<group>"; };
+		86B9B3B22A818D04001C1E63 /* GameView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameView.swift; sourceTree = "<group>"; };
+		86E8D1342A8194E300B74EBA /* AudioPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioPlayer.swift; sourceTree = "<group>"; };
+		86E8D1372A81965F00B74EBA /* bombTick.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = bombTick.mp3; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -39,6 +60,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		865E46D22A81778D00B26707 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -46,6 +74,7 @@
 			isa = PBXGroup;
 			children = (
 				75F6051A2A8015D400A65218 /* Bomb */,
+				865E46D62A81778D00B26707 /* BombTests */,
 				75F605192A8015D400A65218 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -54,6 +83,7 @@
 			isa = PBXGroup;
 			children = (
 				75F605182A8015D400A65218 /* Bomb.app */,
+				865E46D52A81778D00B26707 /* BombTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -61,6 +91,7 @@
 		75F6051A2A8015D400A65218 /* Bomb */ = {
 			isa = PBXGroup;
 			children = (
+				86E8D1362A8194EB00B74EBA /* Services */,
 				86A324FB2A8172370031B71D /* LottieAnimations */,
 				864190C32A816EAA0068632B /* GameModule */,
 				75F605312A81085800A65218 /* Extentions */,
@@ -91,10 +122,19 @@
 		864190C32A816EAA0068632B /* GameModule */ = {
 			isa = PBXGroup;
 			children = (
+				86B9B3B22A818D04001C1E63 /* GameView.swift */,
 				865E46CF2A81733F00B26707 /* GameStore.swift */,
 				86A324F62A816F180031B71D /* GameDomain.swift */,
 			);
 			path = GameModule;
+			sourceTree = "<group>";
+		};
+		865E46D62A81778D00B26707 /* BombTests */ = {
+			isa = PBXGroup;
+			children = (
+				86A1B1922A81782B00587042 /* GameDomainTests.swift */,
+			);
+			path = BombTests;
 			sourceTree = "<group>";
 		};
 		86A324FB2A8172370031B71D /* LottieAnimations */ = {
@@ -103,6 +143,16 @@
 				86A324FC2A8172370031B71D /* BombAnimation.json */,
 			);
 			path = LottieAnimations;
+			sourceTree = "<group>";
+		};
+		86E8D1362A8194EB00B74EBA /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				86E8D1372A81965F00B74EBA /* bombTick.mp3 */,
+				8612B2F12A81865A00CD7CE4 /* TimerService.swift */,
+				86E8D1342A8194E300B74EBA /* AudioPlayer.swift */,
+			);
+			path = Services;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -128,6 +178,24 @@
 			productReference = 75F605182A8015D400A65218 /* Bomb.app */;
 			productType = "com.apple.product-type.application";
 		};
+		865E46D42A81778D00B26707 /* BombTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 865E46DB2A81778D00B26707 /* Build configuration list for PBXNativeTarget "BombTests" */;
+			buildPhases = (
+				865E46D12A81778D00B26707 /* Sources */,
+				865E46D22A81778D00B26707 /* Frameworks */,
+				865E46D32A81778D00B26707 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				865E46DA2A81778D00B26707 /* PBXTargetDependency */,
+			);
+			name = BombTests;
+			productName = BombTests;
+			productReference = 865E46D52A81778D00B26707 /* BombTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -135,11 +203,16 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1410;
+				LastSwiftUpdateCheck = 1500;
 				LastUpgradeCheck = 1410;
 				TargetAttributes = {
 					75F605172A8015D400A65218 = {
 						CreatedOnToolsVersion = 14.1;
+					};
+					865E46D42A81778D00B26707 = {
+						CreatedOnToolsVersion = 15.0;
+						LastSwiftMigration = 1500;
+						TestTargetID = 75F605172A8015D400A65218;
 					};
 				};
 			};
@@ -160,6 +233,7 @@
 			projectRoot = "";
 			targets = (
 				75F605172A8015D400A65218 /* Bomb */,
+				865E46D42A81778D00B26707 /* BombTests */,
 			);
 		};
 /* End PBXProject section */
@@ -170,8 +244,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				75F605232A8015D500A65218 /* Preview Assets.xcassets in Resources */,
+				86E8D1382A81965F00B74EBA /* bombTick.mp3 in Resources */,
 				86A324FD2A8172370031B71D /* BombAnimation.json in Resources */,
 				75F605202A8015D500A65218 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		865E46D32A81778D00B26707 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -185,12 +267,31 @@
 				75F6051E2A8015D400A65218 /* ContentView.swift in Sources */,
 				86A324F72A816F180031B71D /* GameDomain.swift in Sources */,
 				75F6051C2A8015D400A65218 /* BombApp.swift in Sources */,
+				86E8D1352A8194E300B74EBA /* AudioPlayer.swift in Sources */,
+				8612B2F22A81865A00CD7CE4 /* TimerService.swift in Sources */,
 				865E46D02A81733F00B26707 /* GameStore.swift in Sources */,
 				75F605302A81084600A65218 /* Color + ext.swift in Sources */,
+				86B9B3B32A818D05001C1E63 /* GameView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		865E46D12A81778D00B26707 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				86A1B1932A81782B00587042 /* GameDomainTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		865E46DA2A81778D00B26707 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 75F605172A8015D400A65218 /* Bomb */;
+			targetProxy = 865E46D92A81778D00B26707 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		75F605242A8015D500A65218 /* Debug */ = {
@@ -373,6 +474,64 @@
 			};
 			name = Release;
 		};
+		865E46DC2A81778D00B26707 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 4WQFD456R9;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = ru.iliaByHimself.BombTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Bomb.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Bomb";
+			};
+			name = Debug;
+		};
+		865E46DD2A81778D00B26707 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 4WQFD456R9;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = ru.iliaByHimself.BombTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Bomb.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Bomb";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -390,6 +549,15 @@
 			buildConfigurations = (
 				75F605272A8015D500A65218 /* Debug */,
 				75F605282A8015D500A65218 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		865E46DB2A81778D00B26707 /* Build configuration list for PBXNativeTarget "BombTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				865E46DC2A81778D00B26707 /* Debug */,
+				865E46DD2A81778D00B26707 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
