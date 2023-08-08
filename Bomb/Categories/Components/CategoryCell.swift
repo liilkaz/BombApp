@@ -4,7 +4,7 @@
 //
 //  Created by Kasharin Mikhail on 07.08.2023.
 //
-
+#warning("Не удалил копипасту")
 //
 //  CategoryCell.swift
 //  Bomb
@@ -24,9 +24,15 @@ import SwiftUI
 struct CategoryCell: View {
     
     let name: CategoryName
+    #warning("Название переменной грамматически некорректное. isSelected более корректное.")
     var isSelect: Bool
     
     var body: some View {
+#warning("""
+Плохая практика использовать magic numbers в верстке.
+Почитай статью https://betterprogramming.pub/cleaning-code-refactoring-in-swiftui-6e288a05bc2d
+Вынеси их в отдельную приватную структуру или enum.
+""")
         VStack(spacing: 7) {
             CellImageView(name: name, isSelect: isSelect)
             
@@ -54,6 +60,10 @@ struct CategoryCell: View {
 
 struct CategoryCell_Previews: PreviewProvider {
     static var previews: some View {
-        CategoryCell(name: .sport, isSelect: true)
+        #warning("Если верстка имеет несколько состояний, лучше отображать их все")
+        VStack {
+            CategoryCell(name: .sport, isSelect: true)
+            CategoryCell(name: .sport, isSelect: false)
+        }
     }
 }

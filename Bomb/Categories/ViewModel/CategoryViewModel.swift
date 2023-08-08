@@ -6,7 +6,7 @@
 //
 
 import Foundation
-
+#warning("Если ты не собираешься наследоваться от этого класса, нужно помечать его как final. См. статьи по диспетчеризации.")
 class CategoryViewModel: ObservableObject {
     
     @Published var categories: [Category] = []

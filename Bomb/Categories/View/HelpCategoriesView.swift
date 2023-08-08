@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-
+#warning("См. замечания в CategoryCell")
 struct HelpCategoriesView: View {
     
     let textData: [(text: String, weight: Font.Weight, size: CGFloat)] = [
@@ -49,6 +49,7 @@ struct HelpCategoriesView: View {
             .cornerRadius(1.5)
     }
     
+    #warning("См. замечания в CategoriesView")
     var staticCategoryGrid: some View {
         let column: [GridItem] = [
 
@@ -69,6 +70,7 @@ struct HelpCategoriesView: View {
         }
     }
     
+    #warning("Это можно вынести в расширение для вью или отдельную структуру")
     func styledText(text: String, weight: Font.Weight, size: CGFloat) -> some View {
         Text(text)
             .multilineTextAlignment(.center)

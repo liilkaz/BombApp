@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-
+#warning("См. замечания в CategoryCell")
 struct CellTextView: View {
     let name: CategoryName
     var isSelect: Bool

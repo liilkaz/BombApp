@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-
+#warning("См. замечания в CategoryCell")
 struct CellCheckboxView: View {
     var isSelect: Bool
     

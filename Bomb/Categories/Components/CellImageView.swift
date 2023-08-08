@@ -6,12 +6,13 @@
 //
 
 import SwiftUI
-
+#warning("См. замечания в CategoryCell")
 struct CellImageView: View {
     let name: CategoryName
     var isSelect: Bool
     
     var body: some View {
+        #warning("Если добавить в CategoryName необходимые вычисляемые свойста, можно избежать бессмысленной интерполяции и иметь более читабельный код")
         Image("\(name.self)")
             .resizable()
             .renderingMode(.template)

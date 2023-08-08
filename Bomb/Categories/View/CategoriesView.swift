@@ -28,11 +28,14 @@ struct CategoriesView: View {
             }
             .navigationBarTitleDisplayMode(.inline)
             .navigationHeader(showHelp: $showHelp)
+//            .onDisappear(perform: vm.getQuestions)
             .onDisappear {
+                #warning("Почитай про функции в Swift. Более лаконичный вариант представлен выше")
                 vm.getQuestions()
             }
     }
     
+    #warning("Для переиспользования крупных элементов лучше использовать отдельные структуры с явными зависимостями.")
     var dynamicCategoryGrid: some View {
         let column: [GridItem] = [
             GridItem(.flexible()),
@@ -40,12 +43,14 @@ struct CategoriesView: View {
         ]
         
         return LazyVGrid(columns: column, alignment: .center, spacing: 20) {
+            #warning("модель Category конформит Identifiable, конструкция через индексы избыточная.")
             ForEach(vm.categories.indices, id: \.self) { index in
                 CategoryCell(
                     name: vm.categories[index].name,
                     isSelect: vm.categories[index].isSelect
                 )
                 .onTapGesture {
+                    #warning("Этой логика должна быть во вью модели, а не во вью.")
                     vm.categories[index].isSelect.toggle()
                 }
             }

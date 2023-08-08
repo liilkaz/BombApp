@@ -9,7 +9,7 @@ import Foundation
 import SwiftUI
 
 extension Color {
-    
+    #warning("return избыточен и не нужен в однострочных выражениях")
     static var mainBackground: Color {
         return Color(red: 1.00, green: 0.82, blue: 0.37, opacity: 1)
     }
