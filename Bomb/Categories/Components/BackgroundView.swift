@@ -16,8 +16,8 @@ struct BackgroundView: View {
             backgroundColor.ignoresSafeArea()
             Image("Topographic 3")
                 .resizable()
-                .scaledToFill()
-                .offset(y: -30)
+                .scaledToFit()
+                .scaleEffect(1.3)
         }
     }
 }

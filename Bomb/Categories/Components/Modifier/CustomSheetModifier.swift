@@ -15,22 +15,22 @@ struct CustomSheetModifier: ViewModifier {
 
     func body(content: Content) -> some View {
         content
-            .offset(y: showHelp ? 100 : startingOffsetY)
+            .offset(y: showHelp ? UIScreen.main.bounds.height / 26 : startingOffsetY)
             .offset(y: dragValueY)
             .animation(.spring(), value: showHelp)
             .gesture(
                 DragGesture()
                     .onChanged { value in
-                        dragValueY = value.translation.height
+                        if value.translation.height >= 0 {
+                            dragValueY = value.translation.height
+                        }
                     }
                     .onEnded { value in
                         withAnimation(.spring()) {
                             if dragValueY >= 300 {
                                 showHelp.toggle()
-                                dragValueY = 0
-                            } else {
-                                dragValueY -= value.translation.height
                             }
+                            dragValueY = 0
                         }
                     }
             )

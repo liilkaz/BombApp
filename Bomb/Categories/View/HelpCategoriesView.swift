@@ -11,15 +11,15 @@ struct HelpCategoriesView: View {
     
     let textData: [(text: String, weight: Font.Weight, size: CGFloat)] = [
         ("Правила игры", .bold, 40),
-        ("В игре доступно 6\nкатегорий и более 90\nвопросов", .bold, 21),
-        ("Можно выбрать сразу\nнесколько категорий для\nигры", .regular, 21)
+        ("В игре доступно 6 категорий и более 90 вопросов", .bold, 21),
+        ("Можно выбрать сразу несколько категорий для игры", .regular, 21)
     ]
     
     var body: some View {
         ZStack {
             BackgroundView(backgroundColor: .mainBackground)
             
-            VStack(spacing: 24) {
+            VStack(spacing: 20) {
                 
                 dragIndicator
                 
@@ -35,7 +35,9 @@ struct HelpCategoriesView: View {
                 
                 Spacer()
             }
-            .padding([.top, .horizontal])
+            .padding(.top)
+            .padding(.bottom,4)
+            .padding(.horizontal, 20)
         }
         .cornerRadius(24)
     }
@@ -49,14 +51,15 @@ struct HelpCategoriesView: View {
     
     var staticCategoryGrid: some View {
         let column: [GridItem] = [
-            GridItem(.flexible()),
-            GridItem(.flexible())
+
+            GridItem(.adaptive(minimum: 100)),
+            GridItem(.adaptive(minimum: 100))
         ]
         let category: [CategoryName] = [
             .art, .celebrity, .sport, .life
         ]
         
-        return LazyVGrid(columns: column, alignment: .center, spacing: 20) {
+        return LazyVGrid(columns: column, alignment: .center, spacing: 16) {
             ForEach(category.indices, id: \.self) { index in
                     CategoryCell(
                         name: category[index],
@@ -70,8 +73,9 @@ struct HelpCategoriesView: View {
         Text(text)
             .multilineTextAlignment(.center)
             .foregroundColor(.primaryTextColor)
+            .minimumScaleFactor(0.7)
             .font(.system(size: size, weight: weight, design: .rounded))
-            .frame(width: 300, alignment: .center)
+            .frame(width: 280, alignment: .center)
     }
 }
 

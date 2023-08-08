@@ -15,7 +15,6 @@ struct CategoriesView: View {
     @State private var dragValueY = 0.0
     
     var body: some View {
-        NavigationView {
             ZStack(alignment: .bottom) {
                 
                 BackgroundView(backgroundColor: .mainViewButton)
@@ -32,7 +31,6 @@ struct CategoriesView: View {
             .onDisappear {
                 vm.getQuestions()
             }
-        }
     }
     
     var dynamicCategoryGrid: some View {
