@@ -9,60 +9,69 @@ import SwiftUI
 
 struct HelpCategoriesView: View {
     
-    let column: [GridItem] = [
-        GridItem(.flexible()),
-        GridItem(.flexible())
+    let textData: [(text: String, weight: Font.Weight, size: CGFloat)] = [
+        ("Правила игры", .bold, 40),
+        ("В игре доступно 6\nкатегорий и более 90\nвопросов", .bold, 21),
+        ("Можно выбрать сразу\nнесколько категорий для\nигры", .regular, 21)
     ]
-    let category: [CategoryName] = [.art, .celebrity, .sport, .life]
     
     var body: some View {
         ZStack {
-            Color.mainBackground.ignoresSafeArea()
-            Image("Topographic 3")
-                .resizable()
-                .scaledToFill()
-                .offset(y: -30)
+            BackgroundView(backgroundColor: .mainBackground)
             
             VStack(spacing: 24) {
-                Rectangle()
-                    .fill(Color.primaryTextColor)
-                    .frame(width: 68, height: 3)
-                    .cornerRadius(1.5)
                 
-                Text("Правила игры")
-                    .foregroundColor(.primaryTextColor)
-                    .font(.system(size: 40, weight: .bold, design: .rounded))
+                dragIndicator
                 
-                VStack {
-                    Text("В игре доступно 6")
-                    Text("категорий и более 90")
-                    Text("вопросов")
+                ForEach(textData, id: \.text) { data in
+                    styledText(
+                        text: data.text,
+                        weight: data.weight,
+                        size: data.size
+                    )
                 }
-                .foregroundColor(.primaryTextColor)
-                .font(.system(size: 21, weight: .bold, design: .rounded))
-                .frame(width: 300, alignment: .center)
                 
-                VStack {
-                    Text("Можно выбрать сразу")
-                    Text("несколько категорий для")
-                    Text("игры")
-                }
-                .foregroundColor(.primaryTextColor)
-                .font(.system(size: 21, weight: .regular, design: .rounded))
-                .frame(width: 300, alignment: .center)
-                
-                LazyVGrid(columns: column, alignment: .center, spacing: 20) {
-                    ForEach(0..<category.count) {
-                        CategoryCell(name: category[$0], isSelect: $0.isMultiple(of: 3) ? true : false)
-                    }
-                }
-                .padding(.horizontal)
+                staticCategoryGrid
                 
                 Spacer()
             }
-            .padding(.top)
+            .padding([.top, .horizontal])
         }
         .cornerRadius(24)
+    }
+    
+    var dragIndicator: some View {
+        Rectangle()
+            .fill(Color.primaryTextColor)
+            .frame(width: 68, height: 3)
+            .cornerRadius(1.5)
+    }
+    
+    var staticCategoryGrid: some View {
+        let column: [GridItem] = [
+            GridItem(.flexible()),
+            GridItem(.flexible())
+        ]
+        let category: [CategoryName] = [
+            .art, .celebrity, .sport, .life
+        ]
+        
+        return LazyVGrid(columns: column, alignment: .center, spacing: 20) {
+            ForEach(category.indices, id: \.self) { index in
+                    CategoryCell(
+                        name: category[index],
+                        isSelect: index.isMultiple(of: 3) ? true : false
+                    )
+                }
+        }
+    }
+    
+    func styledText(text: String, weight: Font.Weight, size: CGFloat) -> some View {
+        Text(text)
+            .multilineTextAlignment(.center)
+            .foregroundColor(.primaryTextColor)
+            .font(.system(size: size, weight: weight, design: .rounded))
+            .frame(width: 300, alignment: .center)
     }
 }
 

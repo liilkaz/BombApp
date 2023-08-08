@@ -20,6 +20,7 @@
 		FDD185222A812D530007691A /* CategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDD185212A812D530007691A /* CategoryCell.swift */; };
 		FDD185242A8149660007691A /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDD185232A8149660007691A /* MainView.swift */; };
 		FDD185262A814CE90007691A /* HelpCategoriesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDD185252A814CE90007691A /* HelpCategoriesView.swift */; };
+		FDF90F802A827D3700224D00 /* BackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDF90F7F2A827D3700224D00 /* BackgroundView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,6 +38,7 @@
 		FDD185212A812D530007691A /* CategoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCell.swift; sourceTree = "<group>"; };
 		FDD185232A8149660007691A /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		FDD185252A814CE90007691A /* HelpCategoriesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpCategoriesView.swift; sourceTree = "<group>"; };
+		FDF90F7F2A827D3700224D00 /* BackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -146,6 +148,7 @@
 			children = (
 				FD324D3C2A81EF9C006D12C4 /* Modifier */,
 				FDD185212A812D530007691A /* CategoryCell.swift */,
+				FDF90F7F2A827D3700224D00 /* BackgroundView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -226,6 +229,7 @@
 				75F6051E2A8015D400A65218 /* ContentView.swift in Sources */,
 				FDD185242A8149660007691A /* MainView.swift in Sources */,
 				75F6051C2A8015D400A65218 /* BombApp.swift in Sources */,
+				FDF90F802A827D3700224D00 /* BackgroundView.swift in Sources */,
 				FDD185202A812D2C0007691A /* CategoriesView.swift in Sources */,
 				FDD185222A812D530007691A /* CategoryCell.swift in Sources */,
 				FD4661CF2A812B8300ED1D48 /* CategoryViewModel.swift in Sources */,
