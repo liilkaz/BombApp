@@ -20,12 +20,3 @@ struct BackgroundGray: View {
         }
     }
 }
-
-//Color.mainBackground
-//    .ignoresSafeArea()
-//
-//Image("bgOrange")
-//    .resizable()
-//    .scaledToFit()
-//    .offset(x: -30)
-//    .ignoresSafeArea()

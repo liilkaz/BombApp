@@ -76,7 +76,7 @@ struct MainView: View {
                             .frame(height: 55)
                             .frame(maxWidth: .infinity)
                             .background(Color.mainViewButton)
-                            .clipShape(.rect(cornerRadius: 10))
+                            .cornerRadius(10)
                     }
                     
                     Button {
@@ -88,7 +88,7 @@ struct MainView: View {
                             .frame(height: 55)
                             .frame(maxWidth: .infinity)
                             .background(Color.mainViewButton)
-                            .clipShape(.rect(cornerRadius: 10))
+                            .cornerRadius(10)
                     }
                 }
                 .shadow(color: .black.opacity(0.25), radius: 4, x: 0, y: 4)
