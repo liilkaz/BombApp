@@ -35,9 +35,12 @@ struct GameDomain {
     //MARK: - Action
     enum Action: Equatable {
         case viewAppeared
+        case setupGame
         case launchButtonTap
+        case pauseButtonTap
         case timerTicked
         case gameOver
+        case playAgainButtonTap
     }
     
     //MARK: - Dependencies
@@ -59,27 +62,41 @@ struct GameDomain {
     func reduce(_ state: inout State, action: Action) -> AnyPublisher<Action, Never> {
         switch action {
         case .viewAppeared:
+            
+            return Publishers.Merge(
+                timerService
+                    .timerTick
+                    .map { _ in Action.timerTicked },
+                Just(Action.setupGame)
+            )
+            .eraseToAnyPublisher()
+            
+        case .setupGame:
             state.gameState = .initial
             state.title = "Нажмите запустить, чтобы начать игру"
             
-            return timerService
-                .timerTick
-                .map { _ in .timerTicked }
-                .eraseToAnyPublisher()
-            
         case .launchButtonTap:
             state.gameState = .play
-            player.play()
+            player.playTicking()
             timerService.startTimer()
+            
+        case .pauseButtonTap:
+            player.stop()
+            timerService.stopTimer()
             
         case .timerTicked:
             guard state.counter < 30 else {
+                player.playBlow()
                 return Just(.gameOver).eraseToAnyPublisher()
             }
             state.counter += 1
             
         case .gameOver:
-            break
+            state.gameState = .gameOver
+            state.title = "Конец игры"
+            
+        case .playAgainButtonTap:
+            return Just(.setupGame).eraseToAnyPublisher()
         }
         
         return Empty().eraseToAnyPublisher()

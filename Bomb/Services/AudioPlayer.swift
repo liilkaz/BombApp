@@ -10,7 +10,8 @@ import AVFoundation
 import OSLog
 
 protocol AudioPlayerProtocol: AnyObject {
-    func play()
+    func playTicking()
+    func playBlow()
     func stop()
 }
 
@@ -20,7 +21,7 @@ final class AudioPlayer: AudioPlayerProtocol {
         category: String(describing: AudioPlayer.self)
     )
     
-    private var player: AVAudioPlayer?
+    private var bombTickPlayer: AVAudioPlayer?
     
     //MARK: - init/deinit
     init() {
@@ -30,9 +31,9 @@ final class AudioPlayer: AudioPlayerProtocol {
         }
         
         do {
-            player = try AVAudioPlayer(contentsOf: url)
+            bombTickPlayer = try AVAudioPlayer(contentsOf: url)
         } catch {
-            logger.error("Unable to initialize AVAudioPlayer: \(error.localizedDescription)")
+            logger.error("Unable to initialize bombTickPlayer: \(error.localizedDescription)")
         }
         
         logger.debug("Initialized")
@@ -43,13 +44,19 @@ final class AudioPlayer: AudioPlayerProtocol {
     }
     
     //MARK: - Public methods
-    func play() {
-        player?.play()
+    func playTicking() {
+        bombTickPlayer?.currentTime = 0
+        bombTickPlayer?.prepareToPlay()
+        bombTickPlayer?.play()
         logger.debug("Start play")
     }
     
+    func playBlow() {
+        stop()
+    }
+    
     func stop() {
-        player?.stop()
-        logger.debug("Stop play")
+        bombTickPlayer?.stop()
+        logger.debug("Stop player.")
     }
 }
