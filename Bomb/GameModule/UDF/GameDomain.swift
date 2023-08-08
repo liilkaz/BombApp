@@ -57,6 +57,7 @@ struct GameDomain {
     func reduce(_ state: inout State, action: Action) -> AnyPublisher<Action, Never> {
         switch action {
         case .viewAppeared:
+            logger.debug("View appeared")
             return Publishers.Merge(
                 timerService
                     .timerTick
@@ -67,29 +68,33 @@ struct GameDomain {
             .eraseToAnyPublisher()
             
         case .gameState(.initial):
+            logger.debug("Setup game state to initial")
             state.gameFlow = .initial
             state.title = "Нажмите запустить, чтобы начать игру"
             
         case .gameState(.play):
+            logger.debug("Setup game state to play")
             state.gameFlow = .initial
             player.playTicking()
             timerService.startTimer()
             
         case .gameState(.pause):
+            logger.debug("Setup game state to pause")
             state.gameFlow = .pause
             player.stop()
             timerService.stopTimer()
             
         case .gameState(.gameOver):
+            logger.debug("Setup game state to gameOver")
             state.gameFlow = .gameOver
             timerService.stopTimer()
             player.playBlow()
             state.title = "Конец игры"
-            let randomIndex = randomNumber(state.punishmentArr.count)
-            state.punishment = state.punishmentArr[randomIndex]
+            state.punishment = getRandomElement(from: state.punishmentArr)
             
         case .timerTicked:
             guard state.counter < 30 else {
+                logger.debug("Send action to switch state to gameOver")
                 return Just(.gameState(.gameOver))
                     .eraseToAnyPublisher()
             }
@@ -108,18 +113,43 @@ struct GameDomain {
                 .eraseToAnyPublisher()
             
         case .anotherPunishmentButtonTap:
-            let randomIndex = randomNumber(state.punishmentArr.count)
-            state.punishment = state.punishmentArr[randomIndex]
+            state.punishment = getRandomElement(from: state.punishmentArr)
         }
         
         return Empty().eraseToAnyPublisher()
     }
     
-    //MARK: - Preview store
-    static let previewStore = GameStore(
+    //MARK: - Live store
+    static let liveStore = GameStore(
         initialState: Self.State(),
         reducer: Self()
     )
     
-    //MARK: - Live store
+    //MARK: - Preview stores
+    static let previewStoreInitialState = GameStore(
+        initialState: Self.State(gameFlow: .initial),
+        reducer: Self()
+    )
+    
+    static let previewStorePlayState = GameStore(
+        initialState: Self.State(gameFlow: .play),
+        reducer: Self()
+    )
+    
+    static let previewStorePauseState = GameStore(
+        initialState: Self.State(gameFlow: .pause),
+        reducer: Self()
+    )
+    
+    static let previewStoreGameOverState = GameStore(
+        initialState: Self.State(gameFlow: .gameOver),
+        reducer: Self()
+    )
+}
+
+private extension GameDomain {
+    func getRandomElement(from collection: [String]) -> String {
+        let randomIndex = randomNumber(collection.count)
+        return collection[randomIndex]
+    }
 }

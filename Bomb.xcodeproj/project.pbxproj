@@ -20,6 +20,8 @@
 		86A324FD2A8172370031B71D /* BombAnimation.json in Resources */ = {isa = PBXBuildFile; fileRef = 86A324FC2A8172370031B71D /* BombAnimation.json */; };
 		86B823852A819DCD00E3EF74 /* GameFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86B823842A819DCD00E3EF74 /* GameFlow.swift */; };
 		86B9B3B32A818D05001C1E63 /* GameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86B9B3B22A818D04001C1E63 /* GameView.swift */; };
+		86CEC6AC2A8298FE002792D3 /* LottieView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86CEC6AB2A8298FE002792D3 /* LottieView.swift */; };
+		86CEC6B02A82AC0F002792D3 /* bangAnimation.json in Resources */ = {isa = PBXBuildFile; fileRef = 86CEC6AF2A82AC0F002792D3 /* bangAnimation.json */; };
 		86E8D1352A8194E300B74EBA /* AudioPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86E8D1342A8194E300B74EBA /* AudioPlayer.swift */; };
 		86E8D1382A81965F00B74EBA /* bombTick.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 86E8D1372A81965F00B74EBA /* bombTick.mp3 */; };
 /* End PBXBuildFile section */
@@ -49,6 +51,8 @@
 		86A324FC2A8172370031B71D /* BombAnimation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = BombAnimation.json; sourceTree = "<group>"; };
 		86B823842A819DCD00E3EF74 /* GameFlow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameFlow.swift; sourceTree = "<group>"; };
 		86B9B3B22A818D04001C1E63 /* GameView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameView.swift; sourceTree = "<group>"; };
+		86CEC6AB2A8298FE002792D3 /* LottieView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LottieView.swift; sourceTree = "<group>"; };
+		86CEC6AF2A82AC0F002792D3 /* bangAnimation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = bangAnimation.json; sourceTree = "<group>"; };
 		86E8D1342A8194E300B74EBA /* AudioPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioPlayer.swift; sourceTree = "<group>"; };
 		86E8D1372A81965F00B74EBA /* bombTick.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = bombTick.mp3; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -142,6 +146,7 @@
 		86A324FB2A8172370031B71D /* LottieAnimations */ = {
 			isa = PBXGroup;
 			children = (
+				86CEC6AF2A82AC0F002792D3 /* bangAnimation.json */,
 				86A324FC2A8172370031B71D /* BombAnimation.json */,
 			);
 			path = LottieAnimations;
@@ -169,6 +174,7 @@
 		86E8D13A2A819D3A00B74EBA /* View */ = {
 			isa = PBXGroup;
 			children = (
+				86CEC6AB2A8298FE002792D3 /* LottieView.swift */,
 				86B9B3B22A818D04001C1E63 /* GameView.swift */,
 			);
 			path = View;
@@ -272,6 +278,7 @@
 			files = (
 				75F605232A8015D500A65218 /* Preview Assets.xcassets in Resources */,
 				86E8D1382A81965F00B74EBA /* bombTick.mp3 in Resources */,
+				86CEC6B02A82AC0F002792D3 /* bangAnimation.json in Resources */,
 				86A324FD2A8172370031B71D /* BombAnimation.json in Resources */,
 				75F605202A8015D500A65218 /* Assets.xcassets in Resources */,
 			);
@@ -298,6 +305,7 @@
 				8612B2F22A81865A00CD7CE4 /* TimerService.swift in Sources */,
 				865E46D02A81733F00B26707 /* GameStore.swift in Sources */,
 				75F605302A81084600A65218 /* Color + ext.swift in Sources */,
+				86CEC6AC2A8298FE002792D3 /* LottieView.swift in Sources */,
 				86B9B3B32A818D05001C1E63 /* GameView.swift in Sources */,
 				86B823852A819DCD00E3EF74 /* GameFlow.swift in Sources */,
 			);
