@@ -18,8 +18,10 @@
 		FD4661CF2A812B8300ED1D48 /* CategoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD4661CE2A812B8300ED1D48 /* CategoryViewModel.swift */; };
 		FDD185202A812D2C0007691A /* CategoriesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDD1851F2A812D2C0007691A /* CategoriesView.swift */; };
 		FDD185222A812D530007691A /* CategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDD185212A812D530007691A /* CategoryCell.swift */; };
-		FDD185242A8149660007691A /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDD185232A8149660007691A /* MainView.swift */; };
 		FDD185262A814CE90007691A /* HelpCategoriesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDD185252A814CE90007691A /* HelpCategoriesView.swift */; };
+		FDF83FD52A82BA8400E7C1BE /* CellTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDF83FD42A82BA8400E7C1BE /* CellTextView.swift */; };
+		FDF83FD72A82BAB900E7C1BE /* CellCheckboxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDF83FD62A82BAB900E7C1BE /* CellCheckboxView.swift */; };
+		FDF83FD92A82BB2E00E7C1BE /* CellImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDF83FD82A82BB2E00E7C1BE /* CellImageView.swift */; };
 		FDF90F802A827D3700224D00 /* BackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDF90F7F2A827D3700224D00 /* BackgroundView.swift */; };
 /* End PBXBuildFile section */
 
@@ -36,8 +38,10 @@
 		FD4661CE2A812B8300ED1D48 /* CategoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewModel.swift; sourceTree = "<group>"; };
 		FDD1851F2A812D2C0007691A /* CategoriesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesView.swift; sourceTree = "<group>"; };
 		FDD185212A812D530007691A /* CategoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCell.swift; sourceTree = "<group>"; };
-		FDD185232A8149660007691A /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		FDD185252A814CE90007691A /* HelpCategoriesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpCategoriesView.swift; sourceTree = "<group>"; };
+		FDF83FD42A82BA8400E7C1BE /* CellTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellTextView.swift; sourceTree = "<group>"; };
+		FDF83FD62A82BAB900E7C1BE /* CellCheckboxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellCheckboxView.swift; sourceTree = "<group>"; };
+		FDF83FD82A82BB2E00E7C1BE /* CellImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellImageView.swift; sourceTree = "<group>"; };
 		FDF90F7F2A827D3700224D00 /* BackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -130,7 +134,6 @@
 			children = (
 				FDD1851F2A812D2C0007691A /* CategoriesView.swift */,
 				FDD185252A814CE90007691A /* HelpCategoriesView.swift */,
-				FDD185232A8149660007691A /* MainView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -148,6 +151,9 @@
 			children = (
 				FD324D3C2A81EF9C006D12C4 /* Modifier */,
 				FDD185212A812D530007691A /* CategoryCell.swift */,
+				FDF83FD82A82BB2E00E7C1BE /* CellImageView.swift */,
+				FDF83FD42A82BA8400E7C1BE /* CellTextView.swift */,
+				FDF83FD62A82BAB900E7C1BE /* CellCheckboxView.swift */,
 				FDF90F7F2A827D3700224D00 /* BackgroundView.swift */,
 			);
 			path = Components;
@@ -224,10 +230,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				FDD185262A814CE90007691A /* HelpCategoriesView.swift in Sources */,
+				FDF83FD72A82BAB900E7C1BE /* CellCheckboxView.swift in Sources */,
 				FD324D3B2A81ED1C006D12C4 /* CustomToolbarModifier.swift in Sources */,
 				FD324D3E2A81F089006D12C4 /* CustomSheetModifier.swift in Sources */,
 				75F6051E2A8015D400A65218 /* ContentView.swift in Sources */,
-				FDD185242A8149660007691A /* MainView.swift in Sources */,
+				FDF83FD92A82BB2E00E7C1BE /* CellImageView.swift in Sources */,
+				FDF83FD52A82BA8400E7C1BE /* CellTextView.swift in Sources */,
 				75F6051C2A8015D400A65218 /* BombApp.swift in Sources */,
 				FDF90F802A827D3700224D00 /* BackgroundView.swift in Sources */,
 				FDD185202A812D2C0007691A /* CategoriesView.swift in Sources */,

@@ -5,6 +5,20 @@
 //  Created by Kasharin Mikhail on 07.08.2023.
 //
 
+//
+//  CategoryCell.swift
+//  Bomb
+//
+//  Created by Kasharin Mikhail on 07.08.2023.
+//
+
+//
+//  CategoryCell.swift
+//  Bomb
+//
+//  Created by Kasharin Mikhail on 07.08.2023.
+//
+
 import SwiftUI
 
 struct CategoryCell: View {
@@ -14,21 +28,9 @@ struct CategoryCell: View {
     
     var body: some View {
         VStack(spacing: 7) {
-            Image("\(name.self)")
-                .resizable()
-                .renderingMode(.template)
-                .scaledToFit()
-                .frame(minHeight: 60, maxHeight: 80)
-                .foregroundColor(isSelect ? .mainBackground : .primaryTextColor)
-                .shadow(color: isSelect ? .black : .clear, radius: 2, x: 2, y: 2)
+            CellImageView(name: name, isSelect: isSelect)
             
-            Text(name.rawValue)
-                .font(.system(size: 20, weight: .semibold, design: .rounded))
-                .foregroundColor(isSelect ? .mainBackground.opacity(0.9) : .primaryTextColor)
-                .padding(.horizontal, 6)
-                .lineLimit(1)
-                .minimumScaleFactor(0.5)
-                .shadow(color: isSelect ? .black : .clear, radius: 1, x: 2, y: 2)
+            CellTextView(name: name, isSelect: isSelect)
         }
         .padding([.vertical, .top], 24)
         .frame(
@@ -36,13 +38,6 @@ struct CategoryCell: View {
             maxWidth: (UIScreen.main.bounds.width - 70) / 2,
             minHeight: (UIScreen.main.bounds.width - 100) / 2,
             maxHeight: (UIScreen.main.bounds.width - 70) / 2)
-        .overlay(
-            Image("checkbox")
-                .renderingMode(.template)
-                .foregroundColor(isSelect ? .mainBackground : .primaryTextColor)
-                .shadow(color: isSelect ? .black : .clear, radius: 2, x: 2, y: 2),
-            alignment: .topLeading
-        )
         .background(
             Color.categoryCellBg.cornerRadius(20)
         )
@@ -50,6 +45,9 @@ struct CategoryCell: View {
             RoundedRectangle(cornerRadius: 20)
                 .stroke(isSelect ? Color.mainBackground : Color.primaryTextColor, lineWidth: 2)
                 .shadow(color: isSelect ? .black : .primaryTextColor, radius: 10, x: 5, y: 5)
+        )
+        .overlay(
+            CellCheckboxView(isSelect: isSelect), alignment: .topLeading
         )
     }
 }
