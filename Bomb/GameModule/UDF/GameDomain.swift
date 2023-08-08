@@ -17,43 +17,38 @@ struct GameDomain {
     
     //MARK: - State
     struct State: Equatable {
-        var title: String
-        var counter: Int
-        var gameState: GameFlow
-        
-        init(
-            title: String = .init(),
-            counter: Int = .init(),
-            gameState: GameFlow = .initial
-        ) {
-            self.title = title
-            self.counter = counter
-            self.gameState = gameState
-        }
+        var title: String = .init()
+        var punishment: String = .init()
+        var punishmentArr: [String] = .init()
+        var counter: Int = .init()
+        var gameFlow: GameFlow = .initial
     }
     
     //MARK: - Action
     enum Action: Equatable {
         case viewAppeared
-        case setupGame
+        case gameState(GameFlow)
         case launchButtonTap
         case pauseButtonTap
         case timerTicked
-        case gameOver
         case playAgainButtonTap
+        case anotherPunishmentButtonTap
     }
     
     //MARK: - Dependencies
     private let timerService: TimerProtocol
     private let player: AudioPlayerProtocol
+    private let randomNumber: (Int) -> Int
     
     //MARK: - init(_:)
     init(
         timerService: TimerProtocol = TimerService(),
-        player: AudioPlayerProtocol = AudioPlayer()
+        player: AudioPlayerProtocol = AudioPlayer(),
+        randomNumber: @escaping (Int) -> Int = { Int.random(in: 0...$0) }
     ) {
         self.timerService = timerService
         self.player = player
+        self.randomNumber = randomNumber
         
         logger.debug("Initialized")
     }
@@ -62,41 +57,59 @@ struct GameDomain {
     func reduce(_ state: inout State, action: Action) -> AnyPublisher<Action, Never> {
         switch action {
         case .viewAppeared:
-            
             return Publishers.Merge(
                 timerService
                     .timerTick
                     .map { _ in Action.timerTicked },
-                Just(Action.setupGame)
+                Just(GameFlow.initial)
+                    .map(Action.gameState)
             )
             .eraseToAnyPublisher()
             
-        case .setupGame:
-            state.gameState = .initial
+        case .gameState(.initial):
+            state.gameFlow = .initial
             state.title = "Нажмите запустить, чтобы начать игру"
             
-        case .launchButtonTap:
-            state.gameState = .play
+        case .gameState(.play):
+            state.gameFlow = .initial
             player.playTicking()
             timerService.startTimer()
             
-        case .pauseButtonTap:
+        case .gameState(.pause):
+            state.gameFlow = .pause
             player.stop()
             timerService.stopTimer()
             
+        case .gameState(.gameOver):
+            state.gameFlow = .gameOver
+            timerService.stopTimer()
+            player.playBlow()
+            state.title = "Конец игры"
+            let randomIndex = randomNumber(state.punishmentArr.count)
+            state.punishment = state.punishmentArr[randomIndex]
+            
         case .timerTicked:
             guard state.counter < 30 else {
-                player.playBlow()
-                return Just(.gameOver).eraseToAnyPublisher()
+                return Just(.gameState(.gameOver))
+                    .eraseToAnyPublisher()
             }
             state.counter += 1
             
-        case .gameOver:
-            state.gameState = .gameOver
-            state.title = "Конец игры"
+        case .launchButtonTap:
+            return Just(.gameState(.play))
+                .eraseToAnyPublisher()
+            
+        case .pauseButtonTap:
+            return Just(.gameState(.pause))
+                .eraseToAnyPublisher()
             
         case .playAgainButtonTap:
-            return Just(.setupGame).eraseToAnyPublisher()
+            return Just(.gameState(.initial))
+                .eraseToAnyPublisher()
+            
+        case .anotherPunishmentButtonTap:
+            let randomIndex = randomNumber(state.punishmentArr.count)
+            state.punishment = state.punishmentArr[randomIndex]
         }
         
         return Empty().eraseToAnyPublisher()

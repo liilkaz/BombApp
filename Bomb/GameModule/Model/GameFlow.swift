@@ -10,5 +10,6 @@ import Foundation
 enum GameFlow {
     case initial
     case play
+    case pause
     case gameOver
 }
