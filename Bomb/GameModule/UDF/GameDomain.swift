@@ -101,14 +101,17 @@ struct GameDomain {
             state.counter += 1
             
         case .launchButtonTap:
+            logger.debug("Send action to switch state to play")
             return Just(.gameState(.play))
                 .eraseToAnyPublisher()
             
         case .pauseButtonTap:
+            logger.debug("Send action to switch state to pause")
             return Just(.gameState(.pause))
                 .eraseToAnyPublisher()
             
         case .playAgainButtonTap:
+            logger.debug("Send action to switch state to initial")
             return Just(.gameState(.initial))
                 .eraseToAnyPublisher()
             
