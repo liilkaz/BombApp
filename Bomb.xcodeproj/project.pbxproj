@@ -7,10 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3C7B76582A82951600F29346 /* BackgroundGray.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C7B76572A82951600F29346 /* BackgroundGray.swift */; };
+		3C7B765C2A82A68500F29346 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C7B765B2A82A68500F29346 /* MainViewModel.swift */; };
+		3C7B765F2A82A7AD00F29346 /* GameTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C7B765E2A82A7AD00F29346 /* GameTime.swift */; };
 		3CBD4D412A812F7800297401 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CBD4D402A812F7800297401 /* MainView.swift */; };
-		3CBD4D432A812F8100297401 /* MainViewSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CBD4D422A812F8100297401 /* MainViewSheet.swift */; };
+		3CBD4D432A812F8100297401 /* MainHelpSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CBD4D422A812F8100297401 /* MainHelpSheet.swift */; };
 		3CBD4D452A812F8D00297401 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CBD4D442A812F8D00297401 /* SettingsView.swift */; };
 		3CBD4D482A812FA300297401 /* ButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CBD4D472A812FA300297401 /* ButtonView.swift */; };
+		3CBD4D4B2A823F7F00297401 /* CustomSheetModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CBD4D4A2A823F7F00297401 /* CustomSheetModifier.swift */; };
 		75F6051C2A8015D400A65218 /* BombApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F6051B2A8015D400A65218 /* BombApp.swift */; };
 		75F6051E2A8015D400A65218 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F6051D2A8015D400A65218 /* ContentView.swift */; };
 		75F605202A8015D500A65218 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 75F6051F2A8015D500A65218 /* Assets.xcassets */; };
@@ -19,10 +23,14 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3C7B76572A82951600F29346 /* BackgroundGray.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundGray.swift; sourceTree = "<group>"; };
+		3C7B765B2A82A68500F29346 /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
+		3C7B765E2A82A7AD00F29346 /* GameTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameTime.swift; sourceTree = "<group>"; };
 		3CBD4D402A812F7800297401 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
-		3CBD4D422A812F8100297401 /* MainViewSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewSheet.swift; sourceTree = "<group>"; };
+		3CBD4D422A812F8100297401 /* MainHelpSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainHelpSheet.swift; sourceTree = "<group>"; };
 		3CBD4D442A812F8D00297401 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		3CBD4D472A812FA300297401 /* ButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonView.swift; sourceTree = "<group>"; };
+		3CBD4D4A2A823F7F00297401 /* CustomSheetModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSheetModifier.swift; sourceTree = "<group>"; };
 		75F605182A8015D400A65218 /* Bomb.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Bomb.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		75F6051B2A8015D400A65218 /* BombApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BombApp.swift; sourceTree = "<group>"; };
 		75F6051D2A8015D400A65218 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -42,12 +50,38 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		3CBD4D3F2A812F6100297401 /* MainView */ = {
+		3C7B76592A82A65D00F29346 /* View */ = {
 			isa = PBXGroup;
 			children = (
 				3CBD4D402A812F7800297401 /* MainView.swift */,
-				3CBD4D422A812F8100297401 /* MainViewSheet.swift */,
+				3CBD4D422A812F8100297401 /* MainHelpSheet.swift */,
 				3CBD4D442A812F8D00297401 /* SettingsView.swift */,
+				3C7B765A2A82A66800F29346 /* ViewModel */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		3C7B765A2A82A66800F29346 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				3C7B765B2A82A68500F29346 /* MainViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		3C7B765D2A82A6D900F29346 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				3C7B765E2A82A7AD00F29346 /* GameTime.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		3CBD4D3F2A812F6100297401 /* MainView */ = {
+			isa = PBXGroup;
+			children = (
+				3C7B765D2A82A6D900F29346 /* Model */,
+				3C7B76592A82A65D00F29346 /* View */,
 				3CBD4D462A812F9000297401 /* Components */,
 			);
 			path = MainView;
@@ -57,8 +91,18 @@
 			isa = PBXGroup;
 			children = (
 				3CBD4D472A812FA300297401 /* ButtonView.swift */,
+				3C7B76572A82951600F29346 /* BackgroundGray.swift */,
+				3CBD4D492A823F0800297401 /* Modifier */,
 			);
 			path = Components;
+			sourceTree = "<group>";
+		};
+		3CBD4D492A823F0800297401 /* Modifier */ = {
+			isa = PBXGroup;
+			children = (
+				3CBD4D4A2A823F7F00297401 /* CustomSheetModifier.swift */,
+			);
+			path = Modifier;
 			sourceTree = "<group>";
 		};
 		75F6050F2A8015D400A65218 = {
@@ -177,12 +221,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				75F6051E2A8015D400A65218 /* ContentView.swift in Sources */,
+				3C7B76582A82951600F29346 /* BackgroundGray.swift in Sources */,
 				3CBD4D412A812F7800297401 /* MainView.swift in Sources */,
-				3CBD4D432A812F8100297401 /* MainViewSheet.swift in Sources */,
+				3CBD4D432A812F8100297401 /* MainHelpSheet.swift in Sources */,
 				3CBD4D452A812F8D00297401 /* SettingsView.swift in Sources */,
+				3C7B765C2A82A68500F29346 /* MainViewModel.swift in Sources */,
+				3C7B765F2A82A7AD00F29346 /* GameTime.swift in Sources */,
 				75F6051C2A8015D400A65218 /* BombApp.swift in Sources */,
 				75F605302A81084600A65218 /* Color + ext.swift in Sources */,
 				3CBD4D482A812FA300297401 /* ButtonView.swift in Sources */,
+				3CBD4D4B2A823F7F00297401 /* CustomSheetModifier.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -311,7 +359,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Bomb/Preview Content\"";
-				DEVELOPMENT_TEAM = M87C32M9C3;
+				DEVELOPMENT_TEAM = A5PP5569YS;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -325,7 +373,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.tacarlen.Bomb;
+				PRODUCT_BUNDLE_IDENTIFIER = com.dsm5e.Bomb;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
@@ -344,7 +392,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Bomb/Preview Content\"";
-				DEVELOPMENT_TEAM = M87C32M9C3;
+				DEVELOPMENT_TEAM = A5PP5569YS;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -358,7 +406,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.tacarlen.Bomb;
+				PRODUCT_BUNDLE_IDENTIFIER = com.dsm5e.Bomb;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
