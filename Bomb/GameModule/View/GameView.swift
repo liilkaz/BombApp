@@ -10,20 +10,34 @@ import SwiftUI
 struct GameView: View {
     @StateObject private var store: GameStore
     
+    private let fadeTransition: AnyTransition = .opacity
+    
     //MARK: - Body
     var body: some View {
         VStack {
             Text(store.title)
-                .font(.appRounded())
+                .font(computeFont())
+                .multilineTextAlignment(.center)
+                .transition(fadeTransition)
+            
+            Group {
+                switch store.gameFlow {
+                case .play:
+                    EmptyView()
+                default:
+                    AssetImage("BombImage")
+                        .transition(fadeTransition)
+                }
+            }
             
             if store.gameFlow == .initial {
                 PlainButton(title: "Begin") {
                     store.send(.launchButtonTap)
                 }
+                .transition(fadeTransition)
             }
         }
         .padding()
-        .onAppear{ store.send(.viewAppeared) }
         .navigationTitle("Game")
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarBackButtonHidden()
@@ -31,11 +45,27 @@ struct GameView: View {
         .toolbar { 
             PauseButton { store.send(.pauseButtonTap) }
         }
+        .sheet(
+            isPresented: Binding(
+                get: { store.isShowSheet },
+                set: { _ in store.send(.dismissSheet) })
+        ) {
+            GameOverSheet(store: store)
+        }
+        .animation(.easeInOut, value: store.gameFlow)
+ //       .onAppear{ store.send(.viewAppeared) }
     }
     
     //MARK: - init(_:)
     init(store: GameStore = GameDomain.liveStore) {
         self._store = StateObject(wrappedValue: store)
+    }
+    
+    private func computeFont() -> Font {
+        if store.gameFlow == .play {
+            return .appRounded().bold()
+        }
+        return .appRounded()
     }
     
 }

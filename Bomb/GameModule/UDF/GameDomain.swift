@@ -22,6 +22,7 @@ struct GameDomain {
         var punishmentArr: [String] = .init()
         var counter: Int = .init()
         var gameFlow: GameFlow = .initial
+        var isShowSheet = false
     }
     
     //MARK: - Action
@@ -33,6 +34,7 @@ struct GameDomain {
         case timerTicked
         case playAgainButtonTap
         case anotherPunishmentButtonTap
+        case dismissSheet
     }
     
     //MARK: - Dependencies
@@ -74,23 +76,25 @@ struct GameDomain {
             
         case .gameState(.play):
             logger.debug("Setup game state to play")
-            state.gameFlow = .initial
             player.playTicking()
             timerService.startTimer()
+            state.gameFlow = .play
             
         case .gameState(.pause):
             logger.debug("Setup game state to pause")
-            state.gameFlow = .pause
             player.stop()
             timerService.stopTimer()
+            state.gameFlow = .pause
+            state.title = "Пауза..."
             
         case .gameState(.gameOver):
             logger.debug("Setup game state to gameOver")
-            state.gameFlow = .gameOver
             timerService.stopTimer()
             player.playBlow()
+            state.gameFlow = .gameOver
             state.title = "Конец игры"
             state.punishment = getRandomElement(from: state.punishmentArr)
+            state.isShowSheet = true
             
         case .timerTicked:
             guard state.counter < 30 else {
@@ -124,6 +128,9 @@ struct GameDomain {
             
         case .anotherPunishmentButtonTap:
             state.punishment = getRandomElement(from: state.punishmentArr)
+            
+        case .dismissSheet:
+            state.isShowSheet = false
         }
         
         return Empty().eraseToAnyPublisher()
@@ -137,22 +144,36 @@ struct GameDomain {
     
     //MARK: - Preview stores
     static let previewStoreInitialState = GameStore(
-        initialState: Self.State(gameFlow: .initial),
+        initialState: Self.State(
+            title: "Нажмите запустить, чтобы начать игру",
+            gameFlow: .initial
+        ),
         reducer: Self()
     )
     
     static let previewStorePlayState = GameStore(
-        initialState: Self.State(gameFlow: .play),
+        initialState: Self.State(
+            title: "Some question",
+            gameFlow: .play
+        ),
         reducer: Self()
     )
     
     static let previewStorePauseState = GameStore(
-        initialState: Self.State(gameFlow: .pause),
+        initialState: Self.State(
+            title: "Pause",
+            gameFlow: .pause
+        ),
         reducer: Self()
     )
     
     static let previewStoreGameOverState = GameStore(
-        initialState: Self.State(gameFlow: .gameOver),
+        initialState: Self.State(
+            title: "Конец игры",
+            punishment: "В следующем раунде после каждого ответа хлопать в ладоши",
+            gameFlow: .gameOver,
+            isShowSheet: true
+        ),
         reducer: Self()
     )
 }

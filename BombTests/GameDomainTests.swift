@@ -37,6 +37,7 @@ final class GameDomainTests: XCTestCase {
     func test_reduceInitialGameState() {
         _ = sut.reduce(&state, action: .gameState(.initial))
         
+        XCTAssertEqual(state.gameFlow, .initial)
         XCTAssertEqual(state.title, "Нажмите запустить, чтобы начать игру")
         XCTAssertEqual(state.counter, 0)
     }
@@ -44,6 +45,16 @@ final class GameDomainTests: XCTestCase {
     func test_reducePlayGameState() {
         _ = sut.reduce(&state, action: .gameState(.play))
        
+        XCTAssertEqual(state.gameFlow, .play)
+        XCTAssertTrue(mockTimer.isRequestSend)
+        XCTAssertTrue(mockPlayer.isRequestSend)
+    }
+    
+    func test_reducePauseGameState() {
+        _ = sut.reduce(&state, action: .gameState(.pause))
+        
+        XCTAssertEqual(state.gameFlow, .pause)
+        XCTAssertEqual(state.title, "Пауза...")
         XCTAssertTrue(mockTimer.isRequestSend)
         XCTAssertTrue(mockPlayer.isRequestSend)
     }
@@ -58,10 +69,12 @@ final class GameDomainTests: XCTestCase {
         
         _ = sut.reduce(&state, action: .gameState(.gameOver))
         
-        XCTAssertTrue(mockPlayer.isRequestSend)
-        XCTAssertTrue(mockTimer.isRequestSend)
+        XCTAssertEqual(state.gameFlow, .gameOver)
         XCTAssertEqual(state.title, "Конец игры")
         XCTAssertEqual(state.punishment, "Bar")
+        XCTAssertTrue(mockPlayer.isRequestSend)
+        XCTAssertTrue(mockTimer.isRequestSend)
+        XCTAssertTrue(state.isShowSheet)
     }
     
     func test_launchButtonChangeGameStateToPlay() {
@@ -131,6 +144,14 @@ final class GameDomainTests: XCTestCase {
         _ = sut.reduce(&state, action: .anotherPunishmentButtonTap)
         
         XCTAssertEqual(state.punishment, "Bar")
+    }
+    
+    func test_reduceDismissSheetAction() {
+        state.isShowSheet = true
+        
+        _ = sut.reduce(&state, action: .dismissSheet)
+        
+        XCTAssertFalse(state.isShowSheet)
     }
     
 }

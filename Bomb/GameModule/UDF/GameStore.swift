@@ -29,8 +29,12 @@ final class GameStore: ObservableObject {
     ) {
         self.state = initialState
         self.reducer = reducer
-        
         logger.debug("Initialized")
+        
+        $state
+            .map(String.init(reflecting:))
+            .sink(receiveValue: logState)
+            .store(in: &cancellable)
     }
     
     deinit {
@@ -38,9 +42,11 @@ final class GameStore: ObservableObject {
     }
     
     //MARK: - Send
+    @inlinable
     func send(_ action: GameDomain.Action) {
         reducer.reduce(&state, action: action)
             .receive(on: DispatchQueue.main)
+            .map(logAction)
             .sink(receiveValue: send)
             .store(in: &cancellable)
     }
@@ -48,5 +54,16 @@ final class GameStore: ObservableObject {
     //MARK: - subscript
     subscript<T>(dynamicMember keyPath: KeyPath<GameDomain.State, T>) -> T {
         state[keyPath: keyPath]
+    }
+}
+
+private extension GameStore {
+    func logState(_ state: String) {
+        logger.debug("\(state)")
+    }
+    
+    func logAction(_ action: GameDomain.Action) -> GameDomain.Action {
+        logger.debug("\(String(reflecting: action))")
+        return action
     }
 }
