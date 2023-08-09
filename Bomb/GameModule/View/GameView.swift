@@ -29,7 +29,7 @@ struct GameView: View {
             Group {
                 switch store.gameFlow == .play {
                 case true:
-                    EmptyView()
+                    AnimatedBombView(duration: store.estimatedTime)
                 case false:
                     AssetImage(AssetNames.bombImage)
                         .transition(fadeTransition)

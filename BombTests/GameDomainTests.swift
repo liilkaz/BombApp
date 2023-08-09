@@ -15,6 +15,7 @@ final class GameDomainTests: XCTestCase {
     private var state: GameDomain.State!
     private var mockTimer: MockTimer!
     private var mockPlayer: MockPlayer!
+    private var spy: StateSpy<GameDomain.Action>!
     
     override func setUp() async throws {
         try await super.setUp()
@@ -23,6 +24,7 @@ final class GameDomainTests: XCTestCase {
         mockPlayer = MockPlayer()
         sut = .init(timerService: mockTimer, player: mockPlayer)
         state = .init()
+        spy = .init()
     }
     
     override func tearDown() async throws {
@@ -30,6 +32,7 @@ final class GameDomainTests: XCTestCase {
         state = nil
         mockTimer = nil
         mockPlayer = nil
+        spy = nil
         
         try await super.tearDown()
     }
@@ -78,7 +81,7 @@ final class GameDomainTests: XCTestCase {
     }
     
     func test_launchButtonChangeGameStateToPlay() {
-        let spy = StateSpy(
+        spy.schedule(
             sut.reduce(&state, action: .launchButtonTap)
         )
         
@@ -86,7 +89,7 @@ final class GameDomainTests: XCTestCase {
     }
     
     func test_timerTickEmitReducerAction() {
-        let spy = StateSpy(
+        spy.schedule(
             sut.reduce(&state, action: .viewAppeared)
         )
         
@@ -101,35 +104,56 @@ final class GameDomainTests: XCTestCase {
     
     func test_timerTickActionIncreaseCounter() {
         state.counter = 0
+        state.estimatedTime = 10
         
-        _ = sut.reduce(&state, action: .timerTick)
-        
-        XCTAssertEqual(state.counter, 1)
-        
-        _ = sut.reduce(&state, action: .timerTick)
-        
-        XCTAssertEqual(state.counter, 2)
+        spy.schedule(
+            sut.reduce(&state, action: .timerTick),
+            sut.reduce(&state, action: .timerTick),
+            sut.reduce(&state, action: .timerTick)
+        )
+       
+        XCTAssertEqual(state.counter, 3)
     }
     
     func test_timerTickActionEmitGameOverState() {
         state.counter = 30
-        let spy = StateSpy(
+        spy.schedule(
             sut.reduce(&state, action: .timerTick)
         )
         
         XCTAssertEqual(spy.actions.first, .gameState(.gameOver))
     }
     
-    func test_pauseButtonTapEmitPauseGameState() {
-        let spy = StateSpy(
+    func test_pauseButtonTapEmitPauseState() {
+        state.gameFlow = .play
+        
+        spy.schedule(
             sut.reduce(&state, action: .pauseButtonTap)
         )
         
         XCTAssertEqual(spy.actions.first, .gameState(.pause))
     }
     
+    func test_pauseButtonTapEmitPlayState() {
+        state.gameFlow = .pause
+        
+        spy.schedule(
+            sut.reduce(&state, action: .pauseButtonTap)
+        )
+        
+        XCTAssertEqual(spy.actions.first, .gameState(.play))
+    }
+    
+    func test_pauseButtonTapDoesntEmitActions() {
+        spy.schedule(
+            sut.reduce(&state, action: .pauseButtonTap)
+        )
+        
+        XCTAssertTrue(spy.actions.isEmpty)
+    }
+    
     func test_playAgainButtonTapEmitSetupGameAction() {
-        let spy = StateSpy(
+        spy.schedule(
             sut.reduce(&state, action: .playAgainButtonTap)
         )
         
@@ -191,12 +215,18 @@ final class MockPlayer: AudioPlayerProtocol {
 
 final class StateSpy<A: Equatable> {
     private var cancellable: Set<AnyCancellable> = .init()
-    
+    let exp = XCTestExpectation(description: "StateSpy")
     private(set) var actions: [A] = .init()
     
-    init(_ publishers: AnyPublisher<A, Never>...) {
+    init() { }
+    
+    func schedule(_ publishers: AnyPublisher<A, Never>...) {
         Publishers.MergeMany(publishers)
-            .sink { self.actions.append($0) }
+            .sink { _ in
+                self.exp.fulfill()
+            } receiveValue: { action in
+                self.actions.append(action)
+            }
             .store(in: &cancellable)
     }
 }

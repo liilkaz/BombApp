@@ -21,6 +21,7 @@ struct GameDomain {
         var punishment: String = .init()
         var punishmentArr: [String] = .init()
         var counter: Int = .init()
+        var estimatedTime: Int = .init()
         var gameFlow: GameFlow = .init()
         var isShowSheet = false
     }
@@ -83,6 +84,7 @@ struct GameDomain {
         case .gameState(.initial):
             logger.debug("Setup game state to initial")
             state.gameFlow = .initial
+            state.estimatedTime = 30
             state.title = "Нажмите запустить, чтобы начать игру"
             
         case .gameState(.play):
@@ -108,7 +110,7 @@ struct GameDomain {
             state.isShowSheet = true
             
         case .timerTick:
-            guard state.counter < 30 else {
+            guard state.counter < state.estimatedTime else {
                 logger.debug("Send action to switch state to gameOver")
                 return Just(.gameState(.gameOver))
                     .eraseToAnyPublisher()
@@ -121,16 +123,11 @@ struct GameDomain {
                 .eraseToAnyPublisher()
             
         case .pauseButtonTap:
-            switch state.gameFlow {
-            case .pause:
-                logger.debug("Send action to switch state to play")
-                return Just(.gameState(.play))
-                    .eraseToAnyPublisher()
-            default:
-                logger.debug("Send action to switch state to pause")
-                return Just(.gameState(.pause))
-                    .eraseToAnyPublisher()
-            }
+            return Just(state)
+                .map(\.gameFlow)
+                .map(togglePause)
+                .compactMap { $0 }
+                .eraseToAnyPublisher()
             
         case .playAgainButtonTap:
             logger.debug("Send action to switch state to initial")
@@ -193,6 +190,17 @@ private extension GameDomain {
     func getRandomElement(from collection: [String]) -> String {
         let randomIndex = randomNumber(collection.count)
         return collection[randomIndex]
+    }
+    
+    func togglePause(_ gameFlow: State.GameFlow) -> Action? {
+        switch gameFlow {
+        case .play:
+            return .gameState(.pause)
+        case .pause:
+            return .gameState(.play)
+        default:
+            return nil
+        }
     }
 }
 
