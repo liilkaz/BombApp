@@ -14,16 +14,23 @@ struct GameView: View {
     
     var body: some View {
         VStack {
-            Text("Placeholder")
-            Button {
-                
-            } label: {
-                /*@START_MENU_TOKEN@*/Text("Button")/*@END_MENU_TOKEN@*/
-            }
+            Text(store.title)
+            
         }
+        .onAppear{ store.send(.viewAppeared) }
         .navigationTitle("Game")
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarBackButtonHidden(true)
+        .toolbar {
+            ToolbarItem(placement: .navigationBarLeading) {
+                Button {
+                    dismiss()
+                } label: {
+                    Image(systemName: "chevron.backward")
+                        .foregroundStyle(.black)
+                }
+            }
+        }
     }
     
     init(store: GameStore = GameDomain.liveStore) {
