@@ -16,15 +16,19 @@ struct GameView: View {
     var body: some View {
         VStack {
             Text(store.title)
-                .font(computeFont())
+                .font(.gameFont(
+                    weight: store.gameFlow == .play
+                    ? .heavy
+                    : .regular)
+                )
                 .multilineTextAlignment(.center)
                 .transition(fadeTransition)
             
             Group {
-                switch store.gameFlow {
-                case .play:
+                switch store.gameFlow == .play {
+                case true:
                     EmptyView()
-                default:
+                case false:
                     AssetImage(AssetNames.bombImage)
                         .transition(fadeTransition)
                 }
@@ -59,13 +63,6 @@ struct GameView: View {
     //MARK: - init(_:)
     init(store: GameStore = GameDomain.liveStore) {
         self._store = StateObject(wrappedValue: store)
-    }
-    
-    private func computeFont() -> Font {
-        if store.gameFlow == .play {
-            return .appRounded().bold()
-        }
-        return .appRounded()
     }
     
 }

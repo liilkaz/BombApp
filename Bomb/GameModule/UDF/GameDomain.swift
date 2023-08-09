@@ -170,7 +170,7 @@ struct GameDomain {
     static let previewStoreGameOverState = GameStore(
         initialState: Self.State(
             title: "Конец игры",
-            punishment: "В следующем раунде после каждого ответа хлопать в ладоши",
+            punishment: "В следующем раунде, после каждого ответа, хлопать в ладоши",
             gameFlow: .gameOver,
             isShowSheet: true
         ),

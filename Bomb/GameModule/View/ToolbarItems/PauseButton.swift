@@ -13,8 +13,8 @@ struct PauseButton: ToolbarContent {
     var body: some ToolbarContent {
         ToolbarItem(placement: .navigationBarTrailing) {
             Button(action: action) {
-                Image("PauseIcon")
-                    .foregroundStyle(.black)
+                Image(AssetNames.pauseIcon)
+                    .foregroundStyle(Color.primaryTextColor)
             }
         }
     }

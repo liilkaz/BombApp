@@ -8,7 +8,12 @@
 import SwiftUI
 
 extension Font {
-    static func appRounded(_ style: TextStyle = .title) -> Font {
-        .system(style, design: .rounded)
+    static func gameFont(
+        size: CGFloat = 28,
+        weight: Font.Weight = .regular
+    ) -> Font {
+        .system(size: size, design: .rounded)
+        .weight(weight)
     }
+    
 }

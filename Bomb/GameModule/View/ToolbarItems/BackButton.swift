@@ -12,11 +12,9 @@ struct BackButton: ToolbarContent {
     
     var body: some ToolbarContent {
         ToolbarItem(placement: .navigationBarLeading) {
-            Button {
-                dismiss()
-            } label: {
-                Image(systemName: "chevron.backward")
-                    .foregroundStyle(.black)
+            Button(action: dismiss.callAsFunction) {
+                Image(systemName: AssetNames.backButtonIcon)
+                    .foregroundStyle(Color.primaryTextColor)
             }
         }
     }

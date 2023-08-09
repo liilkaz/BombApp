@@ -8,20 +8,33 @@
 import SwiftUI
 
 struct PlainButton: View {
+    private struct Drawing {
+        static let fontSize: CGFloat = 22
+        static let height: CGFloat = 55
+        static let cornerRadius: CGFloat = 10
+        static let shadowRadius: Double = 5
+    }
+    
     let title: String
-    var textColor: Color = .black
-    var backgroundColor: Color = .yellow
+    var textColor: Color = .primaryTextColor
+    var backgroundColor: Color = .gameViewButtonColor
     let action: () -> Void
     
     var body: some View {
         Button(action: action) {
             Text(title)
-                .font(.appRounded(.title2))
+                .font(.gameFont(
+                    size: Drawing.fontSize,
+                    weight: .semibold)
+                )
                 .foregroundStyle(textColor)
-                .frame(maxWidth: .infinity, minHeight: 55)
+                .frame(
+                    maxWidth: .infinity,
+                    minHeight: Drawing.height
+                )
                 .background(backgroundColor)
-                .clipShape(RoundedRectangle(cornerRadius: 10))
-                .shadow(radius: 5)
+                .clipShape(RoundedRectangle(cornerRadius: Drawing.cornerRadius))
+                .shadow(radius: Drawing.shadowRadius)
         }
     }
 }

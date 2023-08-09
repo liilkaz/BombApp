@@ -17,11 +17,11 @@ struct GameOverSheet: View {
     var body: some View {
         VStack(spacing: Drawing.contentSpacing) {
             Text(store.title)
-                .font(.appRounded().bold())
+                .font(.gameFont(weight: .heavy))
             Spacer()
             AssetImage(AssetNames.explosionImage)
             Text(store.punishment)
-                .font(.appRounded())
+                .font(.gameFont(weight: .medium))
                 .multilineTextAlignment(.center)
                 .padding()
             PlainButton(title: Localization.anotherQuestButtonTitle) {
