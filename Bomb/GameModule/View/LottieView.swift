@@ -46,9 +46,11 @@ struct LottieView: UIViewRepresentable {
 }
 
 
-#Preview {
-    VStack {
-        LottieView("BombAnimation", animationSpeed: 1)
-        LottieView("bangAnimation", animationSpeed: 0.5)
+struct LottieView_Previews: PreviewProvider {
+    static var previews: some View {
+        VStack {
+            LottieView("BombAnimation", animationSpeed: 1)
+            LottieView("bangAnimation", animationSpeed: 0.5)
+        }
     }
 }

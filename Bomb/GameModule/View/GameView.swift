@@ -9,33 +9,35 @@ import SwiftUI
 
 struct GameView: View {
     @StateObject private var store: GameStore
-    @Environment(\.dismiss) var dismiss
     
-    
+    //MARK: - Body
     var body: some View {
         VStack {
             Text(store.title)
+                .font(.appRounded())
             
-        }
-        .onAppear{ store.send(.viewAppeared) }
-        .navigationTitle("Game")
-        .navigationBarTitleDisplayMode(.inline)
-        .navigationBarBackButtonHidden(true)
-        .toolbar {
-            ToolbarItem(placement: .navigationBarLeading) {
-                Button {
-                    dismiss()
-                } label: {
-                    Image(systemName: "chevron.backward")
-                        .foregroundStyle(.black)
+            if store.gameFlow == .initial {
+                PlainButton(title: "Begin") {
+                    store.send(.launchButtonTap)
                 }
             }
         }
+        .padding()
+        .onAppear{ store.send(.viewAppeared) }
+        .navigationTitle("Game")
+        .navigationBarTitleDisplayMode(.inline)
+        .navigationBarBackButtonHidden()
+        .toolbar(content: BackButton.init)
+        .toolbar { 
+            PauseButton { store.send(.pauseButtonTap) }
+        }
     }
     
+    //MARK: - init(_:)
     init(store: GameStore = GameDomain.liveStore) {
         self._store = StateObject(wrappedValue: store)
     }
+    
 }
 
 struct GameView_Previews: PreviewProvider {

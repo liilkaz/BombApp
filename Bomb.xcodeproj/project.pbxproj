@@ -13,6 +13,10 @@
 		75F605232A8015D500A65218 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 75F605222A8015D500A65218 /* Preview Assets.xcassets */; };
 		75F605302A81084600A65218 /* Color + ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F6052F2A81084600A65218 /* Color + ext.swift */; };
 		8612B2F22A81865A00CD7CE4 /* TimerService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8612B2F12A81865A00CD7CE4 /* TimerService.swift */; };
+		8657D30D2A8395EA00CECC27 /* BackButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8657D30C2A8395EA00CECC27 /* BackButton.swift */; };
+		8657D30F2A83976500CECC27 /* PlainButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8657D30E2A83976500CECC27 /* PlainButton.swift */; };
+		8657D3112A8398FD00CECC27 /* Font+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8657D3102A8398FD00CECC27 /* Font+.swift */; };
+		8657D3142A839EC200CECC27 /* PauseButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8657D3132A839EC200CECC27 /* PauseButton.swift */; };
 		865E46D02A81733F00B26707 /* GameStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 865E46CF2A81733F00B26707 /* GameStore.swift */; };
 		86A1B1932A81782B00587042 /* GameDomainTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86A1B1922A81782B00587042 /* GameDomainTests.swift */; };
 		86A324F72A816F180031B71D /* GameDomain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86A324F62A816F180031B71D /* GameDomain.swift */; };
@@ -44,6 +48,10 @@
 		75F605222A8015D500A65218 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		75F6052F2A81084600A65218 /* Color + ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color + ext.swift"; sourceTree = "<group>"; };
 		8612B2F12A81865A00CD7CE4 /* TimerService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimerService.swift; sourceTree = "<group>"; };
+		8657D30C2A8395EA00CECC27 /* BackButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackButton.swift; sourceTree = "<group>"; };
+		8657D30E2A83976500CECC27 /* PlainButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlainButton.swift; sourceTree = "<group>"; };
+		8657D3102A8398FD00CECC27 /* Font+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Font+.swift"; sourceTree = "<group>"; };
+		8657D3132A839EC200CECC27 /* PauseButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PauseButton.swift; sourceTree = "<group>"; };
 		865E46CF2A81733F00B26707 /* GameStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameStore.swift; sourceTree = "<group>"; };
 		865E46D52A81778D00B26707 /* BombTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BombTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		86A1B1922A81782B00587042 /* GameDomainTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameDomainTests.swift; sourceTree = "<group>"; };
@@ -120,6 +128,7 @@
 		75F605312A81085800A65218 /* Extentions */ = {
 			isa = PBXGroup;
 			children = (
+				8657D3102A8398FD00CECC27 /* Font+.swift */,
 				75F6052F2A81084600A65218 /* Color + ext.swift */,
 			);
 			path = Extentions;
@@ -133,6 +142,15 @@
 				86E8D1392A819D2800B74EBA /* UDF */,
 			);
 			path = GameModule;
+			sourceTree = "<group>";
+		};
+		8657D3122A839EAB00CECC27 /* ToolbarItems */ = {
+			isa = PBXGroup;
+			children = (
+				8657D30C2A8395EA00CECC27 /* BackButton.swift */,
+				8657D3132A839EC200CECC27 /* PauseButton.swift */,
+			);
+			path = ToolbarItems;
 			sourceTree = "<group>";
 		};
 		865E46D62A81778D00B26707 /* BombTests */ = {
@@ -174,8 +192,10 @@
 		86E8D13A2A819D3A00B74EBA /* View */ = {
 			isa = PBXGroup;
 			children = (
+				8657D3122A839EAB00CECC27 /* ToolbarItems */,
 				86CEC6AB2A8298FE002792D3 /* LottieView.swift */,
 				86B9B3B22A818D04001C1E63 /* GameView.swift */,
+				8657D30E2A83976500CECC27 /* PlainButton.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -298,9 +318,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8657D30F2A83976500CECC27 /* PlainButton.swift in Sources */,
 				75F6051E2A8015D400A65218 /* ContentView.swift in Sources */,
 				86A324F72A816F180031B71D /* GameDomain.swift in Sources */,
+				8657D30D2A8395EA00CECC27 /* BackButton.swift in Sources */,
+				8657D3112A8398FD00CECC27 /* Font+.swift in Sources */,
 				75F6051C2A8015D400A65218 /* BombApp.swift in Sources */,
+				8657D3142A839EC200CECC27 /* PauseButton.swift in Sources */,
 				86E8D1352A8194E300B74EBA /* AudioPlayer.swift in Sources */,
 				8612B2F22A81865A00CD7CE4 /* TimerService.swift in Sources */,
 				865E46D02A81733F00B26707 /* GameStore.swift in Sources */,

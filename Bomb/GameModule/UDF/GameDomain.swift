@@ -106,9 +106,16 @@ struct GameDomain {
                 .eraseToAnyPublisher()
             
         case .pauseButtonTap:
-            logger.debug("Send action to switch state to pause")
-            return Just(.gameState(.pause))
-                .eraseToAnyPublisher()
+            switch state.gameFlow {
+            case .pause:
+                logger.debug("Send action to switch state to play")
+                return Just(.gameState(.play))
+                    .eraseToAnyPublisher()
+            default:
+                logger.debug("Send action to switch state to pause")
+                return Just(.gameState(.pause))
+                    .eraseToAnyPublisher()
+            }
             
         case .playAgainButtonTap:
             logger.debug("Send action to switch state to initial")
