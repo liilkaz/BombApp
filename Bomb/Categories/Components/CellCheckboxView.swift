@@ -6,20 +6,41 @@
 //
 
 import SwiftUI
-#warning("См. замечания в CategoryCell")
+
 struct CellCheckboxView: View {
-    var isSelect: Bool
+    
+    private struct Configuration {
+        static let shadowRadius: CGFloat = 2
+        static let ofsetShadow: CGFloat = 2
+        static let minWidth: CGFloat = 15
+        static let maxWidth: CGFloat = 35
+    }
+    
+    var isSelected: Bool
     
     var body: some View {
         Image("checkbox")
             .renderingMode(.template)
-            .foregroundColor(isSelect ? .mainBackground : .primaryTextColor)
-            .shadow(color: isSelect ? .black : .clear, radius: 2, x: 2, y: 2)
+            .foregroundColor(isSelected ? .mainBackground : .primaryTextColor)
+            .scaledToFit()
+            .frame(
+                minWidth: Configuration.minWidth,
+                maxWidth: Configuration.maxWidth
+            )
+            .shadow(
+                color: isSelected ? .black : .clear,
+                radius: Configuration.shadowRadius,
+                x: Configuration.ofsetShadow,
+                y: Configuration.ofsetShadow
+            )
     }
 }
 
 struct CellCheckboxView_Previews: PreviewProvider {
     static var previews: some View {
-        CellCheckboxView(isSelect: false)
+        VStack {
+            CellCheckboxView(isSelected: false)
+            CellCheckboxView(isSelected: true)
+        }
     }
 }

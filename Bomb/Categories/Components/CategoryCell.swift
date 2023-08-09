@@ -4,66 +4,75 @@
 //
 //  Created by Kasharin Mikhail on 07.08.2023.
 //
-#warning("Не удалил копипасту")
-//
-//  CategoryCell.swift
-//  Bomb
-//
-//  Created by Kasharin Mikhail on 07.08.2023.
-//
-
-//
-//  CategoryCell.swift
-//  Bomb
-//
-//  Created by Kasharin Mikhail on 07.08.2023.
-//
 
 import SwiftUI
 
 struct CategoryCell: View {
     
-    let name: CategoryName
-    #warning("Название переменной грамматически некорректное. isSelected более корректное.")
-    var isSelect: Bool
+    private struct Configuration {
+        static let itemSpacing: CGFloat = 7
+        static let stackSpacing: CGFloat = 24
+        static var minItemSize: CGFloat {
+            (UIScreen.main.bounds.width - 100) / 2
+        }
+        static var maxItemSize: CGFloat {
+            (UIScreen.main.bounds.width - 100) / 2
+        }
+        static let cornerSize: CGFloat = 20
+        static let strokeWidth: CGFloat = 2
+        static let shadowRadius: CGFloat = 10
+        static let ofsetShadow: CGFloat = 5
+    }
+    
+    @Binding var category: Category
     
     var body: some View {
-#warning("""
-Плохая практика использовать magic numbers в верстке.
-Почитай статью https://betterprogramming.pub/cleaning-code-refactoring-in-swiftui-6e288a05bc2d
-Вынеси их в отдельную приватную структуру или enum.
-""")
-        VStack(spacing: 7) {
-            CellImageView(name: name, isSelect: isSelect)
+        VStack(spacing: Configuration.itemSpacing) {
+            CellImageView(name: category.name, isSelected: category.isSelected)
             
-            CellTextView(name: name, isSelect: isSelect)
+            CellTextView(name: category.name, isSelected: category.isSelected)
         }
-        .padding([.vertical, .top], 24)
+        .onTapGesture {
+            category.isSelected.toggle()
+        }
+        .padding([.vertical, .top], Configuration.stackSpacing)
         .frame(
-            minWidth: (UIScreen.main.bounds.width - 100) / 2,
-            maxWidth: (UIScreen.main.bounds.width - 70) / 2,
-            minHeight: (UIScreen.main.bounds.width - 100) / 2,
-            maxHeight: (UIScreen.main.bounds.width - 70) / 2)
+            minWidth: Configuration.minItemSize,
+            maxWidth: Configuration.maxItemSize,
+            minHeight: Configuration.minItemSize,
+            maxHeight: Configuration.maxItemSize
+        )
         .background(
-            Color.categoryCellBg.cornerRadius(20)
+            Color.categoryCellBg.cornerRadius(Configuration.cornerSize)
         )
         .overlay(
-            RoundedRectangle(cornerRadius: 20)
-                .stroke(isSelect ? Color.mainBackground : Color.primaryTextColor, lineWidth: 2)
-                .shadow(color: isSelect ? .black : .primaryTextColor, radius: 10, x: 5, y: 5)
+            RoundedRectangle(cornerRadius: Configuration.cornerSize)
+                .stroke(
+                    category.isSelected
+                        ? Color.mainBackground
+                        : Color.primaryTextColor,
+                    lineWidth: Configuration.strokeWidth
+                )
+                .shadow(
+                    color: category.isSelected
+                        ? .black
+                        : .primaryTextColor,
+                    radius: Configuration.shadowRadius,
+                    x: Configuration.ofsetShadow,
+                    y: Configuration.ofsetShadow
+                )
         )
         .overlay(
-            CellCheckboxView(isSelect: isSelect), alignment: .topLeading
+            CellCheckboxView(isSelected: category.isSelected), alignment: .topLeading
         )
     }
 }
 
 struct CategoryCell_Previews: PreviewProvider {
     static var previews: some View {
-        #warning("Если верстка имеет несколько состояний, лучше отображать их все")
         VStack {
-            CategoryCell(name: .sport, isSelect: true)
-            CategoryCell(name: .sport, isSelect: false)
+            CategoryCell(category: .constant(Category(name: .art, questions: ["Hello"], isSelected: true)))
+            CategoryCell(category: .constant(Category(name: .art, questions: ["Hello"], isSelected: false)))
         }
     }
 }

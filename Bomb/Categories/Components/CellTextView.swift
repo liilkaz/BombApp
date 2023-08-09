@@ -6,24 +6,45 @@
 //
 
 import SwiftUI
-#warning("См. замечания в CategoryCell")
+
 struct CellTextView: View {
+    
+    private struct Configuration {
+        static let font: Font = .system(
+            size: 20,
+            weight: .semibold,
+            design: .rounded
+        )
+        static let itemPadding: CGFloat = 6
+        static let scaleFactor: CGFloat = 0.5
+        static let shadowRadius: CGFloat = 1
+        static let ofsetShadow: CGFloat = 2
+    }
+    
     let name: CategoryName
-    var isSelect: Bool
+    var isSelected: Bool
     
     var body: some View {
         Text(name.rawValue)
-            .font(.system(size: 20, weight: .semibold, design: .rounded))
-            .foregroundColor(isSelect ? .mainBackground.opacity(0.9) : .primaryTextColor)
-            .padding(.horizontal, 6)
+            .font(Configuration.font)
+            .foregroundColor(isSelected ? .mainBackground : .primaryTextColor)
+            .padding(.horizontal, Configuration.itemPadding)
             .lineLimit(1)
-            .minimumScaleFactor(0.5)
-            .shadow(color: isSelect ? .black : .clear, radius: 1, x: 2, y: 2)
+            .minimumScaleFactor(Configuration.scaleFactor)
+            .shadow(
+                color: isSelected ? .black : .clear,
+                radius: Configuration.shadowRadius,
+                x: Configuration.ofsetShadow,
+                y: Configuration.ofsetShadow
+            )
     }
 }
 
 struct CellTextView_Previews: PreviewProvider {
     static var previews: some View {
-        CellTextView(name: .art, isSelect: true)
+        VStack {
+            CellTextView(name: .art, isSelected: true)
+            CellTextView(name: .art, isSelected: false)
+        }
     }
 }

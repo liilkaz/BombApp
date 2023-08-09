@@ -11,14 +11,18 @@ struct Category: Identifiable {
     var id = UUID()
     let name: CategoryName
     let questions: [String]
-    var isSelect: Bool
+    var isSelected: Bool
 }
 
-enum CategoryName: String {
+enum CategoryName: String, CaseIterable {
     case art = "Искусство и кино"
     case celebrity = "Знаменитости"
     case life = "Про жизнь"
     case nature = "Природа"
     case sport = "Спорт и Хобби"
     case varied = "О Разном"
+    
+    var imageName: String {
+        "\(self)"
+    }
 }

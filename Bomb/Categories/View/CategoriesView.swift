@@ -15,54 +15,28 @@ struct CategoriesView: View {
     @State private var dragValueY = 0.0
     
     var body: some View {
-            ZStack(alignment: .bottom) {
+            ZStack {
                 
                 BackgroundView(backgroundColor: .mainViewButton)
 
-                dynamicCategoryGrid
+                DynamicCategoryGrid(vm: vm)
+                    .padding(.horizontal, 30)
 
-                HelpCategoriesView()
+                HelpCategoriesView(vm: vm)
                     .animateSheet(showHelp: $showHelp, dragValueY: $dragValueY)
                 
                 Spacer()
             }
             .navigationBarTitleDisplayMode(.inline)
             .navigationHeader(showHelp: $showHelp)
-//            .onDisappear(perform: vm.getQuestions)
-            .onDisappear {
-                #warning("Почитай про функции в Swift. Более лаконичный вариант представлен выше")
-                vm.getQuestions()
-            }
+            .onDisappear(perform: vm.getQuestions)
     }
-    
-    #warning("Для переиспользования крупных элементов лучше использовать отдельные структуры с явными зависимостями.")
-    var dynamicCategoryGrid: some View {
-        let column: [GridItem] = [
-            GridItem(.flexible()),
-            GridItem(.flexible())
-        ]
-        
-        return LazyVGrid(columns: column, alignment: .center, spacing: 20) {
-            #warning("модель Category конформит Identifiable, конструкция через индексы избыточная.")
-            ForEach(vm.categories.indices, id: \.self) { index in
-                CategoryCell(
-                    name: vm.categories[index].name,
-                    isSelect: vm.categories[index].isSelect
-                )
-                .onTapGesture {
-                    #warning("Этой логика должна быть во вью модели, а не во вью.")
-                    vm.categories[index].isSelect.toggle()
-                }
-            }
-        }
-        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
-        .padding(.horizontal)
-    }
-
 }
 
 struct CategoriesView_Previews: PreviewProvider {
     static var previews: some View {
-        CategoriesView(vm: CategoryViewModel())
+        NavigationView {
+            CategoriesView(vm: CategoryViewModel())
+        }
     }
 }

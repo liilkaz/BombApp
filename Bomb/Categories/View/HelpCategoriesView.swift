@@ -6,9 +6,26 @@
 //
 
 import SwiftUI
-#warning("См. замечания в CategoryCell")
+
 struct HelpCategoriesView: View {
     
+    private struct Configuration {
+        static let stackSpacing: CGFloat = 20
+        static let bottomPadding: CGFloat = 4
+        static let horizontalPadding: CGFloat = 20
+        static let cornerSizeView: CGFloat = 24
+        static let dragFrameWidth: CGFloat = 68
+        static let dragFrameHeight: CGFloat = 3
+        static var dragCornerSize: CGFloat {
+            dragFrameHeight / 2
+        }
+        static let textScaleFactor: CGFloat = 0.7
+        static let textFrameWidth: CGFloat = 280
+        
+    }
+
+    @ObservedObject var vm: CategoryViewModel
+
     let textData: [(text: String, weight: Font.Weight, size: CGFloat)] = [
         ("Правила игры", .bold, 40),
         ("В игре доступно 6 категорий и более 90 вопросов", .bold, 21),
@@ -19,7 +36,7 @@ struct HelpCategoriesView: View {
         ZStack {
             BackgroundView(backgroundColor: .mainBackground)
             
-            VStack(spacing: 20) {
+            VStack(spacing: Configuration.stackSpacing) {
                 
                 dragIndicator
                 
@@ -31,58 +48,43 @@ struct HelpCategoriesView: View {
                     )
                 }
                 
-                staticCategoryGrid
+                StaticCategoryGrid()
+                    .padding(.horizontal)
+                    .disabled(true)
                 
                 Spacer()
             }
             .padding(.top)
-            .padding(.bottom,4)
-            .padding(.horizontal, 20)
+            .padding(.bottom,Configuration.bottomPadding)
+            .padding(.horizontal, Configuration.horizontalPadding)
         }
-        .cornerRadius(24)
+        .cornerRadius(Configuration.cornerSizeView)
     }
     
     var dragIndicator: some View {
         Rectangle()
             .fill(Color.primaryTextColor)
-            .frame(width: 68, height: 3)
-            .cornerRadius(1.5)
+            .frame(
+                width: Configuration.dragFrameWidth,
+                height: Configuration.dragFrameHeight
+            )
+            .cornerRadius(Configuration.dragCornerSize)
     }
-    
-    #warning("См. замечания в CategoriesView")
-    var staticCategoryGrid: some View {
-        let column: [GridItem] = [
+}
 
-            GridItem(.adaptive(minimum: 100)),
-            GridItem(.adaptive(minimum: 100))
-        ]
-        let category: [CategoryName] = [
-            .art, .celebrity, .sport, .life
-        ]
-        
-        return LazyVGrid(columns: column, alignment: .center, spacing: 16) {
-            ForEach(category.indices, id: \.self) { index in
-                    CategoryCell(
-                        name: category[index],
-                        isSelect: index.isMultiple(of: 3) ? true : false
-                    )
-                }
-        }
-    }
-    
-    #warning("Это можно вынести в расширение для вью или отдельную структуру")
+extension HelpCategoriesView {
     func styledText(text: String, weight: Font.Weight, size: CGFloat) -> some View {
         Text(text)
             .multilineTextAlignment(.center)
             .foregroundColor(.primaryTextColor)
-            .minimumScaleFactor(0.7)
+            .minimumScaleFactor(Configuration.textScaleFactor)
             .font(.system(size: size, weight: weight, design: .rounded))
-            .frame(width: 280, alignment: .center)
+            .frame(width: Configuration.textFrameWidth, alignment: .center)
     }
 }
 
 struct HelpCategoriesView_Previews: PreviewProvider {
     static var previews: some View {
-        HelpCategoriesView()
+        HelpCategoriesView(vm: CategoryViewModel())
     }
 }
