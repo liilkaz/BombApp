@@ -21,7 +21,7 @@ struct SettingsView: View {
         
         ZStack {
             BackgroundGray()
-            
+#warning("См. замечания к MainView")
             VStack(spacing: 10) {
                 HStack {
                     
@@ -140,7 +140,7 @@ struct SettingsView: View {
                         .stroke(Color.primaryTextColor, lineWidth: 1)
                 )
                 .padding(.horizontal)
-                
+#warning("Повторяющиеся вью стоит вынести в отдельную структуру и переиспользовать.")
                 VStack {
                     HStack {
                         Text("Вибрация")

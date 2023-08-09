@@ -30,7 +30,10 @@ struct MainView: View {
                     .ignoresSafeArea()
                 
                 VStack {
-                    
+#warning("""
+Не используй magic numbers, вынеси все числа в отдельную приватную структуру.
+https://betterprogramming.pub/cleaning-code-refactoring-in-swiftui-6e288a05bc2d наглядный вариант на эту тему.
+""")
                     Text("Игра для компании")
                         .foregroundStyle(Color.secondaryTextColor)
                         .font(.system(size: 36, weight: .heavy, design: .rounded))
@@ -42,6 +45,7 @@ struct MainView: View {
                         .font(.system(size: 48, weight: .heavy, design: .rounded))
                         .minimumScaleFactor(0.7)
                     
+#warning("Устаревшее API анимации - 'animation' was deprecated in iOS 15.0: Use withAnimation or animation(_:value:) instead.")
                     Image("bomb")
                         .resizable()
                         .scaledToFit()
@@ -51,8 +55,10 @@ struct MainView: View {
                         .offset(y: isTapped ? -10 : 0)
                         .animation(.spring(response: 0.5, dampingFraction: 0.4, blendDuration: 0.5))
                         .onTapGesture {
+                            #warning("UIImpactFeedbackGenerator можно вынести в свойства вью для переиспользования, а не создавать новый экземпляр каждый раз.")
                             let impactHeavy = UIImpactFeedbackGenerator(style: .heavy)
                             impactHeavy.impactOccurred()
+                            #warning("Всю логику можно вынести в приватный метод, что бы не засаряла код верстки.")
                             isTapped = true
                             tapCount += 1
                             if tapCount == 7 {
@@ -70,6 +76,8 @@ struct MainView: View {
                     Button {
                         
                     } label: {
+                        #warning("Повторяющиеся вью стоит вынести в отдельную структуру и переиспользовать.")
+                        // Повторяющееся вью
                         Text("Старт Игры")
                             .foregroundStyle(Color.primaryTextColor)
                             .font(.system(size: 20, weight: .medium, design: .rounded))
@@ -82,6 +90,7 @@ struct MainView: View {
                     Button {
                         
                     } label: {
+                        // Повторяющееся вью
                         Text("Категории")
                             .foregroundStyle(Color.primaryTextColor)
                             .font(.system(size: 20, weight: .medium, design: .rounded))
@@ -96,6 +105,7 @@ struct MainView: View {
                 .toolbar {
                     ToolbarItem(placement: .navigationBarLeading) {
                         NavigationLink {
+                            #warning("Вызов метода navigationBarBackButtonHidden() вне локального контекста вью приводит к неявным зависимотсям")
                             SettingsView(vm: vm)
                                 .navigationBarBackButtonHidden()
                         } label: {

@@ -8,6 +8,7 @@
 import Foundation
 import SwiftUI
 
+#warning("Если ты не собираешься наследоваться от этого класса, его нужно пометить как final. См. Swift method dispatch.")
 class MainViewModel: ObservableObject {
     
     @Published var gameTimes: [GameTime] = []

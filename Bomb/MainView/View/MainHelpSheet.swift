@@ -22,7 +22,7 @@ struct MainHelpSheet: View {
     var body: some View {
         ZStack {
             BackgroundGray()
-            
+            #warning("См. замечания к MainView")
             VStack {
                 RoundedRectangle(cornerRadius: 15)
                     .frame(width: 100, height: 4)
