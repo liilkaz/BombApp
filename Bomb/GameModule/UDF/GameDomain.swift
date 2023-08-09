@@ -16,22 +16,23 @@ struct GameDomain {
     )
     
     //MARK: - State
-    struct State: Equatable {
+    struct State: Equatable, Codable {
         var title: String = .init()
         var punishment: String = .init()
         var punishmentArr: [String] = .init()
         var counter: Int = .init()
-        var gameFlow: GameFlow = .initial
+        var gameFlow: GameFlow = .init()
         var isShowSheet = false
     }
     
     //MARK: - Action
     enum Action: Equatable {
         case viewAppeared
-        case gameState(GameFlow)
+        case viewDisappear
+        case gameState(State.GameFlow)
         case launchButtonTap
         case pauseButtonTap
-        case timerTicked
+        case timerTick
         case playAgainButtonTap
         case anotherPunishmentButtonTap
         case dismissSheet
@@ -60,14 +61,24 @@ struct GameDomain {
         switch action {
         case .viewAppeared:
             logger.debug("View appeared")
+            
+            guard state.gameFlow == .initial else {
+                return timerService
+                    .timerTick
+                    .map { _ in .timerTick }
+                    .eraseToAnyPublisher()
+            }
+            
             return Publishers.Merge(
                 timerService
                     .timerTick
-                    .map { _ in Action.timerTicked },
-                Just(GameFlow.initial)
-                    .map(Action.gameState)
+                    .map { _ in Action.timerTick },
+                Just(Action.gameState(.initial))
             )
             .eraseToAnyPublisher()
+            
+        case .viewDisappear:
+            break
             
         case .gameState(.initial):
             logger.debug("Setup game state to initial")
@@ -96,7 +107,7 @@ struct GameDomain {
             state.punishment = getRandomElement(from: state.punishmentArr)
             state.isShowSheet = true
             
-        case .timerTicked:
+        case .timerTick:
             guard state.counter < 30 else {
                 logger.debug("Send action to switch state to gameOver")
                 return Just(.gameState(.gameOver))
@@ -182,5 +193,18 @@ private extension GameDomain {
     func getRandomElement(from collection: [String]) -> String {
         let randomIndex = randomNumber(collection.count)
         return collection[randomIndex]
+    }
+}
+
+extension GameDomain.State {
+    enum GameFlow: Codable {
+        case initial
+        case play
+        case pause
+        case gameOver
+        
+        init() {
+            self = .initial
+        }
     }
 }

@@ -7,6 +7,8 @@
 
 import SwiftUI
 
+
+
 struct GameView: View {
     private let fadeTransition: AnyTransition = .opacity
     
@@ -57,11 +59,20 @@ struct GameView: View {
             GameOverSheet(store: store)
         }
         .animation(.easeInOut, value: store.gameFlow)
-        .onAppear{ store.send(.viewAppeared) }
+        .onAppear { store.send(.viewAppeared) }
+        .onDisappear { }
     }
     
     //MARK: - init(_:)
     init(store: GameStore = GameDomain.liveStore) {
+        self._store = StateObject(wrappedValue: store)
+    }
+    
+    init(state: GameDomain.State) {
+        let store = GameStore(
+            initialState: state,
+            reducer: GameDomain()
+        )
         self._store = StateObject(wrappedValue: store)
     }
     

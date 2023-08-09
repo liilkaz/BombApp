@@ -92,21 +92,21 @@ final class GameDomainTests: XCTestCase {
         
         mockTimer.sendTick()
         
-        XCTAssertEqual(spy.actions, [.gameState(.initial), .timerTicked])
+        XCTAssertEqual(spy.actions, [.gameState(.initial), .timerTick])
         
         mockTimer.sendTick()
         
-        XCTAssertEqual(spy.actions, [.gameState(.initial), .timerTicked, .timerTicked])
+        XCTAssertEqual(spy.actions, [.gameState(.initial), .timerTick, .timerTick])
     }
     
     func test_timerTickActionIncreaseCounter() {
         state.counter = 0
         
-        _ = sut.reduce(&state, action: .timerTicked)
+        _ = sut.reduce(&state, action: .timerTick)
         
         XCTAssertEqual(state.counter, 1)
         
-        _ = sut.reduce(&state, action: .timerTicked)
+        _ = sut.reduce(&state, action: .timerTick)
         
         XCTAssertEqual(state.counter, 2)
     }
@@ -114,7 +114,7 @@ final class GameDomainTests: XCTestCase {
     func test_timerTickActionEmitGameOverState() {
         state.counter = 30
         let spy = StateSpy(
-            sut.reduce(&state, action: .timerTicked)
+            sut.reduce(&state, action: .timerTick)
         )
         
         XCTAssertEqual(spy.actions.first, .gameState(.gameOver))

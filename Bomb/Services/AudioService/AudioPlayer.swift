@@ -20,22 +20,29 @@ final class AudioPlayer: AudioPlayerProtocol {
         subsystem: Bundle.main.bundleIdentifier!,
         category: String(describing: AudioPlayer.self)
     )
-    
+    //MARK: - Players
     private var bombTickPlayer: AVAudioPlayer?
+    private var explosionPlayer: AVAudioPlayer?
     
     //MARK: - init/deinit
     init() {
-        guard let url = Bundle.main.url(forResource: "bombTick", withExtension: "mp3") else {
-            logger.fault("Unable to find bombTick.mp3 in bundle")
+        let bundle = Bundle.main
+        guard
+            let bombTickUrl = bundle.url(forResource: "bombTick", withExtension: "mp3"),
+            let explosionUrl = bundle.url(forResource: "Explosion", withExtension: "mp3")
+        else {
+            logger.fault("Unable to find some of mp3 files in bundle")
             return
         }
         
         do {
-            bombTickPlayer = try AVAudioPlayer(contentsOf: url)
+            bombTickPlayer = try AVAudioPlayer(contentsOf: bombTickUrl)
+            explosionPlayer = try AVAudioPlayer(contentsOf: explosionUrl)
         } catch {
-            logger.error("Unable to initialize bombTickPlayer: \(error.localizedDescription)")
+            logger.error("Unable to initialize player: \(error.localizedDescription)")
         }
         
+        bombTickPlayer?.prepareToPlay()
         logger.debug("Initialized")
     }
     
@@ -46,13 +53,15 @@ final class AudioPlayer: AudioPlayerProtocol {
     //MARK: - Public methods
     func playTicking() {
         bombTickPlayer?.currentTime = 0
-        bombTickPlayer?.prepareToPlay()
         bombTickPlayer?.play()
-        logger.debug("Start play")
+        logger.debug("Start play timer")
     }
     
     func playBlow() {
         stop()
+        explosionPlayer?.currentTime = 0
+        explosionPlayer?.play()
+        logger.debug("Start play explosion")
     }
     
     func stop() {
