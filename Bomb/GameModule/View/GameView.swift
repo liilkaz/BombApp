@@ -8,9 +8,9 @@
 import SwiftUI
 
 struct GameView: View {
-    @StateObject private var store: GameStore
-    
     private let fadeTransition: AnyTransition = .opacity
+    
+    @StateObject private var store: GameStore
     
     //MARK: - Body
     var body: some View {
@@ -25,20 +25,20 @@ struct GameView: View {
                 case .play:
                     EmptyView()
                 default:
-                    AssetImage("BombImage")
+                    AssetImage(AssetNames.bombImage)
                         .transition(fadeTransition)
                 }
             }
             
             if store.gameFlow == .initial {
-                PlainButton(title: Localization.beginButtonTitle.rawValue) {
+                PlainButton(title: Localization.beginButtonTitle) {
                     store.send(.launchButtonTap)
                 }
                 .transition(fadeTransition)
             }
         }
         .padding()
-        .navigationTitle(Localization.navigationTitle.rawValue)
+        .navigationTitle(Localization.navigationTitle)
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarBackButtonHidden()
         .toolbar(content: BackButton.init)

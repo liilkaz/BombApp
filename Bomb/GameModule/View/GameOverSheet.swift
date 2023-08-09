@@ -19,15 +19,15 @@ struct GameOverSheet: View {
             Text(store.title)
                 .font(.appRounded().bold())
             Spacer()
-            AssetImage("ExplosionImage")
+            AssetImage(AssetNames.explosionImage)
             Text(store.punishment)
                 .font(.appRounded())
                 .multilineTextAlignment(.center)
                 .padding()
-            PlainButton(title: Localization.anotherQuestButtonTitle.rawValue) {
+            PlainButton(title: Localization.anotherQuestButtonTitle) {
                 store.send(.anotherPunishmentButtonTap)
             }
-            PlainButton(title: Localization.restartGameButtonTitle.rawValue) {
+            PlainButton(title: Localization.restartGameButtonTitle) {
                 store.send(.playAgainButtonTap)
             }
         }
