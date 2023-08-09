@@ -31,14 +31,14 @@ struct GameView: View {
             }
             
             if store.gameFlow == .initial {
-                PlainButton(title: "Begin") {
+                PlainButton(title: Localization.beginButtonTitle.rawValue) {
                     store.send(.launchButtonTap)
                 }
                 .transition(fadeTransition)
             }
         }
         .padding()
-        .navigationTitle("Game")
+        .navigationTitle(Localization.navigationTitle.rawValue)
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarBackButtonHidden()
         .toolbar(content: BackButton.init)
@@ -53,7 +53,7 @@ struct GameView: View {
             GameOverSheet(store: store)
         }
         .animation(.easeInOut, value: store.gameFlow)
- //       .onAppear{ store.send(.viewAppeared) }
+        .onAppear{ store.send(.viewAppeared) }
     }
     
     //MARK: - init(_:)

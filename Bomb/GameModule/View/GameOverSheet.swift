@@ -24,10 +24,10 @@ struct GameOverSheet: View {
                 .font(.appRounded())
                 .multilineTextAlignment(.center)
                 .padding()
-            PlainButton(title: "Another quest") {
+            PlainButton(title: Localization.anotherQuestButtonTitle.rawValue) {
                 store.send(.anotherPunishmentButtonTap)
             }
-            PlainButton(title: "Play again") {
+            PlainButton(title: Localization.restartGameButtonTitle.rawValue) {
                 store.send(.playAgainButtonTap)
             }
         }

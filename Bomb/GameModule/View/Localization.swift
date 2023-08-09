@@ -10,4 +10,6 @@ import Foundation
 enum Localization: String {
     case navigationTitle = "Игра"
     case beginButtonTitle = "Запустить"
+    case anotherQuestButtonTitle = "Другое задание"
+    case restartGameButtonTitle = "Начать заново"
 }
