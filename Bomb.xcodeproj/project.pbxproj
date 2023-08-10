@@ -57,6 +57,7 @@
 		8657D35F2A855D7E00CECC27 /* Explosion.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 8657D35A2A855D7E00CECC27 /* Explosion.mp3 */; };
 		8657D3602A855D7E00CECC27 /* TheBennyHillShow.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 8657D35B2A855D7E00CECC27 /* TheBennyHillShow.mp3 */; };
 		86A324FA2A81717F0031B71D /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 86A324F92A81717F0031B71D /* Lottie */; };
+		FDD3BFDC2A85645C0012C088 /* Categories in Resources */ = {isa = PBXBuildFile; fileRef = FDD3BFDB2A85645C0012C088 /* Categories */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -125,6 +126,7 @@
 		865E46D52A81778D00B26707 /* BombTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BombTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		86A324FC2A8172370031B71D /* BombAnimation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = BombAnimation.json; sourceTree = "<group>"; };
 		86E8D1372A81965F00B74EBA /* bombTick.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = bombTick.mp3; sourceTree = "<group>"; };
+		FDD3BFDB2A85645C0012C088 /* Categories */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Categories; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -249,6 +251,7 @@
 			isa = PBXGroup;
 			children = (
 				8657D3542A855D7E00CECC27 /* Services */,
+				FDD3BFDB2A85645C0012C088 /* Categories */,
 				8657D3512A855D7400CECC27 /* LottieAnimations */,
 				8657D3312A855D6700CECC27 /* GameModule */,
 				75F6051B2A8015D400A65218 /* BombApp.swift */,
@@ -462,6 +465,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FDD3BFDC2A85645C0012C088 /* Categories in Resources */,
 				75F605232A8015D500A65218 /* Preview Assets.xcassets in Resources */,
 				8657D3532A855D7400CECC27 /* BombAnimation.json in Resources */,
 				8657D35E2A855D7E00CECC27 /* bombTick.mp3 in Resources */,
