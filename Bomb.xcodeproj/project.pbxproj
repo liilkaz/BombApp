@@ -70,6 +70,7 @@
 		8657D3832A856AE700CECC27 /* CategoriesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8657D3742A856AE700CECC27 /* CategoriesView.swift */; };
 		8657D3842A856AE700CECC27 /* HelpCategoriesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8657D3752A856AE700CECC27 /* HelpCategoriesView.swift */; };
 		8657D3852A856AE700CECC27 /* CategoryData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8657D3772A856AE700CECC27 /* CategoryData.swift */; };
+		8657D3872A8576C300CECC27 /* DataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8657D3862A8576C300CECC27 /* DataProvider.swift */; };
 		86A324FA2A81717F0031B71D /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 86A324F92A81717F0031B71D /* Lottie */; };
 /* End PBXBuildFile section */
 
@@ -148,6 +149,7 @@
 		8657D3742A856AE700CECC27 /* CategoriesView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoriesView.swift; sourceTree = "<group>"; };
 		8657D3752A856AE700CECC27 /* HelpCategoriesView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HelpCategoriesView.swift; sourceTree = "<group>"; };
 		8657D3772A856AE700CECC27 /* CategoryData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryData.swift; sourceTree = "<group>"; };
+		8657D3862A8576C300CECC27 /* DataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataProvider.swift; sourceTree = "<group>"; };
 		865E46D52A81778D00B26707 /* BombTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BombTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -280,6 +282,7 @@
 				3CBD4D3F2A812F6100297401 /* MainView */,
 				75F6051F2A8015D500A65218 /* Assets.xcassets */,
 				75F605212A8015D500A65218 /* Preview Content */,
+				8657D3862A8576C300CECC27 /* DataProvider.swift */,
 			);
 			path = Bomb;
 			sourceTree = "<group>";
@@ -615,6 +618,7 @@
 				8657D3502A855D6700CECC27 /* GameDomain.swift in Sources */,
 				3C1D20DA2A851333004D9D4E /* Melody.swift in Sources */,
 				3C1D20C42A8501CD004D9D4E /* View+Extension.swift in Sources */,
+				8657D3872A8576C300CECC27 /* DataProvider.swift in Sources */,
 				8657D34F2A855D6700CECC27 /* GameStore.swift in Sources */,
 				8657D3782A856AE700CECC27 /* CategoryViewModel.swift in Sources */,
 				3C1D20D62A8505AD004D9D4E /* RuleRow.swift in Sources */,

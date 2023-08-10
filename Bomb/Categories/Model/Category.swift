@@ -8,10 +8,13 @@
 import Foundation
 
 struct Category: Identifiable, Codable {
-    var id = UUID()
     let name: CategoryName
     let questions: [String]
     var isSelected: Bool
+    
+    var id: String {
+        name.rawValue
+    }
 }
 
 enum CategoryName: String, CaseIterable, Codable {
