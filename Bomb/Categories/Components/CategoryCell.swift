@@ -13,10 +13,10 @@ struct CategoryCell: View {
         static let itemSpacing: CGFloat = 7
         static let stackSpacing: CGFloat = 24
         static var minItemSize: CGFloat {
-            (UIScreen.main.bounds.width - 100) / 2
+            (UIScreen.main.bounds.width - 100) * 0.5
         }
         static var maxItemSize: CGFloat {
-            (UIScreen.main.bounds.width - 100) / 2
+            (UIScreen.main.bounds.width - 100) * 0.5
         }
         static let cornerSize: CGFloat = 20
         static let strokeWidth: CGFloat = 2

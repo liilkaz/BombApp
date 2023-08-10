@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct CustomToolbarModifier: ViewModifier {
-    
+    @ObservedObject var vm: CategoryViewModel
     @Binding var showHelp: Bool
     @Environment(\.dismiss) var dismiss
 
@@ -22,12 +22,14 @@ struct CustomToolbarModifier: ViewModifier {
                 }
                 
                 ToolbarItem(placement: .navigationBarLeading) {
-                    Image(systemName: "chevron.left")
-                        .resizable()
-                        .frame(width: 12, height: 20)
-                        .onTapGesture {
-                            dismiss()
-                        }
+                    if vm.leaveScreen() {
+                        Image(systemName: "chevron.left")
+                            .resizable()
+                            .frame(width: 12, height: 20)
+                            .onTapGesture {
+                                dismiss()
+                            }
+                    }
                 }
                 
                 ToolbarItem(placement: .navigationBarTrailing) {
@@ -44,7 +46,7 @@ struct CustomToolbarModifier: ViewModifier {
 
 extension View {
     func navigationHeader(showHelp: Binding<Bool>) -> some View {
-        self.modifier(CustomToolbarModifier(showHelp: showHelp))
+        self.modifier(CustomToolbarModifier(vm: CategoryViewModel(), showHelp: showHelp))
     }
 }
 

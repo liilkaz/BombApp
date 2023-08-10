@@ -7,14 +7,14 @@
 
 import Foundation
 
-struct Category: Identifiable {
+struct Category: Identifiable, Codable {
     var id = UUID()
     let name: CategoryName
     let questions: [String]
     var isSelected: Bool
 }
 
-enum CategoryName: String, CaseIterable {
+enum CategoryName: String, CaseIterable, Codable {
     case art = "Искусство и кино"
     case celebrity = "Знаменитости"
     case life = "Про жизнь"
