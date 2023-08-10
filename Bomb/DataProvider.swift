@@ -30,9 +30,10 @@ final class DataProvider: ObservableObject {
     private let decoder: JSONDecoder
     private var cancellable: Set<AnyCancellable> = .init()
     
-    @Published private var categories: [CategoryName] = .init()
-    @Published private var settings: Settings = .init()
-    @Published private var gameState: GameDomain.State = .init()
+    @Published var categories: [CategoryName] = .init()
+    @Published var settings: Settings = .init()
+    @Published var gameState: GameDomain.State = .init()
+    @Published var error: Error? = nil
     
     //MARK: - init(_:)
     init(userDefaults: UserDefaults = .standard) {
@@ -46,7 +47,8 @@ final class DataProvider: ObservableObject {
             gameState = try loadValue(forKey: Keys.gameState)
             settings = try loadValue(forKey: Keys.settings)
         } catch {
-            logger.error("Unable to load data: \(error.localizedDescription)")
+            self.error = error
+            logger.fault("Unable to load data: \(error.localizedDescription)")
         }
         
         self.saveValue(

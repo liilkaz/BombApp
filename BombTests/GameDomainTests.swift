@@ -15,7 +15,7 @@ final class GameDomainTests: XCTestCase {
     private var state: GameDomain.State!
     private var mockTimer: MockTimer!
     private var mockPlayer: MockPlayer!
-    private var spy: StateSpy<GameDomain.Action>!
+    private var spy: Spy<GameDomain.Action>!
     
     override func setUp() async throws {
         try await super.setUp()
@@ -229,20 +229,3 @@ final class MockPlayer: AudioPlayerProtocol {
     
 }
 
-final class StateSpy<A: Equatable> {
-    private var cancellable: Set<AnyCancellable> = .init()
-    let exp = XCTestExpectation(description: "StateSpy")
-    private(set) var actions: [A] = .init()
-    
-    init() { }
-    
-    func schedule(_ publishers: AnyPublisher<A, Never>...) {
-        Publishers.MergeMany(publishers)
-            .sink { _ in
-                self.exp.fulfill()
-            } receiveValue: { action in
-                self.actions.append(action)
-            }
-            .store(in: &cancellable)
-    }
-}

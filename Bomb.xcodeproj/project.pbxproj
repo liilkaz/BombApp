@@ -74,6 +74,7 @@
 		8657D3AD2A8591FB00CECC27 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8657D3AC2A8591FB00CECC27 /* Settings.swift */; };
 		8657D3BE2A85A18800CECC27 /* GameDomainTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8657D3AF2A85A0B700CECC27 /* GameDomainTests.swift */; };
 		8657D3C02A85A1F000CECC27 /* DataProviderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8657D3BF2A85A1F000CECC27 /* DataProviderTests.swift */; };
+		8657D3C22A85A4B000CECC27 /* Spy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8657D3C12A85A4B000CECC27 /* Spy.swift */; };
 		86A324FA2A81717F0031B71D /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 86A324F92A81717F0031B71D /* Lottie */; };
 /* End PBXBuildFile section */
 
@@ -157,6 +158,7 @@
 		8657D3AF2A85A0B700CECC27 /* GameDomainTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameDomainTests.swift; sourceTree = "<group>"; };
 		8657D3B52A85A17F00CECC27 /* BombTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BombTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8657D3BF2A85A1F000CECC27 /* DataProviderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataProviderTests.swift; sourceTree = "<group>"; };
+		8657D3C12A85A4B000CECC27 /* Spy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Spy.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -481,6 +483,7 @@
 			children = (
 				8657D3BF2A85A1F000CECC27 /* DataProviderTests.swift */,
 				8657D3AF2A85A0B700CECC27 /* GameDomainTests.swift */,
+				8657D3C12A85A4B000CECC27 /* Spy.swift */,
 			);
 			path = BombTests;
 			sourceTree = "<group>";
@@ -666,6 +669,7 @@
 			files = (
 				8657D3C02A85A1F000CECC27 /* DataProviderTests.swift in Sources */,
 				8657D3BE2A85A18800CECC27 /* GameDomainTests.swift in Sources */,
+				8657D3C22A85A4B000CECC27 /* Spy.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
