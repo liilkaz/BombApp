@@ -71,6 +71,7 @@
 		8657D3842A856AE700CECC27 /* HelpCategoriesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8657D3752A856AE700CECC27 /* HelpCategoriesView.swift */; };
 		8657D3852A856AE700CECC27 /* CategoryData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8657D3772A856AE700CECC27 /* CategoryData.swift */; };
 		8657D3872A8576C300CECC27 /* DataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8657D3862A8576C300CECC27 /* DataProvider.swift */; };
+		8657D3AD2A8591FB00CECC27 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8657D3AC2A8591FB00CECC27 /* Settings.swift */; };
 		86A324FA2A81717F0031B71D /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 86A324F92A81717F0031B71D /* Lottie */; };
 /* End PBXBuildFile section */
 
@@ -150,6 +151,7 @@
 		8657D3752A856AE700CECC27 /* HelpCategoriesView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HelpCategoriesView.swift; sourceTree = "<group>"; };
 		8657D3772A856AE700CECC27 /* CategoryData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryData.swift; sourceTree = "<group>"; };
 		8657D3862A8576C300CECC27 /* DataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataProvider.swift; sourceTree = "<group>"; };
+		8657D3AC2A8591FB00CECC27 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		865E46D52A81778D00B26707 /* BombTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BombTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -273,6 +275,7 @@
 		75F6051A2A8015D400A65218 /* Bomb */ = {
 			isa = PBXGroup;
 			children = (
+				8657D3AB2A8591E900CECC27 /* Settings */,
 				8657D3632A856AE700CECC27 /* Categories */,
 				8657D3542A855D7E00CECC27 /* Services */,
 				8657D3512A855D7400CECC27 /* LottieAnimations */,
@@ -460,6 +463,14 @@
 			path = Services;
 			sourceTree = "<group>";
 		};
+		8657D3AB2A8591E900CECC27 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				8657D3AC2A8591FB00CECC27 /* Settings.swift */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -600,6 +611,7 @@
 				8657D3442A855D6700CECC27 /* Color+.swift in Sources */,
 				8657D3852A856AE700CECC27 /* CategoryData.swift in Sources */,
 				3CBD4D432A812F8100297401 /* MainHelpSheet.swift in Sources */,
+				8657D3AD2A8591FB00CECC27 /* Settings.swift in Sources */,
 				8657D3492A855D6700CECC27 /* PlainButton.swift in Sources */,
 				3C1D20DC2A851350004D9D4E /* SoundPickerView.swift in Sources */,
 				8657D37D2A856AE700CECC27 /* CustomToolbarModifier.swift in Sources */,

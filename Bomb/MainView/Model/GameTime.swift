@@ -10,10 +10,10 @@ import Foundation
 struct GameTime {
     let id = UUID()
     let timeCount: Int
-    let title: GameTimeTtitle
+    let title: GameTimeTitle
 }
 
-enum GameTimeTtitle:String {
+enum GameTimeTitle: String {
     case short = "Короткое"
     case middle = "Среднее"
     case long = "Длинное"

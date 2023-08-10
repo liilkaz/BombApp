@@ -6,6 +6,21 @@
 //
 
 import Foundation
+import OSLog
+import Combine
+
+final class MockDefaults: UserDefaults {
+    private(set) var isDataRequested = false
+    private(set) var requestedKey = String()
+    
+    override func data(forKey defaultName: String) -> Data? {
+        return nil
+    }
+    
+    override func set(_ value: Any?, forKey defaultName: String) {
+        requestedKey = defaultName
+    }
+}
 
 final class DataProvider: ObservableObject {
     private struct Keys {
@@ -15,30 +30,77 @@ final class DataProvider: ObservableObject {
     }
     
     enum DataError: Error {
-        case notFound
+        case notFound(String)
         case typeMismatch
     }
     
+    private let logger = Logger(
+        subsystem: Bundle.main.bundleIdentifier!,
+        category: String(describing: DataProvider.self)
+    )
+    
     private let userDefaults: UserDefaults
     private let decoder: JSONDecoder
-    private let encoder: JSONEncoder
+    private var cancellable: Set<AnyCancellable> = .init()
     
+    @Published private var categories: [CategoryName] = .init()
+    @Published private var settings: Settings = .init()
+    @Published private var gameState: GameDomain.State = .init()
+    
+    //MARK: - init(_:)
     init(userDefaults: UserDefaults = .standard) {
         self.userDefaults = userDefaults
-        
         self.decoder = JSONDecoder()
-        self.encoder = JSONEncoder()
-    }
-    
-    func save(categories: [CategoryName]) throws {
-        let data = try encoder.encode(categories)
-        userDefaults.setValue(data, forKey: Keys.categories)
-    }
-    
-    func loadCategories() throws -> [CategoryName] {
-        guard let data = userDefaults.data(forKey: Keys.categories) else {
-            throw DataError.notFound
+        
+        logger.debug("initialized")
+        
+        do {
+            categories = try loadValue(forKey: Keys.categories)
+            gameState = try loadValue(forKey: Keys.gameState)
+            settings = try loadValue(forKey: Keys.settings)
+        } catch {
+            logger.error("Unable to load data: \(error.localizedDescription)")
         }
-        return try decoder.decode([CategoryName].self, from: data)
+        
+        self.saveValue(
+            for: self.$categories,
+            withKey: Keys.categories
+        )
+        .store(in: &cancellable)
+        
+        self.saveValue(
+            for: self.$gameState,
+            withKey: Keys.gameState
+        )
+        .store(in: &cancellable)
+        
+        self.saveValue(
+            for: self.$settings,
+            withKey: Keys.settings
+        )
+        .store(in: &cancellable)
+    }
+}
+
+private extension DataProvider {
+    //MARK: - Private methods
+    func loadValue<T: Decodable>(forKey key: String) throws -> T {
+        guard let data = userDefaults.data(forKey: key) else {
+            throw DataError.notFound(key)
+        }
+        return try decoder.decode(T.self, from: data)
+    }
+    
+    func saveValue<V>(
+        for publisher: Published<V>.Publisher,
+        withKey key: String
+    ) -> AnyCancellable where V: Encodable, V: Equatable {
+        publisher
+            .removeDuplicates()
+            .encode(encoder: JSONEncoder())
+            .sink(
+                receiveCompletion: { self.logger.debug("Completion: \(String(reflecting: $0))") },
+                receiveValue: { self.userDefaults.setValue($0, forKey: key) }
+            )
     }
 }
