@@ -7,8 +7,6 @@
 
 import SwiftUI
 
-
-
 struct GameView: View {
     private let fadeTransition: AnyTransition = .opacity
     
@@ -30,6 +28,7 @@ struct GameView: View {
                 switch store.gameFlow == .play {
                 case true:
                     AnimatedBombView(duration: store.estimatedTime)
+                        .transition(fadeTransition)
                 case false:
                     AssetImage(AssetNames.bombImage)
                         .transition(fadeTransition)

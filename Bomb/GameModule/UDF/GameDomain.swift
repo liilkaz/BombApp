@@ -70,13 +70,11 @@ struct GameDomain {
                     .eraseToAnyPublisher()
             }
             
-            return Publishers.Merge(
-                timerService
-                    .timerTick
-                    .map { _ in Action.timerTick },
-                Just(Action.gameState(.initial))
-            )
-            .eraseToAnyPublisher()
+            return timerService
+                .timerTick
+                .map { _ in .timerTick }
+                .merge(with: Just(Action.gameState(.initial)))
+                .eraseToAnyPublisher()
             
         case .viewDisappear:
             break
@@ -84,7 +82,10 @@ struct GameDomain {
         case .gameState(.initial):
             logger.debug("Setup game state to initial")
             state.gameFlow = .initial
-            state.estimatedTime = 30
+            state.counter = 0
+            state.estimatedTime = 10
+            state.isShowSheet = false
+            state.punishmentArr = ["first", "second", "third"]
             state.title = "Нажмите запустить, чтобы начать игру"
             
         case .gameState(.play):
@@ -154,6 +155,7 @@ struct GameDomain {
     static let previewStoreInitialState = GameStore(
         initialState: Self.State(
             title: "Нажмите запустить, чтобы начать игру",
+            estimatedTime: 10,
             gameFlow: .initial
         ),
         reducer: Self()

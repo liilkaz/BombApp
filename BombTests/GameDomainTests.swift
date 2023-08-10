@@ -38,11 +38,16 @@ final class GameDomainTests: XCTestCase {
     }
     
     func test_reduceInitialGameState() {
+        state.counter = 10
+        state.isShowSheet = true
+        state.title = "Baz"
+        
         _ = sut.reduce(&state, action: .gameState(.initial))
         
         XCTAssertEqual(state.gameFlow, .initial)
         XCTAssertEqual(state.title, "Нажмите запустить, чтобы начать игру")
         XCTAssertEqual(state.counter, 0)
+        XCTAssertFalse(state.isShowSheet)
     }
     
     func test_reducePlayGameState() {
@@ -51,6 +56,7 @@ final class GameDomainTests: XCTestCase {
         XCTAssertEqual(state.gameFlow, .play)
         XCTAssertTrue(mockTimer.isRequestSend)
         XCTAssertTrue(mockPlayer.isRequestSend)
+        XCTAssertFalse(state.isShowSheet)
     }
     
     func test_reducePauseGameState() {
@@ -60,6 +66,7 @@ final class GameDomainTests: XCTestCase {
         XCTAssertEqual(state.title, "Пауза...")
         XCTAssertTrue(mockTimer.isRequestSend)
         XCTAssertTrue(mockPlayer.isRequestSend)
+        XCTAssertFalse(state.isShowSheet)
     }
     
     func test_reduceGameOverState() {

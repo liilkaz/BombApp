@@ -23,6 +23,7 @@ final class TimerService: TimerProtocol {
     func startTimer() {
         cancelable = Timer
             .publish(every: 1, on: .main, in: .default)
+            .autoconnect()
             .sink(receiveValue: timerTick.send(_:))
     }
     

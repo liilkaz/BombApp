@@ -30,11 +30,6 @@ final class GameStore: ObservableObject {
         self.state = initialState
         self.reducer = reducer
         logger.debug("Initialized")
-        
-        $state
-            .map(String.init(reflecting:))
-            .sink(receiveValue: logState)
-            .store(in: &cancellable)
     }
     
     deinit {
@@ -54,6 +49,15 @@ final class GameStore: ObservableObject {
     //MARK: - subscript
     subscript<T>(dynamicMember keyPath: KeyPath<GameDomain.State, T>) -> T {
         state[keyPath: keyPath]
+    }
+    
+    func logState() -> Self {
+        self.$state
+            .map(String.init(reflecting:))
+            .sink { [weak self] in self?.logger.debug("\($0)") }
+            .store(in: &self.cancellable)
+        
+        return self
     }
 }
 
