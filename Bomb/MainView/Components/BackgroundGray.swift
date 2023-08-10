@@ -15,8 +15,8 @@ struct BackgroundGray: View {
             Image("bgGray")
                 .resizable()
                 .scaledToFit()
+                .offset(x: -30)
                 .ignoresSafeArea()
-                .scaleEffect(1.3)
         }
     }
 }

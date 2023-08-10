@@ -16,8 +16,8 @@ struct BackgroundOrange: View {
             Image("bgOrange")
                 .resizable()
                 .scaledToFit()
+                .offset(x: -30)
                 .ignoresSafeArea()
-                .scaleEffect(1.4)
         }
     }
 }

@@ -33,34 +33,32 @@ struct SettingsView: View {
             VStack {
                 SettingsHeaderView { dismiss() }
                 
-                ScrollView(showsIndicators: false) {
-                    VStack {
-                        SettingsTimeTitle()
-                        LazyVGrid(columns: column, content: {
-                            ForEach(vm.gameTimes, id: \.id) { index in
-                                ButtonLabelView(title: index.title.rawValue)
-                            }
-                        })
-                    }
-                    .buttonSectionStyle()
-                    
-                    VStack {
-                        SoundPickerView(title: "Фоновая музыка", options: melodyOptions, selectedOption: $selectedMusic)
-                        SoundPickerView(title: "Тиканье бомбы", options: melodyOptions, selectedOption: $selectedTickSound)
-                        SoundPickerView(title: "Взрыв бомбы", options: melodyOptions, selectedOption: $selectedExplosionSound)
-                    }
-                    .tint(Color.secondaryTextColor)
-                    .buttonSectionStyle()
-                    
-                    VStack {
-                        ToggleSectionView(title: "Вибрация", toggleValue: $vm.withQuestion)
-                        ToggleSectionView(title: "Игра с заданиями", toggleValue: $vm.vibration)
-                    }
-                    .buttonSectionStyle()
+                VStack {
+                    SettingsTimeTitle()
+                    LazyVGrid(columns: column, content: {
+                        ForEach(vm.gameTimes, id: \.id) { index in
+                            ButtonLabelView(title: index.title.rawValue)
+                        }
+                    })
                 }
+                .buttonSectionStyle()
+                
+                VStack {
+                    SoundPickerView(title: "Фоновая музыка", options: melodyOptions, selectedOption: $selectedMusic)
+                    SoundPickerView(title: "Тиканье бомбы", options: melodyOptions, selectedOption: $selectedTickSound)
+                    SoundPickerView(title: "Взрыв бомбы", options: melodyOptions, selectedOption: $selectedExplosionSound)
+                }
+                .tint(Color.secondaryTextColor)
+                .buttonSectionStyle()
+                
+                VStack {
+                    ToggleSectionView(title: "Вибрация", toggleValue: $vm.withQuestion)
+                    ToggleSectionView(title: "Игра с заданиями", toggleValue: $vm.vibration)
+                }
+                .buttonSectionStyle()
+                
                 Spacer()
             }
-            .edgesIgnoringSafeArea(.bottom)
         }
         .navigationBarBackButtonHidden()
     }

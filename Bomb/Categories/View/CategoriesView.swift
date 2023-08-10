@@ -27,7 +27,6 @@ struct CategoriesView: View {
                 Spacer()
             }
             .navigationBarTitleDisplayMode(.inline)
-            .navigationBarBackButtonHidden()
             .navigationHeader(showHelp: $showHelp)
             .onDisappear(perform: vm.saveID)
     }
