@@ -9,19 +9,6 @@ import Foundation
 import OSLog
 import Combine
 
-final class MockDefaults: UserDefaults {
-    private(set) var isDataRequested = false
-    private(set) var requestedKey = String()
-    
-    override func data(forKey defaultName: String) -> Data? {
-        return nil
-    }
-    
-    override func set(_ value: Any?, forKey defaultName: String) {
-        requestedKey = defaultName
-    }
-}
-
 final class DataProvider: ObservableObject {
     private struct Keys {
         static let gameState = "GameState"
