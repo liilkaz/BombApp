@@ -87,10 +87,12 @@ struct GameDomain {
             state.isShowSheet = false
             state.punishmentArr = ["first", "second", "third"]
             state.title = "Нажмите запустить, чтобы начать игру"
+            player.stop()
             
         case .gameState(.play):
             logger.debug("Setup game state to play")
             player.playTicking()
+            player.playBackgroundMusic()
             timerService.startTimer()
             state.gameFlow = .play
             

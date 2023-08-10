@@ -55,7 +55,8 @@ final class GameDomainTests: XCTestCase {
        
         XCTAssertEqual(state.gameFlow, .play)
         XCTAssertTrue(mockTimer.isRequestSend)
-        XCTAssertTrue(mockPlayer.isRequestSend)
+        XCTAssertTrue(mockPlayer.isPlayTicking)
+        XCTAssertTrue(mockPlayer.isPlayBackgroundMusic)
         XCTAssertFalse(state.isShowSheet)
     }
     
@@ -82,7 +83,7 @@ final class GameDomainTests: XCTestCase {
         XCTAssertEqual(state.gameFlow, .gameOver)
         XCTAssertEqual(state.title, "Конец игры")
         XCTAssertEqual(state.punishment, "Bar")
-        XCTAssertTrue(mockPlayer.isRequestSend)
+        XCTAssertTrue(mockPlayer.isPlayBlow)
         XCTAssertTrue(mockTimer.isRequestSend)
         XCTAssertTrue(state.isShowSheet)
     }
@@ -206,18 +207,26 @@ final class MockTimer: TimerProtocol {
 
 final class MockPlayer: AudioPlayerProtocol {
     private(set) var isRequestSend = false
+    private(set) var isPlayTicking = false
+    private(set) var isPlayBlow = false
+    private(set) var isPlayBackgroundMusic = false
     
     func playTicking() {
-        isRequestSend = true
+        isPlayTicking = true
     }
     
     func playBlow() {
-        isRequestSend = true
+        isPlayBlow = true
     }
     
     func stop() {
         isRequestSend = true
     }
+    
+    func playBackgroundMusic() {
+        isPlayBackgroundMusic = true
+    }
+    
 }
 
 final class StateSpy<A: Equatable> {

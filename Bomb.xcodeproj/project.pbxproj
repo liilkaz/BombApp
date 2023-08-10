@@ -24,6 +24,7 @@
 		8657D3222A83D7F500CECC27 /* Color+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8657D3212A83D7F500CECC27 /* Color+.swift */; };
 		8657D3252A83E48600CECC27 /* Explosion.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 8657D3242A83E48600CECC27 /* Explosion.mp3 */; };
 		8657D3272A841DB600CECC27 /* AnimatedBombView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8657D3262A841DB600CECC27 /* AnimatedBombView.swift */; };
+		8657D3292A852D9D00CECC27 /* TheBennyHillShow.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 8657D3282A852D9D00CECC27 /* TheBennyHillShow.mp3 */; };
 		865E46D02A81733F00B26707 /* GameStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 865E46CF2A81733F00B26707 /* GameStore.swift */; };
 		86A1B1932A81782B00587042 /* GameDomainTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86A1B1922A81782B00587042 /* GameDomainTests.swift */; };
 		86A324F72A816F180031B71D /* GameDomain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86A324F62A816F180031B71D /* GameDomain.swift */; };
@@ -64,6 +65,7 @@
 		8657D3212A83D7F500CECC27 /* Color+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+.swift"; sourceTree = "<group>"; };
 		8657D3242A83E48600CECC27 /* Explosion.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Explosion.mp3; sourceTree = "<group>"; };
 		8657D3262A841DB600CECC27 /* AnimatedBombView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimatedBombView.swift; sourceTree = "<group>"; };
+		8657D3282A852D9D00CECC27 /* TheBennyHillShow.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = TheBennyHillShow.mp3; sourceTree = "<group>"; };
 		865E46CF2A81733F00B26707 /* GameStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameStore.swift; sourceTree = "<group>"; };
 		865E46D52A81778D00B26707 /* BombTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BombTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		86A1B1922A81782B00587042 /* GameDomainTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameDomainTests.swift; sourceTree = "<group>"; };
@@ -186,11 +188,20 @@
 		8657D3232A83E45B00CECC27 /* AudioService */ = {
 			isa = PBXGroup;
 			children = (
-				8657D3242A83E48600CECC27 /* Explosion.mp3 */,
-				86E8D1372A81965F00B74EBA /* bombTick.mp3 */,
+				8657D32A2A852DA400CECC27 /* Tracks */,
 				86E8D1342A8194E300B74EBA /* AudioPlayer.swift */,
 			);
 			path = AudioService;
+			sourceTree = "<group>";
+		};
+		8657D32A2A852DA400CECC27 /* Tracks */ = {
+			isa = PBXGroup;
+			children = (
+				8657D3282A852D9D00CECC27 /* TheBennyHillShow.mp3 */,
+				8657D3242A83E48600CECC27 /* Explosion.mp3 */,
+				86E8D1372A81965F00B74EBA /* bombTick.mp3 */,
+			);
+			path = Tracks;
 			sourceTree = "<group>";
 		};
 		865E46D62A81778D00B26707 /* BombTests */ = {
@@ -330,6 +341,7 @@
 				75F605232A8015D500A65218 /* Preview Assets.xcassets in Resources */,
 				86E8D1382A81965F00B74EBA /* bombTick.mp3 in Resources */,
 				86A324FD2A8172370031B71D /* BombAnimation.json in Resources */,
+				8657D3292A852D9D00CECC27 /* TheBennyHillShow.mp3 in Resources */,
 				8657D3252A83E48600CECC27 /* Explosion.mp3 in Resources */,
 				75F605202A8015D500A65218 /* Assets.xcassets in Resources */,
 			);
