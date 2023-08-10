@@ -10,17 +10,20 @@ import OSLog
 import Combine
 
 final class DataProvider: ObservableObject {
+    //MARK: - Keys
     private struct Keys {
         static let gameState = "GameState"
         static let categories = "categories"
         static let settings = "GameSettings"
     }
     
+    //MARK: - Error
     enum DataError: Error {
         case notFound(String)
         case typeMismatch
     }
     
+    //MARK: - Private properties
     private let logger = Logger(
         subsystem: Bundle.main.bundleIdentifier!,
         category: String(describing: DataProvider.self)
@@ -30,6 +33,7 @@ final class DataProvider: ObservableObject {
     private let decoder: JSONDecoder
     private var cancellable: Set<AnyCancellable> = .init()
     
+    //MARK: - Public properties
     @Published var categories: [CategoryName] = .init()
     @Published var settings: Settings = .init()
     @Published var gameState: GameDomain.State = .init()
