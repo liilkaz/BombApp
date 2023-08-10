@@ -79,9 +79,8 @@ struct MainView: View {
                         }
                     }
                     ToolbarItem(placement: .navigationBarTrailing) {
-                        
                         Button {
-                            withAnimation(.bouncy) {
+                            withAnimation(.spring) {
                                 isShowSheet.toggle()
                             }
                         } label: {
