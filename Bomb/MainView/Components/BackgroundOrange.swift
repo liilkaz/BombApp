@@ -21,7 +21,3 @@ struct BackgroundOrange: View {
         }
     }
 }
-
-#Preview {
-    BackgroundOrange()
-}

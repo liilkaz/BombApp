@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct MainHelpSheet: View {
-        
     let rowData: [Rule] = [
         Rule(number: 1, text: "Все игроки становятся в круг."),
         Rule(number: 2, text: "Первый игрок берет телефон и нажимает кнопку Старт игры."),
@@ -24,11 +23,14 @@ struct MainHelpSheet: View {
     var body: some View {
         ZStack {
             BackgroundGray()
+            
             VStack {
                 RoundedDivider()
+                
                 Text("ПРАВИЛА ИГРЫ")
                     .foregroundStyle(Color.primaryTextColor)
                     .modifiedText(size: titleFontSize)
+                
                 VStack(spacing: 15) {
                     ForEach(rowData) { rule in
                         RuleRow(rule: rule)

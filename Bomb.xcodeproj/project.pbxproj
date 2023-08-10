@@ -16,6 +16,13 @@
 		3C1D20D22A850487004D9D4E /* RoundedDivider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C1D20D12A850487004D9D4E /* RoundedDivider.swift */; };
 		3C1D20D62A8505AD004D9D4E /* RuleRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C1D20D52A8505AD004D9D4E /* RuleRow.swift */; };
 		3C1D20D82A8506AE004D9D4E /* Rule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C1D20D72A8506AE004D9D4E /* Rule.swift */; };
+		3C1D20DA2A851333004D9D4E /* Melody.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C1D20D92A851333004D9D4E /* Melody.swift */; };
+		3C1D20DC2A851350004D9D4E /* SoundPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C1D20DB2A851350004D9D4E /* SoundPickerView.swift */; };
+		3C1D20DE2A851CC2004D9D4E /* ToggleSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C1D20DD2A851CC2004D9D4E /* ToggleSectionView.swift */; };
+		3C1D20E02A851D07004D9D4E /* ButtonSectionModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C1D20DF2A851D07004D9D4E /* ButtonSectionModifier.swift */; };
+		3C1D20E22A851D2B004D9D4E /* ButtonLabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C1D20E12A851D2B004D9D4E /* ButtonLabelView.swift */; };
+		3C1D20E42A851D49004D9D4E /* SettingsTimeTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C1D20E32A851D49004D9D4E /* SettingsTimeTitle.swift */; };
+		3C1D20E62A851D65004D9D4E /* SettingsHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C1D20E52A851D65004D9D4E /* SettingsHeaderView.swift */; };
 		3C75BEAD2A84E54900145DA9 /* BackgroundOrange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C75BEAC2A84E54900145DA9 /* BackgroundOrange.swift */; };
 		3C7B76582A82951600F29346 /* BackgroundGray.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C7B76572A82951600F29346 /* BackgroundGray.swift */; };
 		3C7B765C2A82A68500F29346 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C7B765B2A82A68500F29346 /* MainViewModel.swift */; };
@@ -41,6 +48,13 @@
 		3C1D20D12A850487004D9D4E /* RoundedDivider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedDivider.swift; sourceTree = "<group>"; };
 		3C1D20D52A8505AD004D9D4E /* RuleRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RuleRow.swift; sourceTree = "<group>"; };
 		3C1D20D72A8506AE004D9D4E /* Rule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rule.swift; sourceTree = "<group>"; };
+		3C1D20D92A851333004D9D4E /* Melody.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Melody.swift; sourceTree = "<group>"; };
+		3C1D20DB2A851350004D9D4E /* SoundPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundPickerView.swift; sourceTree = "<group>"; };
+		3C1D20DD2A851CC2004D9D4E /* ToggleSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToggleSectionView.swift; sourceTree = "<group>"; };
+		3C1D20DF2A851D07004D9D4E /* ButtonSectionModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonSectionModifier.swift; sourceTree = "<group>"; };
+		3C1D20E12A851D2B004D9D4E /* ButtonLabelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonLabelView.swift; sourceTree = "<group>"; };
+		3C1D20E32A851D49004D9D4E /* SettingsTimeTitle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTimeTitle.swift; sourceTree = "<group>"; };
+		3C1D20E52A851D65004D9D4E /* SettingsHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsHeaderView.swift; sourceTree = "<group>"; };
 		3C75BEAC2A84E54900145DA9 /* BackgroundOrange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundOrange.swift; sourceTree = "<group>"; };
 		3C7B76572A82951600F29346 /* BackgroundGray.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundGray.swift; sourceTree = "<group>"; };
 		3C7B765B2A82A68500F29346 /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
@@ -101,6 +115,7 @@
 			children = (
 				3C7B765E2A82A7AD00F29346 /* GameTime.swift */,
 				3C1D20D72A8506AE004D9D4E /* Rule.swift */,
+				3C1D20D92A851333004D9D4E /* Melody.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -121,6 +136,11 @@
 			isa = PBXGroup;
 			children = (
 				3C7B76572A82951600F29346 /* BackgroundGray.swift */,
+				3C1D20E52A851D65004D9D4E /* SettingsHeaderView.swift */,
+				3C1D20E32A851D49004D9D4E /* SettingsTimeTitle.swift */,
+				3C1D20DD2A851CC2004D9D4E /* ToggleSectionView.swift */,
+				3C1D20E12A851D2B004D9D4E /* ButtonLabelView.swift */,
+				3C1D20DB2A851350004D9D4E /* SoundPickerView.swift */,
 				3C1D20D52A8505AD004D9D4E /* RuleRow.swift */,
 				3C1D20CB2A850315004D9D4E /* MainHelpButton.swift */,
 				3C1D20C92A850282004D9D4E /* MainButton.swift */,
@@ -137,6 +157,7 @@
 				3CBD4D4A2A823F7F00297401 /* CustomSheetModifier.swift */,
 				3C1D20C52A85020D004D9D4E /* TextModifier.swift */,
 				3C1D20C72A85022D004D9D4E /* ShadowModifier.swift */,
+				3C1D20DF2A851D07004D9D4E /* ButtonSectionModifier.swift */,
 			);
 			path = Modifier;
 			sourceTree = "<group>";
@@ -247,12 +268,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3C1D20E62A851D65004D9D4E /* SettingsHeaderView.swift in Sources */,
 				75F6051E2A8015D400A65218 /* ContentView.swift in Sources */,
 				3C1D20D82A8506AE004D9D4E /* Rule.swift in Sources */,
+				3C1D20E22A851D2B004D9D4E /* ButtonLabelView.swift in Sources */,
+				3C1D20DE2A851CC2004D9D4E /* ToggleSectionView.swift in Sources */,
 				3C1D20D22A850487004D9D4E /* RoundedDivider.swift in Sources */,
 				3C7B76582A82951600F29346 /* BackgroundGray.swift in Sources */,
+				3C1D20E42A851D49004D9D4E /* SettingsTimeTitle.swift in Sources */,
 				3CBD4D412A812F7800297401 /* MainView.swift in Sources */,
 				3CBD4D432A812F8100297401 /* MainHelpSheet.swift in Sources */,
+				3C1D20DC2A851350004D9D4E /* SoundPickerView.swift in Sources */,
 				3CBD4D452A812F8D00297401 /* SettingsView.swift in Sources */,
 				3C1D20C62A85020D004D9D4E /* TextModifier.swift in Sources */,
 				3C7B765C2A82A68500F29346 /* MainViewModel.swift in Sources */,
@@ -262,10 +288,12 @@
 				3C1D20CC2A850315004D9D4E /* MainHelpButton.swift in Sources */,
 				75F605302A81084600A65218 /* Color + ext.swift in Sources */,
 				3C75BEAD2A84E54900145DA9 /* BackgroundOrange.swift in Sources */,
+				3C1D20DA2A851333004D9D4E /* Melody.swift in Sources */,
 				3C1D20C42A8501CD004D9D4E /* View+Extension.swift in Sources */,
 				3C1D20D62A8505AD004D9D4E /* RuleRow.swift in Sources */,
 				3C1D20C82A85022D004D9D4E /* ShadowModifier.swift in Sources */,
 				3CBD4D4B2A823F7F00297401 /* CustomSheetModifier.swift in Sources */,
+				3C1D20E02A851D07004D9D4E /* ButtonSectionModifier.swift in Sources */,
 				3C1D20CA2A850282004D9D4E /* MainButton.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

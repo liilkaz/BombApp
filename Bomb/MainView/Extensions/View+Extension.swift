@@ -18,3 +18,9 @@ extension View {
         self.modifier(ShadowModifier())
     }
 }
+
+extension View {
+    func buttonSectionStyle() -> some View {
+        self.modifier(ButtonSectionModifier())
+    }
+}

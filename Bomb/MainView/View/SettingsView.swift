@@ -11,176 +11,52 @@ struct SettingsView: View {
     
     @Environment(\.dismiss) var dismiss
     @StateObject var vm: MainViewModel
+    @State private var selectedMusic: Melody = .melody1
+    @State private var selectedTickSound: Melody = .melody1
+    @State private var selectedExplosionSound: Melody = .melody1
+    
+    let melodyOptions: [MelodyOption] = [
+        MelodyOption(melody: .melody1, title: "Мелодия 1"),
+        MelodyOption(melody: .melody2, title: "Мелодия 2"),
+        MelodyOption(melody: .melody3, title: "Мелодия 3")
+    ]
+    
+    let column: [GridItem] = [
+        GridItem(.flexible()),
+        GridItem(.flexible())
+    ]
     
     var body: some View {
-        
-        let column: [GridItem] = [
-            GridItem(.flexible()),
-            GridItem(.flexible())
-        ]
-        
         ZStack {
             BackgroundGray()
-#warning("См. замечания к MainView")
-            VStack(spacing: 10) {
-                HStack {
-                    
-                    Button {
-                        dismiss()
-                    } label: {
-                        Image("backArrow")
-                    }
-                    
-                    Spacer()
-                    
-                    Text("Настройки")
-                        .foregroundStyle(Color.primaryTextColor)
-                        .font(.system(size: 36, weight: .heavy, design: .rounded))
-                    
-                    Spacer()
-                    
-                    Button {
-                        
-                    } label: {
-                        Image("helpOrange")
-                    }
-                }
-                .padding(20)
+            
+            VStack {
+                SettingsHeaderView { dismiss() }
                 
                 VStack {
-                    HStack {
-                        
-                        Text("ВРЕМЯ ИГРЫ")
-                            .foregroundStyle(Color.primaryTextColor)
-                            .font(.system(size: 20, weight: .bold, design: .rounded))
-                        
-                        Spacer()
-                    }
-                    
+                    SettingsTimeTitle()
                     LazyVGrid(columns: column, content: {
                         ForEach(vm.gameTimes, id: \.id) { index in
-                            
-                            Button {
-                                
-                            } label: {
-                                Text(index.title.rawValue)
-                                    .foregroundStyle(Color.secondaryTextColor)
-                                    .font(.system(size: 18, weight: .bold, design: .rounded))
-                                    .padding()
-                                    .frame(minWidth: 150)
-                                    .background(Color.primaryTextColor)
-                                    .cornerRadius(15)
-                            }
+                            ButtonLabelView(title: index.title.rawValue)
                         }
                     })
                 }
-                .padding()
-                .background(Color.categoryCellBg)
-                .cornerRadius(25)
-                .frame(maxWidth: .infinity)
-                .overlay(
-                    RoundedRectangle(cornerRadius: 25)
-                        .stroke(Color.primaryTextColor, lineWidth: 1)
-                )
-                .padding(.horizontal)
+                .buttonSectionStyle()
                 
                 VStack {
-                    HStack {
-                        Text("Фоновая музыка")
-                        Spacer()
-                        Picker(selection: $vm.selectedMusic, label: Text("")) {
-                            Text("Мелодия 1").tag(0)
-                            Text("Мелодия 2").tag(1)
-                            Text("Мелодия 3").tag(2)
-                        }
-                    }
-                    .foregroundStyle(Color.secondaryTextColor)
-                    .font(.system(size: 18, weight: .bold, design: .rounded))
-                    .padding(12)
-                    .background(Color.primaryTextColor)
-                    .cornerRadius(15)
-
-                    HStack {
-                        Text("Тиканье бомбы")
-                        Spacer()
-                        Picker(selection: $vm.selectedTickSound, label: Text("")) {
-                            Text("Часы 1").tag(0)
-                            Text("Часы 2").tag(1)
-                            Text("Часы 3").tag(2)
-                        }
-                    }
-                    .foregroundStyle(Color.secondaryTextColor)
-                    .font(.system(size: 18, weight: .bold, design: .rounded))
-                    .padding(12)
-                    .background(Color.primaryTextColor)
-                    .cornerRadius(15)
-
-                    HStack {
-                        Text("Взрыв бомбы")
-                        Spacer()
-                        Picker(selection: $vm.selectedExplosionSound, label: Text("")) {
-                            Text("Взрыв 1").tag(0)
-                            Text("Взрыв 2").tag(1)
-                            Text("Взрыв 3").tag(2)
-                        }
-                    }
-                    .foregroundStyle(Color.secondaryTextColor)
-                    .font(.system(size: 18, weight: .bold, design: .rounded))
-                    .padding(12)
-                    .background(Color.primaryTextColor)
-                    .cornerRadius(15)
+                    SoundPickerView(title: "Фоновая музыка", options: melodyOptions, selectedOption: $selectedMusic)
+                    SoundPickerView(title: "Тиканье бомбы", options: melodyOptions, selectedOption: $selectedTickSound)
+                    SoundPickerView(title: "Взрыв бомбы", options: melodyOptions, selectedOption: $selectedExplosionSound)
                 }
                 .tint(Color.secondaryTextColor)
-                .padding(20)
-                .background(Color.categoryCellBg)
-                .cornerRadius(25)
-                .frame(maxWidth: .infinity)
-                .overlay(
-                    RoundedRectangle(cornerRadius: 25)
-                        .stroke(Color.primaryTextColor, lineWidth: 1)
-                )
-                .padding(.horizontal)
-#warning("Повторяющиеся вью стоит вынести в отдельную структуру и переиспользовать.")
+                .buttonSectionStyle()
+                
                 VStack {
-                    HStack {
-                        Text("Вибрация")
-                        Spacer()
-                        Toggle(isOn: $vm.withQuestion) {
-                            
-                        }
-                    }
-                    .foregroundStyle(Color.secondaryTextColor)
-                    .font(.system(size: 18, weight: .bold, design: .rounded))
-                    .padding()
-                    .frame(maxWidth: .infinity)
-                    .background(Color.primaryTextColor)
-                    .cornerRadius(15)
-                    
-                    HStack {
-                        Text("Игра с заданиями")
-                            .lineLimit(1)
-                        Toggle(isOn: $vm.vibration) {
-                            
-                        }
-                    }
-                    .foregroundStyle(Color.secondaryTextColor)
-                    .font(.system(size: 18, weight: .bold, design: .rounded))
-                    .padding()
-                    .frame(maxWidth: .infinity)
-                    .background(Color.primaryTextColor)
-                    .cornerRadius(15)
+                    ToggleSectionView(title: "Вибрация", toggleValue: $vm.withQuestion)
+                    ToggleSectionView(title: "Игра с заданиями", toggleValue: $vm.vibration)
                 }
-                .tint(Color.secondaryTextColor)
-                .padding(20)
-                .cornerRadius(25)
-                .frame(maxWidth: .infinity)
-                .background(Color.categoryCellBg)
-                .overlay(
-                    RoundedRectangle(cornerRadius: 25)
-                        .stroke(Color.primaryTextColor, lineWidth: 1)
-                )
-                .padding(.horizontal)
-
+                .buttonSectionStyle()
+                
                 Spacer()
             }
         }
