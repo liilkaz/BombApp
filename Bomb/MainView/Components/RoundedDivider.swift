@@ -9,10 +9,9 @@ import SwiftUI
 
 struct RoundedDivider: View {
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        RoundedRectangle(cornerRadius: 15)
+            .frame(width: 100, height: 4)
+            .foregroundStyle(Color.primaryTextColor)
+            .padding(.top, 5)
     }
-}
-
-#Preview {
-    RoundedDivider()
 }

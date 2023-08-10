@@ -8,11 +8,15 @@
 import SwiftUI
 
 struct MainButton: View {
+    let title: String
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        Text(title)
+            .foregroundColor(Color.primaryTextColor)
+            .font(.system(size: 20, weight: .medium, design: .rounded))
+            .frame(height: 55)
+            .frame(maxWidth: .infinity)
+            .background(Color.mainViewButton)
+            .cornerRadius(10)
     }
-}
-
-#Preview {
-    MainButton()
 }

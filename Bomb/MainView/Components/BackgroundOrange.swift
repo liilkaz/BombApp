@@ -9,7 +9,16 @@ import SwiftUI
 
 struct BackgroundOrange: View {
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        ZStack {
+            Color.mainBackground
+                .ignoresSafeArea()
+            
+            Image("bgOrange")
+                .resizable()
+                .scaledToFit()
+                .offset(x: -30)
+                .ignoresSafeArea()
+        }
     }
 }
 

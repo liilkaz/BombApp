@@ -184,6 +184,7 @@ struct SettingsView: View {
                 Spacer()
             }
         }
+        .navigationBarBackButtonHidden()
     }
 }
 

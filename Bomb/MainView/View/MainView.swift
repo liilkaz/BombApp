@@ -8,7 +8,21 @@
 import SwiftUI
 
 struct MainView: View {
+    let smallTitle: CGFloat = 36
+    let largeTitle: CGFloat = 48
+    let imageWidth: CGFloat = 300
+    let scaleEffectStart: CGFloat = 1.1
+    let scaleEffectEnd: CGFloat = 1.0
+    let maxTapCount: Int = 6
+    let maxDegrees: Double = 360
+    let minDegrees: Double = 0
+    let response: Double = 0.4
+    let dampingFriction: Double = 0.5
+    let startOffset: CGFloat = -10
+    let endOffset: CGFloat = 0
+    let cornerRadius: CGFloat = 20
     
+    @State private var impactHeavy = UIImpactFeedbackGenerator(style: .heavy)
     @State private var showSettings: Bool = false
     @State private var isShowSheet: Bool = false
     @State private var isTapped: Bool = false
@@ -20,115 +34,79 @@ struct MainView: View {
         NavigationView {
             ZStack(alignment: .center) {
                 
-                Color.mainBackground
-                    .ignoresSafeArea()
-                
-                Image("bgOrange")
-                    .resizable()
-                    .scaledToFit()
-                    .offset(x: -30)
-                    .ignoresSafeArea()
+                BackgroundOrange()
                 
                 VStack {
-#warning("""
-Не используй magic numbers, вынеси все числа в отдельную приватную структуру.
-https://betterprogramming.pub/cleaning-code-refactoring-in-swiftui-6e288a05bc2d наглядный вариант на эту тему.
-""")
+                    
                     Text("Игра для компании")
-                        .foregroundStyle(Color.secondaryTextColor)
-                        .font(.system(size: 36, weight: .heavy, design: .rounded))
-                        .lineLimit(1)
-                        .minimumScaleFactor(0.5)
+                        .modifiedText(size: smallTitle)
                     
                     Text("БОМБА")
-                        .foregroundStyle(Color.secondaryTextColor)
-                        .font(.system(size: 48, weight: .heavy, design: .rounded))
-                        .minimumScaleFactor(0.7)
+                        .modifiedText(size: largeTitle)
                     
-#warning("Устаревшее API анимации - 'animation' was deprecated in iOS 15.0: Use withAnimation or animation(_:value:) instead.")
                     Image("bomb")
                         .resizable()
                         .scaledToFit()
-                        .frame(width: 300)
-                        .scaleEffect(isTapped ? 1.1 : 1.0)
-                        .rotationEffect(Angle(degrees: tapCount == 6 ? 360 : 0))
-                        .offset(y: isTapped ? -10 : 0)
-                        .animation(.spring(response: 0.5, dampingFraction: 0.4, blendDuration: 0.5))
+                        .frame(width: imageWidth)
+                        .scaleEffect(isTapped ? scaleEffectStart : scaleEffectEnd)
+                        .rotationEffect(Angle(degrees: tapCount == maxTapCount ? maxDegrees : minDegrees))
+                        .offset(y: isTapped ? startOffset : endOffset)
+                        .animation(.spring(response: response, dampingFraction: dampingFriction), value: isTapped)
                         .onTapGesture {
-                            #warning("UIImpactFeedbackGenerator можно вынести в свойства вью для переиспользования, а не создавать новый экземпляр каждый раз.")
-                            let impactHeavy = UIImpactFeedbackGenerator(style: .heavy)
-                            impactHeavy.impactOccurred()
-                            #warning("Всю логику можно вынести в приватный метод, что бы не засаряла код верстки.")
-                            isTapped = true
-                            tapCount += 1
-                            if tapCount == 7 {
-                                tapCount = 0
-                            }
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                                withAnimation {
-                                    isTapped = false
-                                }
-                            }
+                            tapped()
                         }
                     
                     Spacer()
                     
                     Button {
-                        
                     } label: {
-                        #warning("Повторяющиеся вью стоит вынести в отдельную структуру и переиспользовать.")
-                        // Повторяющееся вью
-                        Text("Старт Игры")
-                            .foregroundStyle(Color.primaryTextColor)
-                            .font(.system(size: 20, weight: .medium, design: .rounded))
-                            .frame(height: 55)
-                            .frame(maxWidth: .infinity)
-                            .background(Color.mainViewButton)
-                            .cornerRadius(10)
+                        MainButton(title: "Старт игры")
                     }
-                    
                     Button {
                         
                     } label: {
-                        // Повторяющееся вью
-                        Text("Категории")
-                            .foregroundStyle(Color.primaryTextColor)
-                            .font(.system(size: 20, weight: .medium, design: .rounded))
-                            .frame(height: 55)
-                            .frame(maxWidth: .infinity)
-                            .background(Color.mainViewButton)
-                            .cornerRadius(10)
+                        MainButton(title: "Категории")
                     }
                 }
-                .shadow(color: .black.opacity(0.25), radius: 4, x: 0, y: 4)
+                .mainShadow()
                 .padding()
                 .toolbar {
                     ToolbarItem(placement: .navigationBarLeading) {
                         NavigationLink {
-                            #warning("Вызов метода navigationBarBackButtonHidden() вне локального контекста вью приводит к неявным зависимотсям")
                             SettingsView(vm: vm)
-                                .navigationBarBackButtonHidden()
                         } label: {
-                            Image("settings")
-                            
+                            SettingsButton()
                         }
                     }
                     ToolbarItem(placement: .navigationBarTrailing) {
+                        
                         Button {
                             withAnimation(.bouncy) {
                                 isShowSheet.toggle()
                             }
                         } label: {
-                            Image("helpRed")
-                                .resizable()
-                                .frame(width: 35, height: 35)
+                            MainHelpButton()
                         }
                     }
                 }
                 MainHelpSheet()
-                    .cornerRadius(20)
-                    .shadow(radius: 4)
+                    .cornerRadius(cornerRadius)
+                    .mainShadow()
                     .animateSheet(showHelp: $isShowSheet, dragValueY: $dragValue)
+            }
+        }
+    }
+    
+    private func tapped() {
+        impactHeavy.impactOccurred()
+        isTapped = true
+        tapCount += 1
+        if tapCount == 7 {
+            tapCount = 0
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+            withAnimation {
+                isTapped = false
             }
         }
     }

@@ -9,10 +9,8 @@ import SwiftUI
 
 struct MainHelpButton: View {
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        Image("helpRed")
+            .resizable()
+            .frame(width: 35, height: 35)
     }
-}
-
-#Preview {
-    MainHelpButton()
 }

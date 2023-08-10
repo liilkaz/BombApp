@@ -8,11 +8,23 @@
 import SwiftUI
 
 struct RuleRow: View {
+    let rule: Rule
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        HStack {
+            Circle()
+                .frame(width: 35, height: 35)
+                .foregroundStyle(Color.mainBackground)
+                .shadow(radius: 4)
+                .overlay {
+                    Text("\(rule.number)")
+                        .font(.system(size: 15, weight: .heavy, design: .rounded))
+                }
+            Spacer()
+            Text(rule.text)
+                .font(.system(size: 19, weight: .medium, design: .rounded))
+            Spacer()
+        }
+        .multilineTextAlignment(.center)
     }
-}
-
-#Preview {
-    RuleRow()
 }

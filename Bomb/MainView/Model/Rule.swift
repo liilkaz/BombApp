@@ -6,3 +6,9 @@
 //
 
 import Foundation
+
+struct Rule: Identifiable {
+    let id = UUID()
+    let number: Int
+    let text: String
+}
