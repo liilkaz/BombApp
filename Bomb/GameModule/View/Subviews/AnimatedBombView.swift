@@ -16,7 +16,7 @@ struct AnimatedBombView: View {
     
     init(duration: Int) {
         let speed = Double(duration) * 0.02
-        self.animationSpeed = if speed > 1 { 1 } else { speed }
+        self.animationSpeed = speed > 1 ? 1 : speed
     }
 }
 
