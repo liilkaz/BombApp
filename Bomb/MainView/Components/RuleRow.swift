@@ -22,7 +22,9 @@ struct RuleRow: View {
                 }
             Spacer()
             Text(rule.text)
+                .foregroundStyle(Color.primaryTextColor)
                 .font(.system(size: 19, weight: .medium, design: .rounded))
+            
             Spacer()
         }
         .multilineTextAlignment(.center)
