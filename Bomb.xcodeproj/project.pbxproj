@@ -75,6 +75,12 @@
 		8657D3BE2A85A18800CECC27 /* GameDomainTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8657D3AF2A85A0B700CECC27 /* GameDomainTests.swift */; };
 		8657D3C02A85A1F000CECC27 /* DataProviderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8657D3BF2A85A1F000CECC27 /* DataProviderTests.swift */; };
 		8657D3C22A85A4B000CECC27 /* Spy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8657D3C12A85A4B000CECC27 /* Spy.swift */; };
+		8690BCB22A869C9C000F5293 /* FortBoyard.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 8690BCB12A869C9C000F5293 /* FortBoyard.mp3 */; };
+		8690BCB42A869CB4000F5293 /* RockyBalboa.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 8690BCB32A869CB4000F5293 /* RockyBalboa.mp3 */; };
+		8690BCB92A869EE3000F5293 /* timer3.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 8690BCB72A869EE3000F5293 /* timer3.mp3 */; };
+		8690BCBA2A869EE3000F5293 /* timer2.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 8690BCB82A869EE3000F5293 /* timer2.mp3 */; };
+		8690BCBD2A869F92000F5293 /* explosion2.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 8690BCBB2A869F92000F5293 /* explosion2.mp3 */; };
+		8690BCBE2A869F92000F5293 /* explosion3.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 8690BCBC2A869F92000F5293 /* explosion3.mp3 */; };
 		86A324FA2A81717F0031B71D /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 86A324F92A81717F0031B71D /* Lottie */; };
 /* End PBXBuildFile section */
 
@@ -159,6 +165,12 @@
 		8657D3B52A85A17F00CECC27 /* BombTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BombTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8657D3BF2A85A1F000CECC27 /* DataProviderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataProviderTests.swift; sourceTree = "<group>"; };
 		8657D3C12A85A4B000CECC27 /* Spy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Spy.swift; sourceTree = "<group>"; };
+		8690BCB12A869C9C000F5293 /* FortBoyard.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = FortBoyard.mp3; sourceTree = "<group>"; };
+		8690BCB32A869CB4000F5293 /* RockyBalboa.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = RockyBalboa.mp3; sourceTree = "<group>"; };
+		8690BCB72A869EE3000F5293 /* timer3.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = timer3.mp3; sourceTree = "<group>"; };
+		8690BCB82A869EE3000F5293 /* timer2.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = timer2.mp3; sourceTree = "<group>"; };
+		8690BCBB2A869F92000F5293 /* explosion2.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = explosion2.mp3; sourceTree = "<group>"; };
+		8690BCBC2A869F92000F5293 /* explosion3.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = explosion3.mp3; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -394,9 +406,9 @@
 		8657D3582A855D7E00CECC27 /* Tracks */ = {
 			isa = PBXGroup;
 			children = (
-				8657D3592A855D7E00CECC27 /* bombTick.mp3 */,
-				8657D35A2A855D7E00CECC27 /* Explosion.mp3 */,
-				8657D35B2A855D7E00CECC27 /* TheBennyHillShow.mp3 */,
+				8690BCB62A869CCA000F5293 /* Timer */,
+				8690BCB52A869CBC000F5293 /* Explosion */,
+				8690BCB02A869C84000F5293 /* Background */,
 			);
 			path = Tracks;
 			sourceTree = "<group>";
@@ -486,6 +498,36 @@
 				8657D3C12A85A4B000CECC27 /* Spy.swift */,
 			);
 			path = BombTests;
+			sourceTree = "<group>";
+		};
+		8690BCB02A869C84000F5293 /* Background */ = {
+			isa = PBXGroup;
+			children = (
+				8690BCB32A869CB4000F5293 /* RockyBalboa.mp3 */,
+				8690BCB12A869C9C000F5293 /* FortBoyard.mp3 */,
+				8657D35B2A855D7E00CECC27 /* TheBennyHillShow.mp3 */,
+			);
+			path = Background;
+			sourceTree = "<group>";
+		};
+		8690BCB52A869CBC000F5293 /* Explosion */ = {
+			isa = PBXGroup;
+			children = (
+				8690BCBB2A869F92000F5293 /* explosion2.mp3 */,
+				8690BCBC2A869F92000F5293 /* explosion3.mp3 */,
+				8657D35A2A855D7E00CECC27 /* Explosion.mp3 */,
+			);
+			path = Explosion;
+			sourceTree = "<group>";
+		};
+		8690BCB62A869CCA000F5293 /* Timer */ = {
+			isa = PBXGroup;
+			children = (
+				8690BCB82A869EE3000F5293 /* timer2.mp3 */,
+				8690BCB72A869EE3000F5293 /* timer3.mp3 */,
+				8657D3592A855D7E00CECC27 /* bombTick.mp3 */,
+			);
+			path = Timer;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -578,12 +620,18 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8690BCBE2A869F92000F5293 /* explosion3.mp3 in Resources */,
 				75F605232A8015D500A65218 /* Preview Assets.xcassets in Resources */,
 				8657D3532A855D7400CECC27 /* BombAnimation.json in Resources */,
 				8657D35E2A855D7E00CECC27 /* bombTick.mp3 in Resources */,
+				8690BCBA2A869EE3000F5293 /* timer2.mp3 in Resources */,
+				8690BCBD2A869F92000F5293 /* explosion2.mp3 in Resources */,
 				8657D3602A855D7E00CECC27 /* TheBennyHillShow.mp3 in Resources */,
 				75F605202A8015D500A65218 /* Assets.xcassets in Resources */,
 				8657D35F2A855D7E00CECC27 /* Explosion.mp3 in Resources */,
+				8690BCB92A869EE3000F5293 /* timer3.mp3 in Resources */,
+				8690BCB42A869CB4000F5293 /* RockyBalboa.mp3 in Resources */,
+				8690BCB22A869C9C000F5293 /* FortBoyard.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
