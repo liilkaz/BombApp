@@ -29,6 +29,7 @@ struct MainView: View {
     @State private var tapCount: Int = 0
     @State private var dragValue = 0.0
     @StateObject var vm = MainViewModel()
+    @StateObject var categoryVM = CategoryViewModel()
     
     var body: some View {
         NavigationView {
@@ -57,14 +58,14 @@ struct MainView: View {
                         }
                     
                     Spacer()
-
+                    
                     NavigationLink {
                         GameView()
                     } label: {
                         MainButton(title: "Старт игры")
                     }
-                    Button {
-                        
+                    NavigationLink {
+                        CategoriesView(vm: categoryVM)
                     } label: {
                         MainButton(title: "Категории")
                     }
@@ -92,7 +93,7 @@ struct MainView: View {
                 MainHelpSheet()
                     .cornerRadius(cornerRadius)
                     .mainShadow()
-                    .animateSheet(showHelp: $isShowSheet, dragValueY: $dragValue)
+                    .animateSheetMain(showHelp: $isShowSheet, dragValueY: $dragValue)
             }
         }
     }

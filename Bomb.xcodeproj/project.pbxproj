@@ -30,7 +30,7 @@
 		3CBD4D412A812F7800297401 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CBD4D402A812F7800297401 /* MainView.swift */; };
 		3CBD4D432A812F8100297401 /* MainHelpSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CBD4D422A812F8100297401 /* MainHelpSheet.swift */; };
 		3CBD4D452A812F8D00297401 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CBD4D442A812F8D00297401 /* SettingsView.swift */; };
-		3CBD4D4B2A823F7F00297401 /* CustomSheetModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CBD4D4A2A823F7F00297401 /* CustomSheetModifier.swift */; };
+		3CBD4D4B2A823F7F00297401 /* CustomSheetModifierMain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CBD4D4A2A823F7F00297401 /* CustomSheetModifierMain.swift */; };
 		75F6051C2A8015D400A65218 /* BombApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F6051B2A8015D400A65218 /* BombApp.swift */; };
 		75F6051E2A8015D400A65218 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F6051D2A8015D400A65218 /* ContentView.swift */; };
 		75F605202A8015D500A65218 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 75F6051F2A8015D500A65218 /* Assets.xcassets */; };
@@ -112,7 +112,7 @@
 		3CBD4D402A812F7800297401 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		3CBD4D422A812F8100297401 /* MainHelpSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainHelpSheet.swift; sourceTree = "<group>"; };
 		3CBD4D442A812F8D00297401 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
-		3CBD4D4A2A823F7F00297401 /* CustomSheetModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSheetModifier.swift; sourceTree = "<group>"; };
+		3CBD4D4A2A823F7F00297401 /* CustomSheetModifierMain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSheetModifierMain.swift; sourceTree = "<group>"; };
 		75F605182A8015D400A65218 /* Bomb.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Bomb.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		75F6051B2A8015D400A65218 /* BombApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BombApp.swift; sourceTree = "<group>"; };
 		75F6051D2A8015D400A65218 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -253,7 +253,7 @@
 		3CBD4D492A823F0800297401 /* Modifier */ = {
 			isa = PBXGroup;
 			children = (
-				3CBD4D4A2A823F7F00297401 /* CustomSheetModifier.swift */,
+				3CBD4D4A2A823F7F00297401 /* CustomSheetModifierMain.swift */,
 				3C1D20C52A85020D004D9D4E /* TextModifier.swift */,
 				3C1D20C72A85022D004D9D4E /* ShadowModifier.swift */,
 				3C1D20DF2A851D07004D9D4E /* ButtonSectionModifier.swift */,
@@ -655,7 +655,7 @@
 				8657D3782A856AE700CECC27 /* CategoryViewModel.swift in Sources */,
 				3C1D20D62A8505AD004D9D4E /* RuleRow.swift in Sources */,
 				3C1D20C82A85022D004D9D4E /* ShadowModifier.swift in Sources */,
-				3CBD4D4B2A823F7F00297401 /* CustomSheetModifier.swift in Sources */,
+				3CBD4D4B2A823F7F00297401 /* CustomSheetModifierMain.swift in Sources */,
 				8657D34A2A855D6700CECC27 /* LottieView.swift in Sources */,
 				8657D35C2A855D7E00CECC27 /* TimerService.swift in Sources */,
 				3C1D20E02A851D07004D9D4E /* ButtonSectionModifier.swift in Sources */,
