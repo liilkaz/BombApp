@@ -10,6 +10,7 @@ import Foundation
 struct AssetNames {
     static let bombImage = "BombImage"
     static let explosionImage = "ExplosionImage"
-    static let pauseIcon = "PauseIcon"
+    static let pauseIcon = "pause.circle"
+    static let playIcon = "play.circle"
     static let backButtonIcon = "chevron.backward"
 }

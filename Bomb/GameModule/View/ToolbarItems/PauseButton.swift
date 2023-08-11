@@ -8,13 +8,17 @@
 import SwiftUI
 
 struct PauseButton: ToolbarContent {
+    let isPaused: Bool
     let action: () -> Void
     
     var body: some ToolbarContent {
         ToolbarItem(placement: .navigationBarTrailing) {
             Button(action: action) {
-                Image(AssetNames.pauseIcon)
-                    .foregroundStyle(Color.primaryTextColor)
+                Image(systemName: isPaused
+                      ? AssetNames.playIcon
+                      : AssetNames.pauseIcon
+                )
+                .foregroundStyle(Color.primaryTextColor)
             }
         }
     }
