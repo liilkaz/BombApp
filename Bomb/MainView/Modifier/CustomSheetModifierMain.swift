@@ -1,5 +1,5 @@
 //
-//  CustomSheetModifier.swift
+//  CustomSheetModifierMain.swift
 //  Bomb
 //
 //  Created by Kasharin Mikhail on 08.08.2023.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct CustomSheetModifier: ViewModifier {
+struct CustomSheetModifierMain: ViewModifier {
     @Binding var showHelp: Bool
     @Binding var dragValueY: Double
     
@@ -42,7 +42,7 @@ struct CustomSheetModifier: ViewModifier {
 }
 
 extension View {
-    func animateSheet(showHelp: Binding<Bool>, dragValueY: Binding<Double>) -> some View {
-        modifier(CustomSheetModifier(showHelp: showHelp, dragValueY: dragValueY))
+    func animateSheetMain(showHelp: Binding<Bool>, dragValueY: Binding<Double>) -> some View {
+        modifier(CustomSheetModifierMain(showHelp: showHelp, dragValueY: dragValueY))
     }
 }
