@@ -72,6 +72,11 @@ final class DataProvider: ObservableObject {
             withKey: Keys.settings
         )
         .store(in: &cancellable)
+        
+        self.$settings
+            .removeDuplicates()
+            .sink(receiveValue: updateState(with:))
+            .store(in: &cancellable)
     }
 }
 
@@ -95,5 +100,11 @@ private extension DataProvider {
                 receiveCompletion: { self.logger.debug("Completion: \(String(reflecting: $0))") },
                 receiveValue: { self.userDefaults.setValue($0, forKey: key) }
             )
+    }
+    
+    func updateState(with: Settings) {
+        gameState.backgroundMelody = settings.backgroundMelody
+        gameState.tickSound = settings.tickSound
+        gameState.explosionSound = settings.explosionSound
     }
 }
