@@ -20,3 +20,9 @@ struct MainButton: View {
             .cornerRadius(10)
     }
 }
+
+struct MainButton_Previews: PreviewProvider {
+    static var previews: some View {
+        MainButton(title: "Продолжить")
+    }
+}

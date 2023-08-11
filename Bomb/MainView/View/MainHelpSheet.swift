@@ -19,6 +19,7 @@ struct MainHelpSheet: View {
     ]
     
     let titleFontSize: CGFloat = 36
+    var bottomPadding: CGFloat = 0
     
     var body: some View {
         ZStack {
@@ -31,11 +32,15 @@ struct MainHelpSheet: View {
                     .foregroundStyle(Color.primaryTextColor)
                     .modifiedText(size: titleFontSize)
                 
-                VStack(spacing: 15) {
-                    ForEach(rowData) { rule in
-                        RuleRow(rule: rule)
+                ScrollView(showsIndicators: false) {
+                    VStack(spacing: 5) {
+                        ForEach(rowData) { rule in
+                            RuleRow(rule: rule)
+                        }
                     }
                 }
+                .padding(.bottom, bottomPadding)
+
                 Spacer()
             }
             .padding()

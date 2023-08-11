@@ -25,7 +25,6 @@
 		3C1D20E62A851D65004D9D4E /* SettingsHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C1D20E52A851D65004D9D4E /* SettingsHeaderView.swift */; };
 		3C75BEAD2A84E54900145DA9 /* BackgroundOrange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C75BEAC2A84E54900145DA9 /* BackgroundOrange.swift */; };
 		3C7B76582A82951600F29346 /* BackgroundGray.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C7B76572A82951600F29346 /* BackgroundGray.swift */; };
-		3C7B765C2A82A68500F29346 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C7B765B2A82A68500F29346 /* MainViewModel.swift */; };
 		3C7B765F2A82A7AD00F29346 /* GameTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C7B765E2A82A7AD00F29346 /* GameTime.swift */; };
 		3CBD4D412A812F7800297401 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CBD4D402A812F7800297401 /* MainView.swift */; };
 		3CBD4D432A812F8100297401 /* MainHelpSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CBD4D422A812F8100297401 /* MainHelpSheet.swift */; };
@@ -106,7 +105,6 @@
 		3C1D20E52A851D65004D9D4E /* SettingsHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsHeaderView.swift; sourceTree = "<group>"; };
 		3C75BEAC2A84E54900145DA9 /* BackgroundOrange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundOrange.swift; sourceTree = "<group>"; };
 		3C7B76572A82951600F29346 /* BackgroundGray.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundGray.swift; sourceTree = "<group>"; };
-		3C7B765B2A82A68500F29346 /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 		3C7B765E2A82A7AD00F29346 /* GameTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameTime.swift; sourceTree = "<group>"; };
 		3CBD4D402A812F7800297401 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		3CBD4D422A812F8100297401 /* MainHelpSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainHelpSheet.swift; sourceTree = "<group>"; };
@@ -202,7 +200,6 @@
 		3C7B765A2A82A66800F29346 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				3C7B765B2A82A68500F29346 /* MainViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -634,7 +631,6 @@
 				8657D37D2A856AE700CECC27 /* CustomToolbarModifier.swift in Sources */,
 				3CBD4D452A812F8D00297401 /* SettingsView.swift in Sources */,
 				3C1D20C62A85020D004D9D4E /* TextModifier.swift in Sources */,
-				3C7B765C2A82A68500F29346 /* MainViewModel.swift in Sources */,
 				3C7B765F2A82A7AD00F29346 /* GameTime.swift in Sources */,
 				8657D34B2A855D6700CECC27 /* AssetImage.swift in Sources */,
 				3C1D20CE2A850333004D9D4E /* SettingsButton.swift in Sources */,

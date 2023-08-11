@@ -9,13 +9,14 @@ import SwiftUI
 
 struct ButtonLabelView: View {
     var title: String
+    let isSelected: Bool
     
     var body: some View {
         Text(title)
             .modifiedText(size: 18)
             .padding()
             .frame(minWidth: 150)
-            .background(Color.primaryTextColor)
+            .background(isSelected ? .red : Color.primaryTextColor)
             .cornerRadius(15)
     }
 }
