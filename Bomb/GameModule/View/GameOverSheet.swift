@@ -23,7 +23,7 @@ struct GameOverSheet: View {
             Spacer()
             AssetImage(AssetNames.explosionImage)
             if provider.settings.questionsEnabled {
-                Text(store.punishment)
+                Text(store.quest)
                     .font(.gameFont(weight: .medium))
                     .multilineTextAlignment(.center)
                     .padding()
@@ -42,14 +42,11 @@ struct GameOverSheet: View {
                 heavyImpact.impactOccurred()
             }
         }
-        .onDisappear { store.send(.playAgainButtonTap) }
     }
     
     init(store: GameStore) {
         self.store = store
-        if provider.settings.vibrationEnabled {
-            heavyImpact.prepare()
-        }
+        self.heavyImpact.prepare()
     }
 }
 

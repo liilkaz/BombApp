@@ -12,6 +12,13 @@ struct GameView: View {
     @EnvironmentObject var provider: DataProvider
     @StateObject private var store: GameStore
     
+    private var bindStore: Binding<Bool> {
+        .init(
+            get: { store.isShowSheet },
+            set: { _ in store.send(.dismissSheet) }
+        )
+    }
+    
     //MARK: - Body
     var body: some View {
         VStack {
@@ -52,18 +59,14 @@ struct GameView: View {
             PauseButton { store.send(.pauseButtonTap) }
         }
         .sheet(
-            isPresented: Binding(
-                get: { store.isShowSheet },
-                set: { _ in store.send(.dismissSheet) })
-        ) {
-            GameOverSheet(store: store)
-        }
+            isPresented: bindStore,
+            onDismiss: dropState,
+            content: configureSheet)
         .animation(.easeInOut, value: store.gameFlow)
-        .onAppear {
-            store.send(.setupGame(provider.gameState))
-        }
+        .onAppear { store.send(.setupGame) }
         .onDisappear {
             provider.gameState = store.state
+            store.send(.viewDisappear)
         }
     }
     
@@ -80,6 +83,18 @@ struct GameView: View {
         self._store = StateObject(wrappedValue: store)
     }
     
+}
+
+private extension GameView {
+    //MARK: - Private methods
+    func dropState() {
+        store.send(.setGameState(.initial))
+    }
+    
+    func configureSheet() -> some View {
+        GameOverSheet(store: store)
+            .environmentObject(provider)
+    }
 }
 
 struct GameView_Previews: PreviewProvider {
