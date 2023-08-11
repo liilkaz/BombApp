@@ -9,7 +9,7 @@ import SwiftUI
 
 struct GameView: View {
     private let fadeTransition: AnyTransition = .opacity
-    
+    @EnvironmentObject var provider: DataProvider
     @StateObject private var store: GameStore
     
     //MARK: - Body
@@ -37,12 +37,13 @@ struct GameView: View {
             
             if store.gameFlow == .initial {
                 PlainButton(title: Localization.beginButtonTitle) {
-                    store.send(.launchButtonTap)
+                    store.send(.launchButtonTap(provider.settings))
                 }
                 .transition(fadeTransition)
             }
         }
         .padding()
+        .background(BackgroundView())
         .navigationTitle(Localization.navigationTitle)
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarBackButtonHidden()
@@ -58,8 +59,12 @@ struct GameView: View {
             GameOverSheet(store: store)
         }
         .animation(.easeInOut, value: store.gameFlow)
-        .onAppear { store.send(.viewAppeared) }
-        .onDisappear { }
+        .onAppear {
+            store.send(.setupGame(provider.gameState))
+        }
+        .onDisappear {
+            provider.gameState = store.state
+        }
     }
     
     //MARK: - init(_:)
@@ -81,21 +86,25 @@ struct GameView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
             GameView(store: GameDomain.previewStoreInitialState)
+                .environmentObject(DataProvider())
         }
         .previewDisplayName("Initial")
         
         NavigationView {
             GameView(store: GameDomain.previewStorePlayState)
+                .environmentObject(DataProvider())
         }
         .previewDisplayName("Play")
         
         NavigationView {
             GameView(store: GameDomain.previewStorePauseState)
+                .environmentObject(DataProvider())
         }
         .previewDisplayName("Pause")
         
         NavigationView {
             GameView(store: GameDomain.previewStoreGameOverState)
+                .environmentObject(DataProvider())
         }
         .previewDisplayName("GameOver")
     }

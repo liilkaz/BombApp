@@ -9,9 +9,19 @@ import SwiftUI
 
 @main
 struct BombApp: App {
+    @StateObject var dataProvider = DataProvider()
+    
     var body: some Scene {
         WindowGroup {
             MainView()
+                .environmentObject(dataProvider)
         }
+    }
+    
+    init() {
+        let appearance = UINavigationBarAppearance()
+        appearance.configureWithTransparentBackground()
+        
+        UINavigationBar.appearance().standardAppearance = appearance
     }
 }

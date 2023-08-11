@@ -23,15 +23,17 @@ struct GameDomain {
         var counter: Int = .init()
         var estimatedTime: Int = .init()
         var gameFlow: GameFlow = .init()
+        var backgroundMelody: Settings.Melody = .melody1
+        var tickSound: Settings.Melody = .melody1
+        var explosionSound: Settings.Melody = .melody1
         var isShowSheet = false
     }
     
     //MARK: - Action
     enum Action: Equatable {
-        case viewAppeared
-        case viewDisappear
-        case gameState(State.GameFlow)
-        case launchButtonTap
+        case setupGame(GameDomain.State)
+        case setGameState(State.GameFlow)
+        case launchButtonTap(Settings)
         case pauseButtonTap
         case timerTick
         case playAgainButtonTap
@@ -60,50 +62,38 @@ struct GameDomain {
     //MARK: - Reducer
     func reduce(_ state: inout State, action: Action) -> AnyPublisher<Action, Never> {
         switch action {
-        case .viewAppeared:
-            logger.debug("View appeared")
-            
-            guard state.gameFlow == .initial else {
-                return timerService
-                    .timerTick
-                    .map { _ in .timerTick }
-                    .eraseToAnyPublisher()
-            }
+        case let .setupGame(newState):
+            logger.debug("Setup new state: \(String(reflecting: newState))")
+            state = newState
             
             return timerService
                 .timerTick
                 .map { _ in .timerTick }
-                .merge(with: Just(Action.gameState(.initial)))
                 .eraseToAnyPublisher()
             
-        case .viewDisappear:
-            break
-            
-        case .gameState(.initial):
+        case .setGameState(.initial):
             logger.debug("Setup game state to initial")
-            state.gameFlow = .initial
             state.counter = 0
-            state.estimatedTime = 10
             state.isShowSheet = false
-            state.punishmentArr = ["first", "second", "third"]
             state.title = "Нажмите запустить, чтобы начать игру"
             player.stop()
+            state.gameFlow = .initial
             
-        case .gameState(.play):
+        case .setGameState(.play):
             logger.debug("Setup game state to play")
             player.playTicking()
             player.playBackgroundMusic()
             timerService.startTimer()
             state.gameFlow = .play
             
-        case .gameState(.pause):
+        case .setGameState(.pause):
             logger.debug("Setup game state to pause")
             player.stop()
             timerService.stopTimer()
             state.gameFlow = .pause
             state.title = "Пауза..."
             
-        case .gameState(.gameOver):
+        case .setGameState(.gameOver):
             logger.debug("Setup game state to gameOver")
             timerService.stopTimer()
             player.playBlow()
@@ -114,15 +104,18 @@ struct GameDomain {
             
         case .timerTick:
             guard state.counter < state.estimatedTime else {
-                logger.debug("Send action to switch state to gameOver")
-                return Just(.gameState(.gameOver))
+                return Just(.setGameState(.gameOver))
                     .eraseToAnyPublisher()
             }
             state.counter += 1
             
-        case .launchButtonTap:
-            logger.debug("Send action to switch state to play")
-            return Just(.gameState(.play))
+        case let .launchButtonTap(settings):
+            state.estimatedTime = settings.duration.duration
+            state.backgroundMelody = settings.backgroundMelody
+            state.tickSound = settings.tickSound
+            state.explosionSound = settings.explosionSound
+            
+            return Just(.setGameState(.play))
                 .eraseToAnyPublisher()
             
         case .pauseButtonTap:
@@ -133,8 +126,7 @@ struct GameDomain {
                 .eraseToAnyPublisher()
             
         case .playAgainButtonTap:
-            logger.debug("Send action to switch state to initial")
-            return Just(.gameState(.initial))
+            return Just(.setGameState(.initial))
                 .eraseToAnyPublisher()
             
         case .anotherPunishmentButtonTap:
@@ -199,9 +191,9 @@ private extension GameDomain {
     func togglePause(_ gameFlow: State.GameFlow) -> Action? {
         switch gameFlow {
         case .play:
-            return .gameState(.pause)
+            return .setGameState(.pause)
         case .pause:
-            return .gameState(.play)
+            return .setGameState(.play)
         default:
             return nil
         }
