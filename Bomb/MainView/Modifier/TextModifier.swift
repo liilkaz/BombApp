@@ -19,6 +19,6 @@ struct TextModifier: ViewModifier {
             .font(.system(size: size, weight: .heavy, design: .rounded))
             .foregroundStyle(Color.secondaryTextColor)
             .lineLimit(1)
-            .minimumScaleFactor(0.5)
+            .minimumScaleFactor(0.8)
     }
 }
