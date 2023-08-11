@@ -17,11 +17,11 @@ struct GameDomain {
     
     //MARK: - State
     struct State: Equatable, Codable {
-        var title: String = .init()
-        var punishment: String = .init()
-        var punishmentArr: [String] = .init()
+        var title: String = "Нажмите запустить, чтобы начать игру"
+        var quest: String = .init()
+        var questsArray: [String] = ["Who are you?", "Fuck off."]
         var counter: Int = .init()
-        var estimatedTime: Int = .init()
+        var estimatedTime: Int = 10
         var gameFlow: GameFlow = .init()
         var backgroundMelody: Settings.Melody = .melody1
         var tickSound: Settings.Melody = .melody1
@@ -31,7 +31,7 @@ struct GameDomain {
     
     //MARK: - Action
     enum Action: Equatable {
-        case setupGame(GameDomain.State)
+        case setupGame
         case setGameState(State.GameFlow)
         case launchButtonTap(Settings)
         case pauseButtonTap
@@ -39,6 +39,7 @@ struct GameDomain {
         case playAgainButtonTap
         case anotherPunishmentButtonTap
         case dismissSheet
+        case viewDisappear
     }
     
     //MARK: - Dependencies
@@ -50,7 +51,7 @@ struct GameDomain {
     init(
         timerService: TimerProtocol = TimerService(),
         player: AudioPlayerProtocol = AudioPlayer(),
-        randomNumber: @escaping (Int) -> Int = { Int.random(in: 0...$0) }
+        randomNumber: @escaping (Int) -> Int = { Int.random(in: 0..<$0) }
     ) {
         self.timerService = timerService
         self.player = player
@@ -62,14 +63,15 @@ struct GameDomain {
     //MARK: - Reducer
     func reduce(_ state: inout State, action: Action) -> AnyPublisher<Action, Never> {
         switch action {
-        case let .setupGame(newState):
-            logger.debug("Setup new state: \(String(reflecting: newState))")
-            state = newState
+        case .setupGame:
+            let currentState = state
+            logger.debug("Setup game. Current state: \(String(reflecting: currentState))")
             
-            return timerService
-                .timerTick
-                .map { _ in .timerTick }
-                .eraseToAnyPublisher()
+            return Publishers.Concatenate(
+                prefix: Just(Action.setGameState(state.gameFlow)),
+                suffix: timerService.timerTick.map { _ in .timerTick }
+            )
+            .eraseToAnyPublisher()
             
         case .setGameState(.initial):
             logger.debug("Setup game state to initial")
@@ -99,7 +101,7 @@ struct GameDomain {
             player.playBlow()
             state.gameFlow = .gameOver
             state.title = "Конец игры"
-            state.punishment = getRandomElement(from: state.punishmentArr)
+            state.quest = getRandomElement(from: state.questsArray)
             state.isShowSheet = true
             
         case .timerTick:
@@ -130,7 +132,14 @@ struct GameDomain {
                 .eraseToAnyPublisher()
             
         case .anotherPunishmentButtonTap:
-            state.punishment = getRandomElement(from: state.punishmentArr)
+            state.quest = getRandomElement(from: state.questsArray)
+            
+        case .viewDisappear:
+            timerService.stopTimer()
+            player.stop()
+            
+            return Just(.setGameState(.initial))
+                .eraseToAnyPublisher()
             
         case .dismissSheet:
             state.isShowSheet = false
@@ -174,7 +183,7 @@ struct GameDomain {
     static let previewStoreGameOverState = GameStore(
         initialState: Self.State(
             title: "Конец игры",
-            punishment: "В следующем раунде, после каждого ответа, хлопать в ладоши",
+            quest: "В следующем раунде, после каждого ответа, хлопать в ладоши",
             gameFlow: .gameOver,
             isShowSheet: true
         ),

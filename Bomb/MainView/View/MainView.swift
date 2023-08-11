@@ -57,8 +57,9 @@ struct MainView: View {
                         }
                     
                     Spacer()
-                    
-                    Button {
+
+                    NavigationLink {
+                        GameView()
                     } label: {
                         MainButton(title: "Старт игры")
                     }
