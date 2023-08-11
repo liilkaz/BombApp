@@ -83,8 +83,8 @@ struct GameDomain {
             
         case .setGameState(.play):
             logger.debug("Setup game state to play")
-            player.playTicking()
-            player.playBackgroundMusic()
+            player.playTicking(state.tickSound)
+            player.playBackgroundMusic(state.backgroundMelody)
             timerService.startTimer()
             state.gameFlow = .play
             
@@ -98,7 +98,7 @@ struct GameDomain {
         case .setGameState(.gameOver):
             logger.debug("Setup game state to gameOver")
             timerService.stopTimer()
-            player.playBlow()
+            player.playExplosion(state.explosionSound)
             state.gameFlow = .gameOver
             state.title = "Конец игры"
             state.quest = getRandomElement(from: state.questsArray)

@@ -10,13 +10,19 @@ import AVFoundation
 import OSLog
 
 protocol AudioPlayerProtocol: AnyObject {
-    func playTicking()
-    func playBlow()
-    func playBackgroundMusic()
+    func playTicking(_ melody: Settings.Melody)
+    func playExplosion(_ melody: Settings.Melody)
+    func playBackgroundMusic(_ melody: Settings.Melody)
     func stop()
 }
 
 final class AudioPlayer: AudioPlayerProtocol {
+    private struct Catalog {
+        static let timers = "Timer"
+        static let explosions = "Explosion"
+        static let background = "Background"
+    }
+    
     private let logger = Logger(
         subsystem: Bundle.main.bundleIdentifier!,
         category: String(describing: AudioPlayer.self)
@@ -26,29 +32,17 @@ final class AudioPlayer: AudioPlayerProtocol {
     private var explosionPlayer: AVAudioPlayer?
     private var backgroundPlayer: AVAudioPlayer?
     
+    private var tickPlayers: [AVAudioPlayer] = .init()
+    private var explosionPlayers: [AVAudioPlayer] = .init()
+    private var backgroundPlayers: [AVAudioPlayer] = .init()
+    
     //MARK: - init/deinit
     init() {
-        let bundle = Bundle.main
-        guard
-            let bombTickUrl = bundle.url(forResource: "bombTick", withExtension: "mp3"),
-            let explosionUrl = bundle.url(forResource: "Explosion", withExtension: "mp3"),
-            let backgroundUrl = bundle.url(forResource: "TheBennyHillShow", withExtension: "mp3")
-        else {
-            logger.fault("Unable to find some of mp3 files in bundle")
-            return
-        }
-        
-        do {
-            bombTickPlayer = try AVAudioPlayer(contentsOf: bombTickUrl)
-            explosionPlayer = try AVAudioPlayer(contentsOf: explosionUrl)
-            backgroundPlayer = try AVAudioPlayer(contentsOf: backgroundUrl)
-        } catch {
-            logger.error("Unable to initialize player: \(error.localizedDescription)")
-        }
-        
-        bombTickPlayer?.prepareToPlay()
-        backgroundPlayer?.prepareToPlay()
         logger.debug("Initialized")
+        
+        loadContent(of: Catalog.timers, to: &tickPlayers)
+        loadContent(of: Catalog.explosions, to: &explosionPlayers)
+        loadContent(of: Catalog.background, to: &backgroundPlayers)
     }
     
     deinit {
@@ -56,20 +50,33 @@ final class AudioPlayer: AudioPlayerProtocol {
     }
     
     //MARK: - Public methods
-    func playTicking() {
+    func playTicking(_ melody: Settings.Melody) {
+        guard melody.rawValue < tickPlayers.count else {
+            logger.fault("Index of player out of range")
+            return
+        }
+        bombTickPlayer = tickPlayers[melody.rawValue]
         bombTickPlayer?.currentTime = 0
         bombTickPlayer?.play()
         logger.debug("Start play timer")
     }
     
-    func playBlow() {
+    func playExplosion(_ melody: Settings.Melody) {
         stop()
+        guard melody.rawValue < explosionPlayers.count else {
+            logger.fault("Index of player out of range")
+            return
+        }
         explosionPlayer?.currentTime = 0
         explosionPlayer?.play()
         logger.debug("Start play explosion")
     }
     
-    func playBackgroundMusic() {
+    func playBackgroundMusic(_ melody: Settings.Melody) {
+        guard melody.rawValue < backgroundPlayers.count else {
+            logger.fault("Index of player out of range")
+            return
+        }
         backgroundPlayer?.currentTime = 0
         backgroundPlayer?.play()
         logger.debug("Start play background melody")
@@ -79,5 +86,24 @@ final class AudioPlayer: AudioPlayerProtocol {
         bombTickPlayer?.stop()
         backgroundPlayer?.stop()
         logger.debug("Stop player.")
+    }
+}
+
+private extension AudioPlayer {
+    func loadContent(of subdirectory: String, to players: inout [AVAudioPlayer]) {
+        guard let urls = Bundle.main.urls(forResourcesWithExtension: "mp3", subdirectory: "Timer") else {
+            logger.fault("Unable to locate subdirectory \(subdirectory)")
+            return
+        }
+        players = urls.reduce(into: [AVAudioPlayer](), tryMapToPlayer)
+    }
+    
+    func tryMapToPlayer(_ result: inout [AVAudioPlayer], _ url: URL) {
+        do {
+            let player = try AVAudioPlayer(contentsOf: url)
+            result.append(player)
+        } catch {
+            logger.fault("Unable to load content of \(url)\n Reason: \(error.localizedDescription)")
+        }
     }
 }
