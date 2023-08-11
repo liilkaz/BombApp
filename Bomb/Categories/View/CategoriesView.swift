@@ -22,7 +22,7 @@ struct CategoriesView: View {
                     .padding(.horizontal, 30)
 
                 HelpCategoriesView(vm: vm)
-                    .animateSheetOld(showHelp: $showHelp, dragValueY: $dragValueY)
+                    .animateSheet(showHelp: $showHelp, dragValueY: $dragValueY, pathScreen: 35)
                 
                 Spacer()
             }

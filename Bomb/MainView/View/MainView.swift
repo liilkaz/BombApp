@@ -33,7 +33,7 @@ struct MainView: View {
     
     var body: some View {
         NavigationView {
-            ZStack(alignment: .center) {
+            ZStack(alignment: .bottom) {
                 
                 BackgroundOrange()
                 
@@ -70,6 +70,7 @@ struct MainView: View {
                         MainButton(title: "Категории")
                     }
                 }
+                .navigationBarTitleDisplayMode(.inline)
                 .mainShadow()
                 .padding()
                 .toolbar {
@@ -93,7 +94,7 @@ struct MainView: View {
                 MainHelpSheet()
                     .cornerRadius(cornerRadius)
                     .mainShadow()
-                    .animateSheetMain(showHelp: $isShowSheet, dragValueY: $dragValue)
+                    .animateSheet(showHelp: $isShowSheet, dragValueY: $dragValue, pathScreen: 130)
             }
         }
     }

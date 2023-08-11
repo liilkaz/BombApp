@@ -7,15 +7,18 @@
 
 import SwiftUI
 
-struct CustomSheetModifierOld: ViewModifier {
+struct CustomSheetModifier: ViewModifier {
     @Binding var showHelp: Bool
     @Binding var dragValueY: Double
+    let pathScreen: CGFloat
     
     private let startingOffsetY: CGFloat = UIScreen.main.bounds.height
 
     func body(content: Content) -> some View {
         content
-            .offset(y: showHelp ? UIScreen.main.bounds.height / 26 : startingOffsetY)
+            .offset(y: showHelp
+                    ? pathScreen
+                    : startingOffsetY)
             .offset(y: dragValueY)
             .animation(.spring(), value: showHelp)
             .gesture(
@@ -27,8 +30,10 @@ struct CustomSheetModifierOld: ViewModifier {
                     }
                     .onEnded { value in
                         withAnimation(.spring()) {
-                            if dragValueY >= 300 {
+                            if dragValueY >= 180 {
                                 showHelp.toggle()
+                                let impactHeavy = UIImpactFeedbackGenerator(style: .heavy)
+                                impactHeavy.impactOccurred()
                             }
                             dragValueY = 0
                         }
@@ -38,8 +43,8 @@ struct CustomSheetModifierOld: ViewModifier {
 }
 
 extension View {
-    func animateSheetOld(showHelp: Binding<Bool>, dragValueY: Binding<Double>) -> some View {
-        modifier(CustomSheetModifierOld(showHelp: showHelp, dragValueY: dragValueY))
+    func animateSheet(showHelp: Binding<Bool>, dragValueY: Binding<Double>, pathScreen: CGFloat) -> some View {
+        modifier(CustomSheetModifier(showHelp: showHelp, dragValueY: dragValueY, pathScreen: pathScreen))
     }
 }
 

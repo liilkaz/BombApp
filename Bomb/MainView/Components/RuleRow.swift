@@ -29,3 +29,9 @@ struct RuleRow: View {
         .multilineTextAlignment(.center)
     }
 }
+
+struct RuleRow_Previews: PreviewProvider {
+    static var previews: some View {
+        RuleRow(rule: Rule(number: 4, text: "Игрок отвечает на вопрос и после правильного ответа передает телефон следующему игроку."))
+    }
+}

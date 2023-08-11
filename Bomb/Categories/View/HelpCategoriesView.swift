@@ -11,7 +11,7 @@ struct HelpCategoriesView: View {
     
     private struct Configuration {
         static let stackSpacing: CGFloat = 20
-        static let bottomPadding: CGFloat = 4
+        static let bottomPadding: CGFloat = 16
         static let horizontalPadding: CGFloat = 20
         static let cornerSizeView: CGFloat = 24
         static let dragFrameWidth: CGFloat = 68
