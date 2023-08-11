@@ -21,8 +21,8 @@ final class CategoryViewModel: ObservableObject {
             }
             .store(in: &cancellable)
         categories = CategoryData.questions
-        guard let ids = getID() else { return }
-        reduceCategories(ids: ids)
+//        guard let ids = getID() else { return }
+//        reduceCategories(ids: ids)
     }
     
     func saveID() {
@@ -31,25 +31,25 @@ final class CategoryViewModel: ObservableObject {
         UserDefaults.standard.set(encoded, forKey: "indetifible")
     }
     
-    func getID() -> [UUID]? {
-        guard
-            let data = UserDefaults.standard.data(forKey: "indetifible"),
-            let ids = try? JSONDecoder().decode([UUID].self, from: data) else { return nil }
-        print(ids.count)
-        return ids
-    }
-    
-    func reduceCategories(ids: [UUID]) {
-        categories = categories.reduce(into: [Category]()) { partialResult, category in
-            if ids.contains(category.id) {
-                var chosen = category
-                chosen.isSelected = true
-                partialResult.append(chosen)
-            } else {
-                partialResult.append(category)
-            }
-        }
-    }
+//    func getID() -> [UUID]? {
+//        guard
+//            let data = UserDefaults.standard.data(forKey: "indetifible"),
+//            let ids = try? JSONDecoder().decode([UUID].self, from: data) else { return nil }
+//        print(ids.count)
+//        return ids
+//    }
+//    
+//    func reduceCategories(ids: [UUID]) {
+//        categories = categories.reduce(into: [Category]()) { partialResult, category in
+//            if ids.contains(category.id) {
+//                var chosen = category
+//                chosen.isSelected = true
+//                partialResult.append(chosen)
+//            } else {
+//                partialResult.append(category)
+//            }
+//        }
+//    }
     
     func getQuestions() {
         questions = categories.filter(\.isSelected).flatMap(\.questions)

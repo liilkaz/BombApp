@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct CustomSheetModifier: ViewModifier {
+struct CustomSheetModifierOld: ViewModifier {
     @Binding var showHelp: Bool
     @Binding var dragValueY: Double
     
@@ -38,8 +38,8 @@ struct CustomSheetModifier: ViewModifier {
 }
 
 extension View {
-    func animateSheet(showHelp: Binding<Bool>, dragValueY: Binding<Double>) -> some View {
-        modifier(CustomSheetModifier(showHelp: showHelp, dragValueY: dragValueY))
+    func animateSheetOld(showHelp: Binding<Bool>, dragValueY: Binding<Double>) -> some View {
+        modifier(CustomSheetModifierOld(showHelp: showHelp, dragValueY: dragValueY))
     }
 }
 

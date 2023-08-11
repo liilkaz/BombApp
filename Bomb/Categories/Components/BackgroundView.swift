@@ -9,7 +9,7 @@ import SwiftUI
 
 struct BackgroundView: View {
     
-    var backgroundColor: Color
+    var backgroundColor: Color = .mainViewButton
     
     var body: some View {
         ZStack {
