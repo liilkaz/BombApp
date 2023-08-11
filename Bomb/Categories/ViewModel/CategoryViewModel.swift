@@ -12,51 +12,32 @@ final class CategoryViewModel: ObservableObject {
     
     @Published var categories = [Category]()
     @Published var questions = [String]()
-    private var cancellable = Set<AnyCancellable>()
     
     init() {
-        self.$categories
-            .sink { [weak self] _ in
-                self?.getQuestions()
-            }
-            .store(in: &cancellable)
         categories = CategoryData.questions
-//        guard let ids = getID() else { return }
-//        reduceCategories(ids: ids)
+        getQuestions()
     }
     
-    func saveID() {
-        let ids = categories.filter(\.isSelected).map(\.id)
-        let encoded = try? JSONEncoder().encode(ids)
-        UserDefaults.standard.set(encoded, forKey: "indetifible")
+    func save() -> [CategoryName] {
+        getQuestions()
+        return categories.filter(\.isSelected).map(\.name)
     }
     
-//    func getID() -> [UUID]? {
-//        guard
-//            let data = UserDefaults.standard.data(forKey: "indetifible"),
-//            let ids = try? JSONDecoder().decode([UUID].self, from: data) else { return nil }
-//        print(ids.count)
-//        return ids
-//    }
-//    
-//    func reduceCategories(ids: [UUID]) {
-//        categories = categories.reduce(into: [Category]()) { partialResult, category in
-//            if ids.contains(category.id) {
-//                var chosen = category
-//                chosen.isSelected = true
-//                partialResult.append(chosen)
-//            } else {
-//                partialResult.append(category)
-//            }
-//        }
-//    }
+    func getCategories(names: [CategoryName]) {
+        categories = categories.map { category in
+            var chosen = category
+            chosen.isSelected = names.contains(category.name) ? true : false
+            return chosen
+        }
+    }
     
     func getQuestions() {
+        if categories.filter(\.isSelected).flatMap(\.questions).isEmpty {
+            if let questions = categories.randomElement()?.questions {
+                self.questions = questions
+                return
+            }
+        }
         questions = categories.filter(\.isSelected).flatMap(\.questions)
     }
-    
-    func leaveScreen() -> Bool {
-        return categories.filter(\.isSelected).count != 0
-    }
-    
 }
