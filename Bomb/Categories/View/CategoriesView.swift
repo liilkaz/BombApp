@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct CategoriesView: View {
+    @EnvironmentObject var dataProvider: DataProvider
     @ObservedObject var vm: CategoryViewModel
     @Environment(\.dismiss) var dismiss
     @State private var showHelp = false
@@ -29,7 +30,12 @@ struct CategoriesView: View {
             .navigationBarTitleDisplayMode(.inline)
             .navigationBarBackButtonHidden()
             .navigationHeader(showHelp: $showHelp)
-            .onDisappear(perform: vm.saveID)
+            .onAppear {
+                vm.getCategories(names: dataProvider.categories)
+            }
+            .onDisappear {
+                dataProvider.categories = vm.save()
+            }
     }
 }
 
