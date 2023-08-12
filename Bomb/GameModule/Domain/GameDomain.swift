@@ -18,7 +18,7 @@ struct GameDomain: ReducerProtocol {
     //MARK: - State
     struct State: Equatable, Codable {
         var title: String = .init()
-        var questionCategory: CategoryName = .varied
+        var questionCategory: [CategoryName] = .init()
         var counter: Int = .init()
         var estimatedTime: Int = 10
         var gameFlow: GameFlow = .init()
@@ -26,12 +26,14 @@ struct GameDomain: ReducerProtocol {
         var tickSound: Settings.Melody = .melody1
         var explosionSound: Settings.Melody = .melody1
         var isShowSheet = false
+        var isMusicEnabled = true
     }
     
     //MARK: - Action
     enum Action: Equatable {
         case setupGame
         case setGameState(State.GameFlow)
+        case setQuestionCategories([CategoryName])
         case launchButtonTap(Settings)
         case pauseButtonTap
         case timerTick
@@ -48,13 +50,13 @@ struct GameDomain: ReducerProtocol {
     //MARK: - Dependencies
     private let timerService: TimerProtocol
     private let player: AudioPlayerProtocol
-    private let questions: (CategoryName) -> AnyPublisher<CategoryQuests, Error>
+    private let questions: ([CategoryName]) -> AnyPublisher<[CategoryQuests], Error>
     
     //MARK: - init(_:)
     init(
         timerService: TimerProtocol = TimerService(),
         player: AudioPlayerProtocol = AudioPlayer(),
-        questions: @escaping (CategoryName) -> AnyPublisher<CategoryQuests, Error> = AppFileManager.live.loadQuestions
+        questions: @escaping ([CategoryName]) -> AnyPublisher<[CategoryQuests], Error> = AppFileManager.live.loadQuestions
     ) {
         self.timerService = timerService
         self.player = player
@@ -76,6 +78,11 @@ struct GameDomain: ReducerProtocol {
             )
             .eraseToAnyPublisher()
             
+        case let .setQuestionCategories(categories):
+            if state.gameFlow == .initial {
+                state.questionCategory = categories
+            }
+            
         case .setGameState(.initial):
             logger.debug("Setup game state to initial")
             state.counter = 0
@@ -88,8 +95,10 @@ struct GameDomain: ReducerProtocol {
             
         case .setGameState(.play):
             logger.debug("Setup game state to play")
+            if state.isMusicEnabled {
+                player.playBackgroundMusic(state.backgroundMelody)
+            }
             player.playTicking(state.tickSound)
-            player.playBackgroundMusic(state.backgroundMelody)
             timerService.startTimer()
             state.gameFlow = .play
             
@@ -127,6 +136,7 @@ struct GameDomain: ReducerProtocol {
             state.backgroundMelody = settings.backgroundMelody
             state.tickSound = settings.tickSound
             state.explosionSound = settings.explosionSound
+            state.isMusicEnabled = settings.musicEnable
             
             return Just(.setGameState(.play))
                 .eraseToAnyPublisher()
@@ -141,7 +151,7 @@ struct GameDomain: ReducerProtocol {
         case .questionRequest:
             logger.debug("Request questions.")
             return questions(state.questionCategory)
-                .map(\.questions)
+                .map(flatQuestions)
                 .compactMap{ $0.randomElement() }
                 .map(transformToSuccessAction)
                 .catch(catchToFailAction)
@@ -235,6 +245,12 @@ private extension GameDomain {
     
     func catchToFailAction(_ error: Error) -> Just<Action> {
         Just(.questionResponse(.failure(error)))
+    }
+    
+    func flatQuestions(_ categories: [CategoryQuests]) -> [String] {
+        categories
+            .map(\.questions)
+            .flatMap{ $0 }
     }
 }
 

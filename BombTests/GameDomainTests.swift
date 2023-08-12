@@ -16,12 +16,12 @@ final class GameDomainTests: XCTestCase {
     private var mockTimer: MockTimer!
     private var mockPlayer: MockPlayer!
     private var spy: Spy<GameDomain.Action>!
-    private var testQuests: CategoryQuests!
+    private var testQuests: [CategoryQuests]!
     
     override func setUp() async throws {
         try await super.setUp()
         
-        testQuests = .init(category: .art, questions: ["Baz", "Bar"])
+        testQuests = [.init(category: .art, questions: ["Baz", "Bar"])]
         
         mockTimer = MockTimer()
         mockPlayer = MockPlayer()
@@ -33,7 +33,7 @@ final class GameDomainTests: XCTestCase {
                     .setFailureType(to: Error.self)
                     .eraseToAnyPublisher()
             })
-        state = .init(questionCategory: .art)
+        state = .init()
         spy = .init()
     }
     
@@ -237,6 +237,14 @@ final class GameDomainTests: XCTestCase {
         _ = sut.reduce(&state, action: .questionResponse(.failure(testError)))
         
         XCTAssertEqual(state.title, testError.localizedDescription)
+    }
+    
+    func test_setQuestionCategories() {
+        state.questionCategory = []
+        
+        _ = sut.reduce(&state, action: .setQuestionCategories([.art]))
+        
+        XCTAssertEqual(state.questionCategory, [.art])
     }
     
 }

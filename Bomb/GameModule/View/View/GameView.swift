@@ -58,7 +58,10 @@ struct GameView: View {
             onDismiss: dropState,
             content: configureSheet)
         .animation(.easeInOut, value: store.gameFlow)
-        .onAppear { store.send(.setupGame) }
+        .onAppear {
+            store.send(.setQuestionCategories(provider.categories))
+            store.send(.setupGame)
+        }
         .onDisappear {
             provider.gameState = store.state
             store.dispose()
