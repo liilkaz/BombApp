@@ -73,6 +73,8 @@
 		8690BCBE2A869F92000F5293 /* explosion3.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 8690BCBC2A869F92000F5293 /* explosion3.mp3 */; };
 		86A324FA2A81717F0031B71D /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 86A324F92A81717F0031B71D /* Lottie */; };
 		86D873A62A880B1900F6A97F /* CategoryQuestions.json in Resources */ = {isa = PBXBuildFile; fileRef = 86D873A52A880B1900F6A97F /* CategoryQuestions.json */; };
+		86D873A82A880F9C00F6A97F /* AppFileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86D873A72A880F9C00F6A97F /* AppFileManager.swift */; };
+		86D873AB2A88108000F6A97F /* CategoryQuests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86D873AA2A88108000F6A97F /* CategoryQuests.swift */; };
 		FDA9F2082A87FFBF0099AE94 /* ButtonSectionModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDA9F1FE2A87FFBF0099AE94 /* ButtonSectionModifier.swift */; };
 		FDA9F2092A87FFBF0099AE94 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDA9F2002A87FFBF0099AE94 /* Settings.swift */; };
 		FDA9F20A2A87FFBF0099AE94 /* SoundPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDA9F2022A87FFBF0099AE94 /* SoundPickerView.swift */; };
@@ -161,6 +163,8 @@
 		8690BCBB2A869F92000F5293 /* explosion2.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = explosion2.mp3; sourceTree = "<group>"; };
 		8690BCBC2A869F92000F5293 /* explosion3.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = explosion3.mp3; sourceTree = "<group>"; };
 		86D873A52A880B1900F6A97F /* CategoryQuestions.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = CategoryQuestions.json; sourceTree = "<group>"; };
+		86D873A72A880F9C00F6A97F /* AppFileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppFileManager.swift; sourceTree = "<group>"; };
+		86D873AA2A88108000F6A97F /* CategoryQuests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryQuests.swift; sourceTree = "<group>"; };
 		FDA9F1FE2A87FFBF0099AE94 /* ButtonSectionModifier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonSectionModifier.swift; sourceTree = "<group>"; };
 		FDA9F2002A87FFBF0099AE94 /* Settings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		FDA9F2022A87FFBF0099AE94 /* SoundPickerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SoundPickerView.swift; sourceTree = "<group>"; };
@@ -303,6 +307,7 @@
 				8657D3322A855D6700CECC27 /* Color+.swift */,
 				8657D3332A855D6700CECC27 /* View */,
 				8657D3412A855D6700CECC27 /* UDF */,
+				86D873AA2A88108000F6A97F /* CategoryQuests.swift */,
 			);
 			path = GameModule;
 			sourceTree = "<group>";
@@ -370,6 +375,7 @@
 			children = (
 				8657D3552A855D7E00CECC27 /* TimerService.swift */,
 				8657D3562A855D7E00CECC27 /* AudioService */,
+				86D873A92A88102C00F6A97F /* FileManager */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -457,7 +463,6 @@
 		8657D3762A856AE700CECC27 /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				86D873A52A880B1900F6A97F /* CategoryQuestions.json */,
 				8657D3772A856AE700CECC27 /* CategoryData.swift */,
 			);
 			path = Services;
@@ -512,6 +517,15 @@
 				8657D3592A855D7E00CECC27 /* timer1.mp3 */,
 			);
 			path = Timer;
+			sourceTree = "<group>";
+		};
+		86D873A92A88102C00F6A97F /* FileManager */ = {
+			isa = PBXGroup;
+			children = (
+				86D873A52A880B1900F6A97F /* CategoryQuestions.json */,
+				86D873A72A880F9C00F6A97F /* AppFileManager.swift */,
+			);
+			path = FileManager;
 			sourceTree = "<group>";
 		};
 		FDA9F1FD2A87FFBF0099AE94 /* Modifier */ = {
@@ -689,6 +703,7 @@
 				3C1D20D82A8506AE004D9D4E /* Rule.swift in Sources */,
 				8657D3452A855D6700CECC27 /* GameView.swift in Sources */,
 				8657D3472A855D6700CECC27 /* PauseButton.swift in Sources */,
+				86D873A82A880F9C00F6A97F /* AppFileManager.swift in Sources */,
 				FDA9F20E2A87FFBF0099AE94 /* SettingsView.swift in Sources */,
 				3C1D20D22A850487004D9D4E /* RoundedDivider.swift in Sources */,
 				3C7B76582A82951600F29346 /* BackgroundGray.swift in Sources */,
@@ -713,6 +728,7 @@
 				75F6051C2A8015D400A65218 /* BombApp.swift in Sources */,
 				3C1D20CC2A850315004D9D4E /* MainHelpButton.swift in Sources */,
 				75F605302A81084600A65218 /* Color + ext.swift in Sources */,
+				86D873AB2A88108000F6A97F /* CategoryQuests.swift in Sources */,
 				3C75BEAD2A84E54900145DA9 /* BackgroundOrange.swift in Sources */,
 				8657D3502A855D6700CECC27 /* GameDomain.swift in Sources */,
 				3C1D20C42A8501CD004D9D4E /* View+Extension.swift in Sources */,

@@ -20,6 +20,7 @@ struct GameDomain {
         var title: String = "Нажмите запустить, чтобы начать игру"
         var quest: String = .init()
         var questsArray: [String] = ["Who are you?", "Fuck off."]
+        var questionCategory: CategoryName = .varied
         var counter: Int = .init()
         var estimatedTime: Int = 10
         var gameFlow: GameFlow = .init()
@@ -46,16 +47,19 @@ struct GameDomain {
     private let timerService: TimerProtocol
     private let player: AudioPlayerProtocol
     private let randomNumber: (Int) -> Int
+    private let quests: () -> AnyPublisher<[CategoryQuests], Error>
     
     //MARK: - init(_:)
     init(
         timerService: TimerProtocol = TimerService(),
         player: AudioPlayerProtocol = AudioPlayer(),
-        randomNumber: @escaping (Int) -> Int = { Int.random(in: 0..<$0) }
+        randomNumber: @escaping (Int) -> Int = { Int.random(in: 0..<$0) },
+        quests: @escaping () -> AnyPublisher<[CategoryQuests], Error> = AppFileManager.live.loadQuestions
     ) {
         self.timerService = timerService
         self.player = player
         self.randomNumber = randomNumber
+        self.quests = quests
         
         logger.debug("Initialized")
     }
@@ -163,7 +167,7 @@ struct GameDomain {
             estimatedTime: 10,
             gameFlow: .initial
         ),
-        reducer: Self()
+        reducer: Self(quests: AppFileManager.preview.loadQuestions)
     )
     
     static let previewStorePlayState = GameStore(
@@ -171,7 +175,7 @@ struct GameDomain {
             title: "Some question",
             gameFlow: .play
         ),
-        reducer: Self()
+        reducer: Self(quests: AppFileManager.preview.loadQuestions)
     )
     
     static let previewStorePauseState = GameStore(
@@ -179,7 +183,7 @@ struct GameDomain {
             title: "Pause",
             gameFlow: .pause
         ),
-        reducer: Self()
+        reducer: Self(quests: AppFileManager.preview.loadQuestions)
     )
     
     static let previewStoreGameOverState = GameStore(
@@ -189,7 +193,7 @@ struct GameDomain {
             gameFlow: .gameOver,
             isShowSheet: true
         ),
-        reducer: Self()
+        reducer: Self(quests: AppFileManager.preview.loadQuestions)
     )
 }
 
