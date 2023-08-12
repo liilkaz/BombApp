@@ -7,8 +7,6 @@
 
 import SwiftUI
 
-import SwiftUI
-
 struct SettingsHelpSheet: View {
     
     let titleFontSize: CGFloat = 36
