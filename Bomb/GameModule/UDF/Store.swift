@@ -16,7 +16,7 @@ final class Store<State, Action>: ObservableObject {
     //MARK: - Private properties
     private let logger = Logger(
         subsystem: Bundle.main.bundleIdentifier!,
-        category: String(describing: Store.self)
+        category: "Store"
     )
     private var cancellable: Set<AnyCancellable> = .init()
     private let reducer: any ReducerProtocol<State, Action>

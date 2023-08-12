@@ -55,19 +55,23 @@ struct GameOverDomain: ReducerProtocol {
                 .eraseToAnyPublisher()
             
         case .actionsRequest:
+            logger.debug("Requesting actions.")
             return loadActions()
                 .map(transformToSuccessAction)
                 .catch(catchToFailAction)
                 .eraseToAnyPublisher()
             
         case let .actionsResponse(.success(quests)):
+            logger.debug("Request actions end with success. Loaded: \(quests.count.description) actions.")
             state.questsArray = quests
             state.quest = getRandomElement(from: quests)
             
         case let .actionsResponse(.failure(error)):
+            logger.error("Fail to load actions: \(error.localizedDescription)")
             state.quest = error.localizedDescription
             
         case .anotherPunishmentButtonTap:
+            logger.debug("Set another action.")
             state.quest = getRandomElement(from: state.questsArray)
        
         }

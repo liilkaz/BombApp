@@ -18,7 +18,7 @@ struct GameOverSheet: View {
     
     var body: some View {
         VStack(spacing: Drawing.contentSpacing) {
-            Text(store.quest)
+            Text(Localization.gameOverTitle)
                 .font(.gameFont(weight: .heavy))
             Spacer()
             AssetImage(AssetNames.explosionImage)
@@ -27,6 +27,7 @@ struct GameOverSheet: View {
                     .font(.gameFont(weight: .medium))
                     .multilineTextAlignment(.center)
                     .padding()
+                    .animation(.spring(), value: store.quest)
                 PlainButton(title: Localization.anotherQuestButtonTitle) {
                     store.send(.anotherPunishmentButtonTap)
                 }
@@ -39,6 +40,7 @@ struct GameOverSheet: View {
         .padding()
         .background(BackgroundView())
         .onAppear {
+            store.send(.viewAppeared)
             if provider.settings.vibrationEnabled {
                 heavyImpact.impactOccurred()
             }

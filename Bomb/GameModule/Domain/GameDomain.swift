@@ -107,6 +107,7 @@ struct GameDomain: ReducerProtocol {
             player.playExplosion(state.explosionSound)
             
             return Just(.setGameState(.gameOver))
+                .delay(for: 2, scheduler: RunLoop.main)
                 .eraseToAnyPublisher()
             
         case .setGameState(.gameOver):
