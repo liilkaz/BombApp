@@ -21,42 +21,48 @@ struct GameView: View {
     
     //MARK: - Body
     var body: some View {
-        VStack {
-            Text(store.title)
-                .font(.gameFont(
-                    weight: store.gameFlow == .play
-                    ? .heavy
-                    : .regular)
-                )
-                .multilineTextAlignment(.center)
-                .transition(fadeTransition)
-            
-            Group {
-                switch store.gameFlow == .play {
-                case true:
-                    AnimatedBombView(duration: store.estimatedTime)
-                        .transition(fadeTransition)
-                case false:
-                    AssetImage(AssetNames.bombImage)
-                        .transition(fadeTransition)
+        ZStack {
+            BackgroundView()
+                .ignoresSafeArea()
+            VStack {
+                Text(store.title)
+                    .font(.gameFont(
+                        weight: store.gameFlow == .play
+                        ? .heavy
+                        : .regular)
+                    )
+                    .multilineTextAlignment(.center)
+                    .transition(fadeTransition)
+                
+                Group {
+                    switch store.gameFlow == .play {
+                    case true:
+                        AnimatedBombView(duration: store.estimatedTime)
+                            .transition(fadeTransition)
+                    case false:
+                        AssetImage(AssetNames.bombImage)
+                            .transition(fadeTransition)
+                    }
+                }
+                
+                if store.gameFlow == .initial {
+                    PlainButton(title: Localization.beginButtonTitle) {
+                        store.send(.launchButtonTap(provider.settings))
+                    }
+                    .transition(fadeTransition)
                 }
             }
-            
-            if store.gameFlow == .initial {
-                PlainButton(title: Localization.beginButtonTitle) {
-                    store.send(.launchButtonTap(provider.settings))
-                }
-                .transition(fadeTransition)
-            }
+            .padding()
         }
-        .padding()
-        .background(BackgroundView())
         .navigationTitle(Localization.navigationTitle)
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarBackButtonHidden()
         .toolbar(content: BackButton.init)
-        .toolbar { 
-            PauseButton { store.send(.pauseButtonTap) }
+        .toolbar {
+            PauseButton(
+                isPaused: store.gameFlow == .pause,
+                action: { store.send(.pauseButtonTap) }
+            )
         }
         .sheet(
             isPresented: bindStore,

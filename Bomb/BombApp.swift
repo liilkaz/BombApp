@@ -15,6 +15,7 @@ struct BombApp: App {
         WindowGroup {
             MainView()
                 .environmentObject(dataProvider)
+                .preferredColorScheme(.light)
         }
     }
     
