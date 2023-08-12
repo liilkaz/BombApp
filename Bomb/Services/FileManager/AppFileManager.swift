@@ -10,6 +10,7 @@ import Combine
 
 struct AppFileManager {
     var loadQuestions: (CategoryName) -> AnyPublisher<CategoryQuests, Error>
+    var loadQuests: () -> AnyPublisher<[String], Error>
     
     static let live = Self { categoryName in
         Bundle.main
@@ -21,10 +22,21 @@ struct AppFileManager {
                 categories.first(where: { $0.category == categoryName })
             }
             .eraseToAnyPublisher()
+    } loadQuests: {
+        Bundle.main
+            .url(forResource: "actions", withExtension: "txt")
+            .publisher
+            .tryMap { try String(contentsOf: $0) }
+            .map{ $0.components(separatedBy: "\n") }
+            .eraseToAnyPublisher()
     }
     
     static let preview = Self {_ in 
         Just(CategoryQuests.sample[0])
+            .setFailureType(to: Error.self)
+            .eraseToAnyPublisher()
+    } loadQuests: {
+        Just(["Test1", "Test2"])
             .setFailureType(to: Error.self)
             .eraseToAnyPublisher()
     }

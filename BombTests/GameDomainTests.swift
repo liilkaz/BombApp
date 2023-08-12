@@ -21,7 +21,7 @@ final class GameDomainTests: XCTestCase {
     override func setUp() async throws {
         try await super.setUp()
         
-        testQuests = .init(category: .art, quests: ["Baz", "Bar"])
+        testQuests = .init(category: .art, questions: ["Baz", "Bar"])
         
         mockTimer = MockTimer()
         mockPlayer = MockPlayer()
@@ -93,18 +93,11 @@ final class GameDomainTests: XCTestCase {
     
     func test_reduceGameOverState() {
         state.title = "Baz"
-        state.questsArray = ["Baz", "Bar"]
-        sut = .init(
-            timerService: mockTimer,
-            player: mockPlayer,
-            randomNumber: { _ in 1 }
-        )
         
         _ = sut.reduce(&state, action: .setGameState(.gameOver))
         
         XCTAssertEqual(state.gameFlow, .gameOver)
         XCTAssertEqual(state.title, "Baz")
-        XCTAssertEqual(state.quest, "Bar")
         XCTAssertTrue(state.isShowSheet)
     }
     
@@ -208,24 +201,6 @@ final class GameDomainTests: XCTestCase {
         )
         
         XCTAssertTrue(spy.actions.isEmpty)
-    }
-    
-    func test_playAgainButtonTapEmitSetupGameAction() {
-        spy.schedule(
-            sut.reduce(&state, action: .playAgainButtonTap)
-        )
-        
-        XCTAssertEqual(spy.actions.first, .setGameState(.initial))
-    }
-    
-    func test_anotherPunishmentButtonTap() {
-        sut = .init(randomNumber: {_ in 1 })
-        state.quest = "Baz"
-        state.questsArray = ["Baz", "Bar"]
-        
-        _ = sut.reduce(&state, action: .anotherPunishmentButtonTap)
-        
-        XCTAssertEqual(state.quest, "Bar")
     }
     
     func test_reduceDismissSheetAction() {

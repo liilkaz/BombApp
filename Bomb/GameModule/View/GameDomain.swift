@@ -9,7 +9,7 @@ import Foundation
 import Combine
 import OSLog
 
-struct GameDomain {
+struct GameDomain: ReducerProtocol {
     private let logger = Logger(
         subsystem: Bundle.main.bundleIdentifier!,
         category: String(describing: Self.self)
@@ -18,8 +18,6 @@ struct GameDomain {
     //MARK: - State
     struct State: Equatable, Codable {
         var title: String = .init()
-        var quest: String = .init()
-        var questsArray: [String] = ["Who are you?", "Fuck off."]
         var questionCategory: CategoryName = .varied
         var counter: Int = .init()
         var estimatedTime: Int = 10
@@ -37,8 +35,6 @@ struct GameDomain {
         case launchButtonTap(Settings)
         case pauseButtonTap
         case timerTick
-        case playAgainButtonTap
-        case anotherPunishmentButtonTap
         case dismissSheet
         case viewDisappear
         case questionRequest
@@ -52,19 +48,16 @@ struct GameDomain {
     //MARK: - Dependencies
     private let timerService: TimerProtocol
     private let player: AudioPlayerProtocol
-    private let randomNumber: (Int) -> Int
     private let questions: (CategoryName) -> AnyPublisher<CategoryQuests, Error>
     
     //MARK: - init(_:)
     init(
         timerService: TimerProtocol = TimerService(),
         player: AudioPlayerProtocol = AudioPlayer(),
-        randomNumber: @escaping (Int) -> Int = { Int.random(in: 0..<$0) },
         questions: @escaping (CategoryName) -> AnyPublisher<CategoryQuests, Error> = AppFileManager.live.loadQuestions
     ) {
         self.timerService = timerService
         self.player = player
-        self.randomNumber = randomNumber
         self.questions = questions
         
         logger.debug("Initialized")
@@ -119,7 +112,6 @@ struct GameDomain {
         case .setGameState(.gameOver):
             logger.debug("Setup game state to gameOver")
             state.gameFlow = .gameOver
-            state.quest = getRandomElement(from: state.questsArray)
             state.isShowSheet = true
             
         case .timerTick:
@@ -144,13 +136,6 @@ struct GameDomain {
                 .map(togglePause)
                 .compactMap { $0 }
                 .eraseToAnyPublisher()
-            
-        case .playAgainButtonTap:
-            return Just(.setGameState(.initial))
-                .eraseToAnyPublisher()
-            
-        case .anotherPunishmentButtonTap:
-            state.quest = getRandomElement(from: state.questsArray)
             
         case .questionRequest:
             logger.debug("Request questions.")
@@ -186,13 +171,13 @@ struct GameDomain {
     }
     
     //MARK: - Live store
-    static let liveStore = GameStore(
+    static let liveStore = Store(
         initialState: Self.State(),
         reducer: Self()
     )
     
     //MARK: - Preview stores
-    static let previewStoreInitialState = GameStore(
+    static let previewStoreInitialState = Store(
         initialState: Self.State(
             title: "Нажмите запустить, чтобы начать игру",
             estimatedTime: 10,
@@ -201,7 +186,7 @@ struct GameDomain {
         reducer: Self(questions: AppFileManager.preview.loadQuestions)
     )
     
-    static let previewStorePlayState = GameStore(
+    static let previewStorePlayState = Store(
         initialState: Self.State(
             title: "Some question",
             gameFlow: .play
@@ -209,7 +194,7 @@ struct GameDomain {
         reducer: Self(questions: AppFileManager.preview.loadQuestions)
     )
     
-    static let previewStorePauseState = GameStore(
+    static let previewStorePauseState = Store(
         initialState: Self.State(
             title: "Pause",
             gameFlow: .pause
@@ -217,10 +202,9 @@ struct GameDomain {
         reducer: Self(questions: AppFileManager.preview.loadQuestions)
     )
     
-    static let previewStoreGameOverState = GameStore(
+    static let previewStoreGameOverState = Store(
         initialState: Self.State(
             title: "Конец игры",
-            quest: "В следующем раунде, после каждого ответа, хлопать в ладоши",
             gameFlow: .gameOver,
             isShowSheet: true
         ),
@@ -229,11 +213,6 @@ struct GameDomain {
 }
 
 private extension GameDomain {
-    func getRandomElement(from collection: [String]) -> String {
-        let randomIndex = randomNumber(collection.count)
-        return collection[randomIndex]
-    }
-    
     func togglePause(_ gameFlow: State.GameFlow) -> Action? {
         switch gameFlow {
         case .play:

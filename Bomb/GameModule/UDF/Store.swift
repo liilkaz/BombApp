@@ -9,24 +9,26 @@ import Foundation
 import OSLog
 import Combine
 
+typealias StoreOf<R: ReducerProtocol> = Store<R.State, R.Action>
+
 @dynamicMemberLookup
-final class GameStore: ObservableObject {
+final class Store<State, Action>: ObservableObject {
     //MARK: - Private properties
     private let logger = Logger(
         subsystem: Bundle.main.bundleIdentifier!,
-        category: String(describing: GameStore.self)
+        category: String(describing: Store.self)
     )
     private var cancellable: Set<AnyCancellable> = .init()
-    private let reducer: GameDomain
+    private let reducer: any ReducerProtocol<State, Action>
     
     //MARK: - State property
-    @Published private(set) var state: GameDomain.State
+    @Published private(set) var state: State
     
     //MARK: - init(_:)
-    init(
-        initialState: GameDomain.State,
-        reducer: GameDomain
-    ) {
+    init<R: ReducerProtocol>(
+        initialState: R.State,
+        reducer: R
+    ) where R.State == State, R.Action == Action {
         self.state = initialState
         self.reducer = reducer
         logger.debug("Initialized")
@@ -38,7 +40,7 @@ final class GameStore: ObservableObject {
     
     //MARK: - Send
     @inlinable
-    func send(_ action: GameDomain.Action) {
+    func send(_ action: Action) {
         reducer.reduce(&state, action: action)
             .receive(on: DispatchQueue.main)
             .map(logAction)
@@ -52,7 +54,7 @@ final class GameStore: ObservableObject {
     }
     
     //MARK: - subscript
-    subscript<T>(dynamicMember keyPath: KeyPath<GameDomain.State, T>) -> T {
+    subscript<T>(dynamicMember keyPath: KeyPath<State, T>) -> T {
         state[keyPath: keyPath]
     }
     
@@ -66,12 +68,12 @@ final class GameStore: ObservableObject {
     }
 }
 
-private extension GameStore {
+private extension Store {
     func logState(_ state: String) {
         logger.debug("\(state)")
     }
     
-    func logAction(_ action: GameDomain.Action) -> GameDomain.Action {
+    func logAction(_ action: Action) -> Action {
         logger.debug("\(String(reflecting: action))")
         return action
     }

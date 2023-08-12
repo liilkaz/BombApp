@@ -10,7 +10,7 @@ import SwiftUI
 struct GameView: View {
     private let fadeTransition: AnyTransition = .opacity
     @EnvironmentObject var provider: DataProvider
-    @StateObject private var store: GameStore
+    @StateObject private var store: StoreOf<GameDomain>
     
     private var bindStore: Binding<Bool> {
         .init(
@@ -67,12 +67,12 @@ struct GameView: View {
     }
     
     //MARK: - init(_:)
-    init(store: GameStore = GameDomain.liveStore) {
+    init(store: StoreOf<GameDomain> = GameDomain.liveStore) {
         self._store = StateObject(wrappedValue: store)
     }
     
     init(state: GameDomain.State) {
-        let store = GameStore(
+        let store = Store(
             initialState: state,
             reducer: GameDomain()
         )
@@ -88,7 +88,7 @@ private extension GameView {
     }
     
     func configureSheet() -> some View {
-        GameOverSheet(store: store)
+        GameOverSheet()
             .environmentObject(provider)
     }
 }

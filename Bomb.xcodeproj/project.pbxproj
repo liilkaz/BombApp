@@ -39,7 +39,7 @@
 		8657D34C2A855D6700CECC27 /* AnimatedBombView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8657D33D2A855D6700CECC27 /* AnimatedBombView.swift */; };
 		8657D34D2A855D6700CECC27 /* Localization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8657D33F2A855D6700CECC27 /* Localization.swift */; };
 		8657D34E2A855D6700CECC27 /* AssetNames.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8657D3402A855D6700CECC27 /* AssetNames.swift */; };
-		8657D34F2A855D6700CECC27 /* GameStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8657D3422A855D6700CECC27 /* GameStore.swift */; };
+		8657D34F2A855D6700CECC27 /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8657D3422A855D6700CECC27 /* Store.swift */; };
 		8657D3502A855D6700CECC27 /* GameDomain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8657D3432A855D6700CECC27 /* GameDomain.swift */; };
 		8657D3532A855D7400CECC27 /* BombAnimation.json in Resources */ = {isa = PBXBuildFile; fileRef = 8657D3522A855D7400CECC27 /* BombAnimation.json */; };
 		8657D35C2A855D7E00CECC27 /* TimerService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8657D3552A855D7E00CECC27 /* TimerService.swift */; };
@@ -77,6 +77,10 @@
 		86D873B22A88146700F6A97F /* CategoryQuestions.json in Resources */ = {isa = PBXBuildFile; fileRef = 86D873B02A88146700F6A97F /* CategoryQuestions.json */; };
 		86D873B42A881EB500F6A97F /* TitleLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86D873B32A881EB500F6A97F /* TitleLabel.swift */; };
 		86D873B62A88216A00F6A97F /* BombContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86D873B52A88216A00F6A97F /* BombContentView.swift */; };
+		86D873B82A8834CB00F6A97F /* actions.txt in Resources */ = {isa = PBXBuildFile; fileRef = 86D873B72A8834CB00F6A97F /* actions.txt */; };
+		86D873BA2A8836B400F6A97F /* ReducerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86D873B92A8836B400F6A97F /* ReducerProtocol.swift */; };
+		86D873BC2A883A3C00F6A97F /* GameOverDomain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86D873BB2A883A3C00F6A97F /* GameOverDomain.swift */; };
+		86D873BE2A883E7000F6A97F /* GameOverDomainTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86D873BD2A883E7000F6A97F /* GameOverDomainTests.swift */; };
 		FDA9F2082A87FFBF0099AE94 /* ButtonSectionModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDA9F1FE2A87FFBF0099AE94 /* ButtonSectionModifier.swift */; };
 		FDA9F2092A87FFBF0099AE94 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDA9F2002A87FFBF0099AE94 /* Settings.swift */; };
 		FDA9F20A2A87FFBF0099AE94 /* SoundPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDA9F2022A87FFBF0099AE94 /* SoundPickerView.swift */; };
@@ -131,7 +135,7 @@
 		8657D33D2A855D6700CECC27 /* AnimatedBombView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimatedBombView.swift; sourceTree = "<group>"; };
 		8657D33F2A855D6700CECC27 /* Localization.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Localization.swift; sourceTree = "<group>"; };
 		8657D3402A855D6700CECC27 /* AssetNames.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssetNames.swift; sourceTree = "<group>"; };
-		8657D3422A855D6700CECC27 /* GameStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameStore.swift; sourceTree = "<group>"; };
+		8657D3422A855D6700CECC27 /* Store.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Store.swift; sourceTree = "<group>"; };
 		8657D3432A855D6700CECC27 /* GameDomain.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameDomain.swift; sourceTree = "<group>"; };
 		8657D3522A855D7400CECC27 /* BombAnimation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = BombAnimation.json; sourceTree = "<group>"; };
 		8657D3552A855D7E00CECC27 /* TimerService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimerService.swift; sourceTree = "<group>"; };
@@ -170,6 +174,10 @@
 		86D873B02A88146700F6A97F /* CategoryQuestions.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = CategoryQuestions.json; sourceTree = "<group>"; };
 		86D873B32A881EB500F6A97F /* TitleLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleLabel.swift; sourceTree = "<group>"; };
 		86D873B52A88216A00F6A97F /* BombContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BombContentView.swift; sourceTree = "<group>"; };
+		86D873B72A8834CB00F6A97F /* actions.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = actions.txt; sourceTree = "<group>"; };
+		86D873B92A8836B400F6A97F /* ReducerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReducerProtocol.swift; sourceTree = "<group>"; };
+		86D873BB2A883A3C00F6A97F /* GameOverDomain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOverDomain.swift; sourceTree = "<group>"; };
+		86D873BD2A883E7000F6A97F /* GameOverDomainTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOverDomainTests.swift; sourceTree = "<group>"; };
 		FDA9F1FE2A87FFBF0099AE94 /* ButtonSectionModifier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonSectionModifier.swift; sourceTree = "<group>"; };
 		FDA9F2002A87FFBF0099AE94 /* Settings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		FDA9F2022A87FFBF0099AE94 /* SoundPickerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SoundPickerView.swift; sourceTree = "<group>"; };
@@ -320,9 +328,11 @@
 		8657D3332A855D6700CECC27 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				8657D3432A855D6700CECC27 /* GameDomain.swift */,
 				8657D3342A855D6700CECC27 /* GameView.swift */,
 				8657D3352A855D6700CECC27 /* ToolbarItems */,
 				8657D3382A855D6700CECC27 /* GameOverSheet.swift */,
+				86D873BB2A883A3C00F6A97F /* GameOverDomain.swift */,
 				8657D3392A855D6700CECC27 /* Subviews */,
 				8657D33E2A855D6700CECC27 /* Resourses */,
 			);
@@ -363,8 +373,8 @@
 		8657D3412A855D6700CECC27 /* UDF */ = {
 			isa = PBXGroup;
 			children = (
-				8657D3422A855D6700CECC27 /* GameStore.swift */,
-				8657D3432A855D6700CECC27 /* GameDomain.swift */,
+				8657D3422A855D6700CECC27 /* Store.swift */,
+				86D873B92A8836B400F6A97F /* ReducerProtocol.swift */,
 			);
 			path = UDF;
 			sourceTree = "<group>";
@@ -490,6 +500,7 @@
 		8657D3B62A85A17F00CECC27 /* BombTests */ = {
 			isa = PBXGroup;
 			children = (
+				86D873BD2A883E7000F6A97F /* GameOverDomainTests.swift */,
 				8657D3BF2A85A1F000CECC27 /* DataProviderTests.swift */,
 				8657D3AF2A85A0B700CECC27 /* GameDomainTests.swift */,
 				8657D3C12A85A4B000CECC27 /* Spy.swift */,
@@ -530,6 +541,7 @@
 		86D873AE2A88146700F6A97F /* FileManager */ = {
 			isa = PBXGroup;
 			children = (
+				86D873B72A8834CB00F6A97F /* actions.txt */,
 				86D873AF2A88146700F6A97F /* AppFileManager.swift */,
 				86D873B02A88146700F6A97F /* CategoryQuestions.json */,
 			);
@@ -668,6 +680,7 @@
 				FDC0B44D2A87B140004677AA /* (null) in Resources */,
 				8690BCBA2A869EE3000F5293 /* timer2.mp3 in Resources */,
 				8690BCBD2A869F92000F5293 /* explosion2.mp3 in Resources */,
+				86D873B82A8834CB00F6A97F /* actions.txt in Resources */,
 				75F605202A8015D500A65218 /* Assets.xcassets in Resources */,
 				86D8739C2A88091100F6A97F /* explosion1.mp3 in Resources */,
 				86D873A22A88091B00F6A97F /* background3.mp3 in Resources */,
@@ -701,6 +714,7 @@
 				86D873B62A88216A00F6A97F /* BombContentView.swift in Sources */,
 				8657D3482A855D6700CECC27 /* GameOverSheet.swift in Sources */,
 				8657D37F2A856AE700CECC27 /* StaticCategoryGrid.swift in Sources */,
+				86D873BC2A883A3C00F6A97F /* GameOverDomain.swift in Sources */,
 				8657D37E2A856AE700CECC27 /* DynamicCategoryGrid.swift in Sources */,
 				8657D3832A856AE700CECC27 /* CategoriesView.swift in Sources */,
 				8657D35D2A855D7E00CECC27 /* AudioPlayer.swift in Sources */,
@@ -729,6 +743,7 @@
 				8657D3492A855D6700CECC27 /* PlainButton.swift in Sources */,
 				86D873B12A88146700F6A97F /* AppFileManager.swift in Sources */,
 				FDA9F20A2A87FFBF0099AE94 /* SoundPickerView.swift in Sources */,
+				86D873BA2A8836B400F6A97F /* ReducerProtocol.swift in Sources */,
 				8657D37D2A856AE700CECC27 /* CustomToolbarModifier.swift in Sources */,
 				3C1D20C62A85020D004D9D4E /* TextModifier.swift in Sources */,
 				3C7B765F2A82A7AD00F29346 /* GameTime.swift in Sources */,
@@ -743,7 +758,7 @@
 				8657D3502A855D6700CECC27 /* GameDomain.swift in Sources */,
 				3C1D20C42A8501CD004D9D4E /* View+Extension.swift in Sources */,
 				8657D3872A8576C300CECC27 /* DataProvider.swift in Sources */,
-				8657D34F2A855D6700CECC27 /* GameStore.swift in Sources */,
+				8657D34F2A855D6700CECC27 /* Store.swift in Sources */,
 				FDA9F20C2A87FFBF0099AE94 /* SettingsHeaderView.swift in Sources */,
 				FDA9F2082A87FFBF0099AE94 /* ButtonSectionModifier.swift in Sources */,
 				8657D3782A856AE700CECC27 /* CategoryViewModel.swift in Sources */,
@@ -760,6 +775,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8657D3C02A85A1F000CECC27 /* DataProviderTests.swift in Sources */,
+				86D873BE2A883E7000F6A97F /* GameOverDomainTests.swift in Sources */,
 				8657D3BE2A85A18800CECC27 /* GameDomainTests.swift in Sources */,
 				8657D3C22A85A4B000CECC27 /* Spy.swift in Sources */,
 			);
