@@ -73,6 +73,7 @@ struct GameView: View {
         .onDisappear {
             provider.gameState = store.state
             store.send(.viewDisappear)
+            store.dispose()
         }
     }
     

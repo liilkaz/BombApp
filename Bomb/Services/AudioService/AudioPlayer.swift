@@ -80,6 +80,7 @@ final class AudioPlayer: AudioPlayerProtocol {
             logger.fault("Index of player out of range")
             return
         }
+        explosionPlayer = explosionPlayers[melody.rawValue]
         explosionPlayer?.currentTime = 0
         explosionPlayer?.play()
         logger.debug("Start play explosion")
@@ -90,6 +91,7 @@ final class AudioPlayer: AudioPlayerProtocol {
             logger.fault("Index of player out of range")
             return
         }
+        backgroundPlayer = backgroundPlayers[melody.rawValue]
         backgroundPlayer?.currentTime = 0
         backgroundPlayer?.play()
         logger.debug("Start play background melody")

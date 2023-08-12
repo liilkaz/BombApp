@@ -46,6 +46,10 @@ final class GameStore: ObservableObject {
             .store(in: &cancellable)
     }
     
+    func dispose() {
+        cancellable.removeAll()
+    }
+    
     //MARK: - subscript
     subscript<T>(dynamicMember keyPath: KeyPath<GameDomain.State, T>) -> T {
         state[keyPath: keyPath]
