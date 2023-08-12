@@ -11,7 +11,7 @@ struct CustomToolbarModifier: ViewModifier {
     @ObservedObject var vm: CategoryViewModel
     @Binding var showHelp: Bool
     @Environment(\.dismiss) var dismiss
-
+    
     func body(content: Content) -> some View {
         content
             .toolbar {
@@ -22,14 +22,12 @@ struct CustomToolbarModifier: ViewModifier {
                 }
                 
                 ToolbarItem(placement: .navigationBarLeading) {
-                    if vm.leaveScreen() {
-                        Image(systemName: "chevron.left")
-                            .resizable()
-                            .frame(width: 12, height: 20)
-                            .onTapGesture {
-                                dismiss()
-                            }
-                    }
+                    Image(systemName: "chevron.left")
+                        .resizable()
+                        .frame(width: 12, height: 20)
+                        .onTapGesture {
+                            dismiss()
+                        }
                 }
                 
                 ToolbarItem(placement: .navigationBarTrailing) {

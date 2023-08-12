@@ -1,16 +1,7 @@
-//
-//  CategoryData.swift
-//  Bomb
-//
-//  Created by Kasharin Mikhail on 10.08.2023.
-//
-
-import Foundation
-
-struct CategoryData {
-    
-    private let variedQuestions = [
-        
+[
+  {
+    "category": "О Разном",
+    "questions": [
         "Назовите страну Европы",
         "Назовите города миллионники",
         "Назовите реки протекающие в России",
@@ -26,10 +17,11 @@ struct CategoryData {
         "Назовите языки стран мира",
         "Назовите музыкальные инструменты",
         "Назовите элемент таблицы Менделеева"
-        
     ]
-    private let sportQuestions = [
-        
+  },
+  {
+    "category": "Спорт и Хобби",
+    "questions": [
         "Назовите зимние виды спорта",
         "Назовите летние виды спорта",
         "Назовите виды спорта с мячом",
@@ -44,11 +36,12 @@ struct CategoryData {
         "Назовите баскетбольные команды",
         "Назовите страны где проходили Олимпийские игры",
         "Назовите правило из любого вида спорта",
-        "Назовите полезные продкты"
-        
+        "Назовите полезные продукты"
     ]
-    private let lifeQuestions = [
-        
+  },
+  {
+    "category": "Про жизнь",
+    "questions": [
         "Назовите виды транспорта",
         "Назовите марки автомобилей",
         "Назовите марки мобильных телефонов",
@@ -64,9 +57,11 @@ struct CategoryData {
         "Назовите предмет женской одежды",
         "Назовите виды мужской обуви",
         "Назовите популярные бренды одежды"
-        
     ]
-    private let celebrityQuestions = [
+  },
+  {
+    "category": "Знаменитости",
+    "questions": [
         "Назовите известных поп-исполнителей",
         "Назовите известные рок группы",
         "Назовите участников фабрики звезд",
@@ -83,7 +78,10 @@ struct CategoryData {
         "Назовите актеров снявшихся в фильмах «Марвел»",
         "Назовите группы которые распались"
     ]
-    private let natureQuestions = [
+  },
+  {
+    "category": "Природа",
+    "questions": [
         "Какие деревья растут в России",
         "Назовите цветы красного цвета",
         "Назовите фрукты округлой формы",
@@ -100,8 +98,10 @@ struct CategoryData {
         "Назовите виды мелких насекомых",
         "Назовите животных у которых есть хвост"
     ]
-    private let artQuestions = [
-        
+  },
+  {
+    "category": "Искусство и кино",
+    "questions": [
         "Назовите культовые фразы из кино",
         "Назовите фильмы с Бредом Питтом",
         "Назовите героев «Теории большого взрыва»?",
@@ -118,19 +118,8 @@ struct CategoryData {
         "Имена героев всех частей «Гарри Поттера»?",
         "Назовите имена героев сериала «Друзья»?",
         "Что изображено на картине «Тайная вечеря» Леонардо да Винчи?"
-        
     ]
-    
-    static var shared = CategoryData()
-    
-    private init() {}
-    
-    lazy var questions: [Category] = [
-        Category(name: .varied, questions: variedQuestions, isSelected: true),
-        Category(name: .sport, questions: sportQuestions, isSelected: false),
-        Category(name: .life, questions: lifeQuestions, isSelected: false),
-        Category(name: .celebrity, questions: celebrityQuestions, isSelected: false),
-        Category(name: .art, questions: artQuestions, isSelected: false),
-        Category(name: .nature, questions: natureQuestions, isSelected: false)
-    ]
-}
+  }
+]
+
+

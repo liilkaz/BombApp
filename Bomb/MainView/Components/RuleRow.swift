@@ -15,11 +15,9 @@ struct RuleRow: View {
             Circle()
                 .frame(width: 35, height: 35)
                 .foregroundStyle(Color.mainBackground)
-//                .shadow(radius: 4)
                 .overlay (
                     Text("\(rule.number)")
                         .font(.system(size: 15, weight: .heavy, design: .rounded))
-
                 )
             Spacer()
             Text(rule.text)

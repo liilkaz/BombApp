@@ -16,7 +16,6 @@
 		3C1D20D22A850487004D9D4E /* RoundedDivider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C1D20D12A850487004D9D4E /* RoundedDivider.swift */; };
 		3C1D20D62A8505AD004D9D4E /* RuleRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C1D20D52A8505AD004D9D4E /* RuleRow.swift */; };
 		3C1D20D82A8506AE004D9D4E /* Rule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C1D20D72A8506AE004D9D4E /* Rule.swift */; };
-		3C1D20DA2A851333004D9D4E /* Melody.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C1D20D92A851333004D9D4E /* Melody.swift */; };
 		3C1D20DC2A851350004D9D4E /* SoundPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C1D20DB2A851350004D9D4E /* SoundPickerView.swift */; };
 		3C1D20DE2A851CC2004D9D4E /* ToggleSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C1D20DD2A851CC2004D9D4E /* ToggleSectionView.swift */; };
 		3C1D20E02A851D07004D9D4E /* ButtonSectionModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C1D20DF2A851D07004D9D4E /* ButtonSectionModifier.swift */; };
@@ -74,6 +73,7 @@
 		8657D3C02A85A1F000CECC27 /* DataProviderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8657D3BF2A85A1F000CECC27 /* DataProviderTests.swift */; };
 		8657D3C22A85A4B000CECC27 /* Spy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8657D3C12A85A4B000CECC27 /* Spy.swift */; };
 		86A324FA2A81717F0031B71D /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 86A324F92A81717F0031B71D /* Lottie */; };
+		FDC0B44D2A87B140004677AA /* CategoryQuestions.json in Resources */ = {isa = PBXBuildFile; fileRef = FDC0B44C2A87B140004677AA /* CategoryQuestions.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -96,7 +96,6 @@
 		3C1D20D12A850487004D9D4E /* RoundedDivider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedDivider.swift; sourceTree = "<group>"; };
 		3C1D20D52A8505AD004D9D4E /* RuleRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RuleRow.swift; sourceTree = "<group>"; };
 		3C1D20D72A8506AE004D9D4E /* Rule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rule.swift; sourceTree = "<group>"; };
-		3C1D20D92A851333004D9D4E /* Melody.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Melody.swift; sourceTree = "<group>"; };
 		3C1D20DB2A851350004D9D4E /* SoundPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundPickerView.swift; sourceTree = "<group>"; };
 		3C1D20DD2A851CC2004D9D4E /* ToggleSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToggleSectionView.swift; sourceTree = "<group>"; };
 		3C1D20DF2A851D07004D9D4E /* ButtonSectionModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonSectionModifier.swift; sourceTree = "<group>"; };
@@ -155,6 +154,7 @@
 		8657D3B52A85A17F00CECC27 /* BombTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BombTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8657D3BF2A85A1F000CECC27 /* DataProviderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataProviderTests.swift; sourceTree = "<group>"; };
 		8657D3C12A85A4B000CECC27 /* Spy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Spy.swift; sourceTree = "<group>"; };
+		FDC0B44C2A87B140004677AA /* CategoryQuestions.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = CategoryQuestions.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -190,18 +190,9 @@
 			isa = PBXGroup;
 			children = (
 				3CBD4D402A812F7800297401 /* MainView.swift */,
-				3CBD4D442A812F8D00297401 /* SettingsView.swift */,
 				3CBD4D422A812F8100297401 /* MainHelpSheet.swift */,
-				3C7B765A2A82A66800F29346 /* ViewModel */,
 			);
 			path = View;
-			sourceTree = "<group>";
-		};
-		3C7B765A2A82A66800F29346 /* ViewModel */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		3C7B765D2A82A6D900F29346 /* Model */ = {
@@ -209,7 +200,6 @@
 			children = (
 				3C7B765E2A82A7AD00F29346 /* GameTime.swift */,
 				3C1D20D72A8506AE004D9D4E /* Rule.swift */,
-				3C1D20D92A851333004D9D4E /* Melody.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -221,7 +211,6 @@
 				3C7B76592A82A65D00F29346 /* View */,
 				3CBD4D462A812F9000297401 /* Components */,
 				3CBD4D492A823F0800297401 /* Modifier */,
-				3C1D20C02A850180004D9D4E /* Extensions */,
 			);
 			path = MainView;
 			sourceTree = "<group>";
@@ -230,11 +219,7 @@
 			isa = PBXGroup;
 			children = (
 				3C7B76572A82951600F29346 /* BackgroundGray.swift */,
-				3C1D20E52A851D65004D9D4E /* SettingsHeaderView.swift */,
 				3C1D20E32A851D49004D9D4E /* SettingsTimeTitle.swift */,
-				3C1D20DD2A851CC2004D9D4E /* ToggleSectionView.swift */,
-				3C1D20E12A851D2B004D9D4E /* ButtonLabelView.swift */,
-				3C1D20DB2A851350004D9D4E /* SoundPickerView.swift */,
 				3C1D20D52A8505AD004D9D4E /* RuleRow.swift */,
 				3C1D20CB2A850315004D9D4E /* MainHelpButton.swift */,
 				3C1D20C92A850282004D9D4E /* MainButton.swift */,
@@ -250,7 +235,6 @@
 			children = (
 				3C1D20C52A85020D004D9D4E /* TextModifier.swift */,
 				3C1D20C72A85022D004D9D4E /* ShadowModifier.swift */,
-				3C1D20DF2A851D07004D9D4E /* ButtonSectionModifier.swift */,
 			);
 			path = Modifier;
 			sourceTree = "<group>";
@@ -276,17 +260,17 @@
 		75F6051A2A8015D400A65218 /* Bomb */ = {
 			isa = PBXGroup;
 			children = (
+				3CBD4D3F2A812F6100297401 /* MainView */,
 				8657D3AB2A8591E900CECC27 /* Settings */,
+				8657D3312A855D6700CECC27 /* GameModule */,
 				8657D3632A856AE700CECC27 /* Categories */,
 				8657D3542A855D7E00CECC27 /* Services */,
+				3C1D20C02A850180004D9D4E /* Extensions */,
 				8657D3512A855D7400CECC27 /* LottieAnimations */,
-				8657D3312A855D6700CECC27 /* GameModule */,
-				75F6051B2A8015D400A65218 /* BombApp.swift */,
-				75F6051D2A8015D400A65218 /* ContentView.swift */,
-				3CBD4D3F2A812F6100297401 /* MainView */,
-				75F6051F2A8015D500A65218 /* Assets.xcassets */,
 				75F605212A8015D500A65218 /* Preview Content */,
+				75F6051B2A8015D400A65218 /* BombApp.swift */,
 				8657D3862A8576C300CECC27 /* DataProvider.swift */,
+				75F6051D2A8015D400A65218 /* ContentView.swift */,
 			);
 			path = Bomb;
 			sourceTree = "<group>";
@@ -294,6 +278,7 @@
 		75F605212A8015D500A65218 /* Preview Content */ = {
 			isa = PBXGroup;
 			children = (
+				75F6051F2A8015D500A65218 /* Assets.xcassets */,
 				75F605222A8015D500A65218 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
@@ -418,10 +403,10 @@
 		8657D3662A856AE700CECC27 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				8657D36A2A856AE700CECC27 /* Modifier */,
 				8657D3672A856AE700CECC27 /* CategoryCell.swift */,
 				8657D3682A856AE700CECC27 /* CellImageView.swift */,
 				8657D3692A856AE700CECC27 /* CellTextView.swift */,
-				8657D36A2A856AE700CECC27 /* Modifier */,
 				8657D36D2A856AE700CECC27 /* DynamicCategoryGrid.swift */,
 				8657D36E2A856AE700CECC27 /* StaticCategoryGrid.swift */,
 				8657D36F2A856AE700CECC27 /* BackgroundView.swift */,
@@ -460,6 +445,7 @@
 			isa = PBXGroup;
 			children = (
 				8657D3772A856AE700CECC27 /* CategoryData.swift */,
+				FDC0B44C2A87B140004677AA /* CategoryQuestions.json */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -467,7 +453,10 @@
 		8657D3AB2A8591E900CECC27 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
-				8657D3AC2A8591FB00CECC27 /* Settings.swift */,
+				FD598D162A87895F00498918 /* Model */,
+				FD598D192A878A4F00498918 /* Modifier */,
+				FD598D182A878A2000498918 /* Components */,
+				FD598D172A87897100498918 /* View */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -480,6 +469,41 @@
 				8657D3C12A85A4B000CECC27 /* Spy.swift */,
 			);
 			path = BombTests;
+			sourceTree = "<group>";
+		};
+		FD598D162A87895F00498918 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				8657D3AC2A8591FB00CECC27 /* Settings.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		FD598D172A87897100498918 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				3CBD4D442A812F8D00297401 /* SettingsView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		FD598D182A878A2000498918 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				3C1D20E12A851D2B004D9D4E /* ButtonLabelView.swift */,
+				3C1D20DB2A851350004D9D4E /* SoundPickerView.swift */,
+				3C1D20DD2A851CC2004D9D4E /* ToggleSectionView.swift */,
+				3C1D20E52A851D65004D9D4E /* SettingsHeaderView.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		FD598D192A878A4F00498918 /* Modifier */ = {
+			isa = PBXGroup;
+			children = (
+				3C1D20DF2A851D07004D9D4E /* ButtonSectionModifier.swift */,
+			);
+			path = Modifier;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -574,6 +598,7 @@
 			files = (
 				75F605232A8015D500A65218 /* Preview Assets.xcassets in Resources */,
 				8657D3532A855D7400CECC27 /* BombAnimation.json in Resources */,
+				FDC0B44D2A87B140004677AA /* CategoryQuestions.json in Resources */,
 				8657D35E2A855D7E00CECC27 /* bombTick.mp3 in Resources */,
 				8657D3602A855D7E00CECC27 /* TheBennyHillShow.mp3 in Resources */,
 				75F605202A8015D500A65218 /* Assets.xcassets in Resources */,
@@ -641,7 +666,6 @@
 				75F605302A81084600A65218 /* Color + ext.swift in Sources */,
 				3C75BEAD2A84E54900145DA9 /* BackgroundOrange.swift in Sources */,
 				8657D3502A855D6700CECC27 /* GameDomain.swift in Sources */,
-				3C1D20DA2A851333004D9D4E /* Melody.swift in Sources */,
 				3C1D20C42A8501CD004D9D4E /* View+Extension.swift in Sources */,
 				8657D3872A8576C300CECC27 /* DataProvider.swift in Sources */,
 				8657D34F2A855D6700CECC27 /* GameStore.swift in Sources */,
