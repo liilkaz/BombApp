@@ -135,8 +135,10 @@ struct GameDomain {
             state.quest = getRandomElement(from: state.questsArray)
             
         case .viewDisappear:
-            timerService.stopTimer()
-            player.stop()
+            defer {
+                timerService.stopTimer()
+                player.stop()
+            }
             
             return Just(.setGameState(.initial))
                 .eraseToAnyPublisher()
