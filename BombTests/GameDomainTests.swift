@@ -248,11 +248,11 @@ final class MockPlayer: AudioPlayerProtocol {
     private(set) var isPlayBlow = false
     private(set) var isPlayBackgroundMusic = false
     
-    func playTicking() {
+    func playTicking(_ melody: Settings.Melody) {
         isPlayTicking = true
     }
     
-    func playBlow() {
+    func playExplosion(_ melody: Settings.Melody) {
         isPlayBlow = true
     }
     
@@ -260,7 +260,7 @@ final class MockPlayer: AudioPlayerProtocol {
         isStopSend = true
     }
     
-    func playBackgroundMusic() {
+    func playBackgroundMusic(_ melody: Settings.Melody) {
         isPlayBackgroundMusic = true
     }
     

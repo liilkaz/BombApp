@@ -35,10 +35,10 @@ extension Settings {
         
         var duration: Int {
             switch self {
-            case .short: return 15
-            case .middle: return 30
+            case .short: return 10
+            case .middle: return 20
             case .long: return 45
-            case .random: return [15, 30, 45].randomElement()!
+            case .random: return [10, 20, 45].randomElement()!
             }
         }
         
@@ -49,7 +49,7 @@ extension Settings {
     
     //MARK: - Melody
     enum Melody: Int, Codable, CaseIterable, Identifiable {
-        case melody1
+        case melody1 = 0
         case melody2
         case melody3
         
