@@ -14,10 +14,10 @@ struct StaticCategoryGrid: View {
     }
     
     @State private var categories: [Category] = [
-        Category(name: .varied, questions: [], isSelected: true),
-        Category(name: .sport, questions: [], isSelected: false),
-        Category(name: .life, questions: [], isSelected: false),
-        Category(name: .celebrity, questions: [], isSelected: true)
+        Category(name: .varied, isSelected: true),
+        Category(name: .sport, isSelected: false),
+        Category(name: .life, isSelected: false),
+        Category(name: .celebrity, isSelected: true)
     ]
     
     let columns: [GridItem] = [

@@ -9,9 +9,7 @@ import Foundation
 
 struct Category: Identifiable, Codable {
     let name: CategoryName
-    let questions: [String]
     var isSelected: Bool
-    
     var id: String {
         name.rawValue
     }

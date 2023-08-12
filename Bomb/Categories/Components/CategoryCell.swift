@@ -71,8 +71,8 @@ struct CategoryCell: View {
 struct CategoryCell_Previews: PreviewProvider {
     static var previews: some View {
         VStack {
-            CategoryCell(category: .constant(Category(name: .art, questions: ["Hello"], isSelected: true)))
-            CategoryCell(category: .constant(Category(name: .art, questions: ["Hello"], isSelected: false)))
+            CategoryCell(category: .constant(Category(name: .art, isSelected: true)))
+            CategoryCell(category: .constant(Category(name: .art, isSelected: false)))
         }
     }
 }

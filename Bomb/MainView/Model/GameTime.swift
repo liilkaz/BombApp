@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct GameTime {
+struct GameTime: Equatable {
     let id = UUID()
     let timeCount: Int
     let title: GameTimeTitle

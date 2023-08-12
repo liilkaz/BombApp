@@ -9,16 +9,15 @@ import SwiftUI
 
 struct SoundPickerView: View {
     let title: String
-    let options: [MelodyOption]
-    @Binding var selectedOption: Melody
+    @Binding var selectedOption: Settings.Melody
 
     var body: some View {
         HStack {
             Text(title)
             Spacer()
             Picker(selection: $selectedOption, label: Text("")) {
-                ForEach(options, id: \.melody) { option in
-                    Text(option.title).tag(option.melody)
+                ForEach(Settings.Melody.allCases) { melody in
+                    Text(melody.title).tag(melody)
                 }
             }
         }
