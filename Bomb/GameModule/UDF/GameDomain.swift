@@ -41,6 +41,7 @@ struct GameDomain {
         case anotherPunishmentButtonTap
         case dismissSheet
         case viewDisappear
+        case questionRequest
         case questionResponse(Result<String, Error>)
         
         static func == (lhs: GameDomain.Action, rhs: GameDomain.Action) -> Bool {
@@ -52,14 +53,14 @@ struct GameDomain {
     private let timerService: TimerProtocol
     private let player: AudioPlayerProtocol
     private let randomNumber: (Int) -> Int
-    private let questions: () -> AnyPublisher<[CategoryQuests], Error>
+    private let questions: (CategoryName) -> AnyPublisher<CategoryQuests, Error>
     
     //MARK: - init(_:)
     init(
         timerService: TimerProtocol = TimerService(),
         player: AudioPlayerProtocol = AudioPlayer(),
         randomNumber: @escaping (Int) -> Int = { Int.random(in: 0..<$0) },
-        questions: @escaping () -> AnyPublisher<[CategoryQuests], Error> = AppFileManager.live.loadQuestions
+        questions: @escaping (CategoryName) -> AnyPublisher<CategoryQuests, Error> = AppFileManager.live.loadQuestions
     ) {
         self.timerService = timerService
         self.player = player
@@ -76,9 +77,9 @@ struct GameDomain {
             let currentState = state
             logger.debug("Setup game. Current state: \(String(reflecting: currentState))")
             
-            return Publishers.Concatenate(
-                prefix: Just(Action.setGameState(state.gameFlow)),
-                suffix: timerService.timerTick.map { _ in .timerTick }
+            return Publishers.Merge(
+                Just(Action.setGameState(state.gameFlow)),
+                timerService.timerTick.map { _ in .timerTick }
             )
             .eraseToAnyPublisher()
             
@@ -89,12 +90,7 @@ struct GameDomain {
             player.stop()
             state.gameFlow = .initial
             
-            return questions()
-                .compactMap{ [name = state.questionCategory] in filter(categories: $0, by: name) }
-                .map(\.quests)
-                .compactMap{ $0.randomElement() }
-                .map(transformToSuccessAction)
-                .catch(catchToFailAction)
+            return Just(.questionRequest)
                 .eraseToAnyPublisher()
             
         case .setGameState(.play):
@@ -156,11 +152,20 @@ struct GameDomain {
         case .anotherPunishmentButtonTap:
             state.quest = getRandomElement(from: state.questsArray)
             
-        case let .questionResponse(.success(quest)):
-            state.quest = quest
+        case .questionRequest:
+            logger.debug("Request questions.")
+            return questions(state.questionCategory)
+                .map(\.questions)
+                .compactMap{ $0.randomElement() }
+                .map(transformToSuccessAction)
+                .catch(catchToFailAction)
+                .eraseToAnyPublisher()
+            
+        case let .questionResponse(.success(question)):
+            state.title = question
             
         case let .questionResponse(.failure(error)):
-            state.quest = error.localizedDescription
+            state.title = error.localizedDescription
             logger.error("Unable to load quest: \(String(describing: error))")
         
             

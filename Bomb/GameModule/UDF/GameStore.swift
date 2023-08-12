@@ -48,6 +48,7 @@ final class GameStore: ObservableObject {
     
     func dispose() {
         cancellable.removeAll()
+        logger.debug("Store disposed all cancellable.")
     }
     
     //MARK: - subscript

@@ -9,16 +9,11 @@ import Foundation
 
 struct CategoryQuests: Codable {
     let category: CategoryName
-    let quests: [String]
-    
-    init(category: CategoryName, quests: [String]) {
-        self.category = category
-        self.quests = quests
-    }
+    let questions: [String]
     
     static let sample: [CategoryQuests] = [
-        .init(category: .art, quests: ["Some one", "Some two", "Some three"]),
-        .init(category: .celebrity, quests: ["Some one", "Some two", "Some three"]),
-        .init(category: .life, quests: ["Some one", "Some two", "Some three"])
+        .init(category: .art, questions: ["Some one", "Some two", "Some three"]),
+        .init(category: .celebrity, questions: ["Some one", "Some two", "Some three"]),
+        .init(category: .life, questions: ["Some one", "Some two", "Some three"])
     ]
 }

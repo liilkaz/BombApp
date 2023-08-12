@@ -21,8 +21,12 @@ struct BombContentView: View, Equatable {
             case .play:
                 EmptyView()
             
-            case .gameOver:
+            case .explosion:
                 EmptyView()
+                
+            case .gameOver:
+                AssetImage(AssetNames.bombImage)
+                    .transition(fadeTransition)
             }
         }
     }
@@ -34,7 +38,7 @@ struct BombContentView: View, Equatable {
 
 struct BombContentView_Previews: PreviewProvider {
     static var previews: some View {
-        VStack {
+        ScrollView {
             BombContentView(gameFlow: .initial)
             BombContentView(gameFlow: .play)
             BombContentView(gameFlow: .gameOver)
