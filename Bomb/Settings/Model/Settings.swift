@@ -12,6 +12,7 @@ struct Settings: Codable, Equatable {
     var backgroundMelody: Melody = .melody1
     var tickSound: Melody = .melody1
     var explosionSound: Melody = .melody1
+    var musicEnable: Bool = true
     var vibrationEnabled: Bool = true
     var questionsEnabled: Bool = true
 }

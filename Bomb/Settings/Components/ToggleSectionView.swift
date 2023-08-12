@@ -14,6 +14,8 @@ struct ToggleSectionView: View {
     var body: some View {
         HStack {
             Text(title)
+                .lineLimit(1)
+                .minimumScaleFactor(0.7)
             Spacer()
             Toggle(isOn: $toggleValue) {}
         }
@@ -22,6 +24,7 @@ struct ToggleSectionView: View {
         .tint(.mainBackground)
         .padding()
         .frame(maxWidth: .infinity)
+        .frame(height: 60)
         .background(Color.primaryTextColor)
         .cornerRadius(15)
     }

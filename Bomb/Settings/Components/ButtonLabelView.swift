@@ -16,7 +16,7 @@ struct ButtonLabelView: View {
             .foregroundColor(isSelected ? .primaryTextColor : .secondaryTextColor)
             .modifiedText(size: 18)
             .padding()
-            .frame(minWidth: 150)
+            .frame(minWidth: 120, maxWidth: 150)
             .background(isSelected ? Color.mainBackground : Color.primaryTextColor)
             .cornerRadius(15)
             .overlay(
