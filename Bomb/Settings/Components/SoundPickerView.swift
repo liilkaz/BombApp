@@ -14,6 +14,8 @@ struct SoundPickerView: View {
     var body: some View {
         HStack {
             Text(title)
+                .lineLimit(1)
+                .minimumScaleFactor(0.5)
             Spacer()
             Picker(selection: $selectedOption, label: Text("")) {
                 ForEach(Settings.Melody.allCases) { melody in

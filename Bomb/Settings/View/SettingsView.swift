@@ -47,6 +47,7 @@ struct SettingsView: View {
                     .tint(Color.secondaryTextColor)
                     .buttonSectionStyle()
                     VStack {
+                        ToggleSectionView(title: "Фоновая музыка", toggleValue: $dataProvider.settings.musicEnable)
                         ToggleSectionView(title: "Вибрация", toggleValue: $dataProvider.settings.vibrationEnabled)
                         ToggleSectionView(title: "Игра с заданиями", toggleValue: $dataProvider.settings.questionsEnabled)
                     }
