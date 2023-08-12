@@ -78,7 +78,6 @@ struct MainView: View {
                         }
                     }
                 }
-                .navigationBarTitleDisplayMode(.inline)
                 .mainShadow()
                 .padding()
                 .toolbar {

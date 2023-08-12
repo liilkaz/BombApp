@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct SettingsHeaderView: View {
+    
+    @Binding var isShowSheet: Bool
     var dismissAction: () -> Void
     
     var body: some View {
@@ -25,7 +27,9 @@ struct SettingsHeaderView: View {
             Spacer()
             
             Button {
-                
+                withAnimation {
+                    isShowSheet = true
+                }
             } label: {
                 Image("helpOrange")
             }
