@@ -17,10 +17,10 @@ protocol AudioPlayerProtocol: AnyObject {
 }
 
 final class AudioPlayer: AudioPlayerProtocol {
-    private struct Catalog {
-        static let timers = "Timer"
-        static let explosions = "Explosion"
-        static let background = "Background"
+    private enum Catalog: String {
+        case timer
+        case explosion
+        case background
     }
     
     private let logger = Logger(
@@ -40,9 +40,22 @@ final class AudioPlayer: AudioPlayerProtocol {
     init() {
         logger.debug("Initialized")
         
-        loadContent(of: Catalog.timers, to: &tickPlayers)
-        loadContent(of: Catalog.explosions, to: &explosionPlayers)
-        loadContent(of: Catalog.background, to: &backgroundPlayers)
+        guard let urls = Bundle.main.urls(forResourcesWithExtension: "mp3", subdirectory: nil) else {
+            logger.fault("Unable to locate mp3 files.")
+            return
+        }
+        
+        tickPlayers = urls
+            .filter { $0.pathComponents.last!.contains(Catalog.timer.rawValue) }
+            .reduce(into: [AVAudioPlayer](), tryMapToPlayer)
+        
+        explosionPlayers = urls
+            .filter { $0.pathComponents.last!.contains(Catalog.explosion.rawValue) }
+            .reduce(into: [AVAudioPlayer](), tryMapToPlayer)
+        
+        backgroundPlayers = urls
+            .filter { $0.pathComponents.last!.contains(Catalog.background.rawValue) }
+            .reduce(into: [AVAudioPlayer](), tryMapToPlayer)
     }
     
     deinit {
@@ -67,6 +80,7 @@ final class AudioPlayer: AudioPlayerProtocol {
             logger.fault("Index of player out of range")
             return
         }
+        explosionPlayer = explosionPlayers[melody.rawValue]
         explosionPlayer?.currentTime = 0
         explosionPlayer?.play()
         logger.debug("Start play explosion")
@@ -77,6 +91,7 @@ final class AudioPlayer: AudioPlayerProtocol {
             logger.fault("Index of player out of range")
             return
         }
+        backgroundPlayer = backgroundPlayers[melody.rawValue]
         backgroundPlayer?.currentTime = 0
         backgroundPlayer?.play()
         logger.debug("Start play background melody")
@@ -90,14 +105,6 @@ final class AudioPlayer: AudioPlayerProtocol {
 }
 
 private extension AudioPlayer {
-    func loadContent(of subdirectory: String, to players: inout [AVAudioPlayer]) {
-        guard let urls = Bundle.main.urls(forResourcesWithExtension: "mp3", subdirectory: "Timer") else {
-            logger.fault("Unable to locate subdirectory \(subdirectory)")
-            return
-        }
-        players = urls.reduce(into: [AVAudioPlayer](), tryMapToPlayer)
-    }
-    
     func tryMapToPlayer(_ result: inout [AVAudioPlayer], _ url: URL) {
         do {
             let player = try AVAudioPlayer(contentsOf: url)
