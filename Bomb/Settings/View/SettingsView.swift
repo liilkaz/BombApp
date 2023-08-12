@@ -11,7 +11,10 @@ struct SettingsView: View {
     
     @Environment(\.dismiss) var dismiss
     @EnvironmentObject var dataProvider: DataProvider
-    
+    @State private var isShowSheet: Bool = false
+    @State private var dragValue = 0.0
+    let cornerRadius: CGFloat = 20
+
     let column: [GridItem] = [
         GridItem(.flexible()),
         GridItem(.flexible())
@@ -22,7 +25,7 @@ struct SettingsView: View {
             BackgroundGray()
             
             VStack {
-                SettingsHeaderView { dismiss() }
+                SettingsHeaderView(isShowSheet: $isShowSheet) { dismiss() }
                 
                 ScrollView(showsIndicators: false) {
                     VStack {
@@ -54,11 +57,21 @@ struct SettingsView: View {
                     .buttonSectionStyle()
                 }
                 Spacer()
-                }
-                .edgesIgnoringSafeArea(.bottom)
             }
-            .navigationBarBackButtonHidden()
+            .edgesIgnoringSafeArea(.bottom)
+            
+            if isShowSheet {
+                    Color.black.opacity(0.5)
+                    .ignoresSafeArea()
+            }
+            
+            SettingsHelpSheet(bottomPadding: 250)
+                .cornerRadius(cornerRadius)
+                .mainShadow()
+                .animateSheet(showHelp: $isShowSheet, dragValueY: $dragValue, pathScreen: 250)
         }
+        .navigationBarBackButtonHidden()
+    }
 }
 
 struct SettingsView_Previews: PreviewProvider {
