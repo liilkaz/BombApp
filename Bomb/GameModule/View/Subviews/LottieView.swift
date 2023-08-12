@@ -12,11 +12,14 @@ struct LottieView: UIViewRepresentable {
     private let animationView: LottieAnimationView
 
     let animationName: String
-    let animationSpeed: Double
+    let loopMode: LottieLoopMode
     
-    init(_ animationName: String, animationSpeed: Double = 1) {
+    init(
+        _ animationName: String,
+        loopMode: LottieLoopMode = .playOnce
+    ) {
         self.animationName = animationName
-        self.animationSpeed = animationSpeed
+        self.loopMode = loopMode
         let configuration = LottieConfiguration(renderingEngine: .mainThread)
         self.animationView = .init(configuration: configuration)
     }
@@ -27,7 +30,7 @@ struct LottieView: UIViewRepresentable {
         
         animationView.animation = animation
         animationView.contentMode = .scaleAspectFit
-        animationView.animationSpeed = animationSpeed
+        animationView.loopMode = .loop
         animationView.translatesAutoresizingMaskIntoConstraints = false
         
         view.addSubview(animationView)
@@ -48,6 +51,9 @@ struct LottieView: UIViewRepresentable {
 
 struct LottieView_Previews: PreviewProvider {
     static var previews: some View {
-        LottieView("BombAnimation", animationSpeed: 1)
+        VStack {
+            LottieView("Bomb", loopMode: .loop)
+            LottieView("Explosion", loopMode: .loop)
+        }
     }
 }

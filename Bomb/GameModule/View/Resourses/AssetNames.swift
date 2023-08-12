@@ -13,4 +13,6 @@ struct AssetNames {
     static let pauseIcon = "pause.circle"
     static let playIcon = "play.circle"
     static let backButtonIcon = "chevron.backward"
+    static let bombAnimation = "Bomb"
+    static let explosionAnimation = "Explosion"
 }

@@ -19,10 +19,14 @@ struct BombContentView: View, Equatable {
                 AssetImage(AssetNames.bombImage)
                     .transition(fadeTransition)
             case .play:
-                EmptyView()
+                LottieView(
+                    AssetNames.bombAnimation,
+                    loopMode: .autoReverse
+                )
+                .transition(.scale)
             
             case .explosion:
-                EmptyView()
+                LottieView(AssetNames.explosionAnimation)
                 
             case .gameOver:
                 AssetImage(AssetNames.bombImage)
@@ -41,6 +45,7 @@ struct BombContentView_Previews: PreviewProvider {
         ScrollView {
             BombContentView(gameFlow: .initial)
             BombContentView(gameFlow: .play)
+            BombContentView(gameFlow: .explosion)
             BombContentView(gameFlow: .gameOver)
         }
     }
