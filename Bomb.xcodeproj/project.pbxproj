@@ -79,6 +79,7 @@
 		FDA9F20C2A87FFBF0099AE94 /* SettingsHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDA9F2042A87FFBF0099AE94 /* SettingsHeaderView.swift */; };
 		FDA9F20D2A87FFBF0099AE94 /* ButtonLabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDA9F2052A87FFBF0099AE94 /* ButtonLabelView.swift */; };
 		FDA9F20E2A87FFBF0099AE94 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDA9F2072A87FFBF0099AE94 /* SettingsView.swift */; };
+		FDA9F2102A8801920099AE94 /* CategoryQuestions.json in Resources */ = {isa = PBXBuildFile; fileRef = FDA9F20F2A8801920099AE94 /* CategoryQuestions.json */; };
 		FDC0B44D2A87B140004677AA /* (null) in Resources */ = {isa = PBXBuildFile; };
 /* End PBXBuildFile section */
 
@@ -166,6 +167,7 @@
 		FDA9F2042A87FFBF0099AE94 /* SettingsHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsHeaderView.swift; sourceTree = "<group>"; };
 		FDA9F2052A87FFBF0099AE94 /* ButtonLabelView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonLabelView.swift; sourceTree = "<group>"; };
 		FDA9F2072A87FFBF0099AE94 /* SettingsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		FDA9F20F2A8801920099AE94 /* CategoryQuestions.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = CategoryQuestions.json; path = ../../../../CategoryQuestions.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -456,6 +458,7 @@
 			isa = PBXGroup;
 			children = (
 				8657D3772A856AE700CECC27 /* CategoryData.swift */,
+				FDA9F20F2A8801920099AE94 /* CategoryQuestions.json */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -645,6 +648,7 @@
 				8690BCBD2A869F92000F5293 /* explosion2.mp3 in Resources */,
 				8657D3602A855D7E00CECC27 /* TheBennyHillShow.mp3 in Resources */,
 				75F605202A8015D500A65218 /* Assets.xcassets in Resources */,
+				FDA9F2102A8801920099AE94 /* CategoryQuestions.json in Resources */,
 				8657D35F2A855D7E00CECC27 /* Explosion.mp3 in Resources */,
 				8690BCB92A869EE3000F5293 /* timer3.mp3 in Resources */,
 				8690BCB42A869CB4000F5293 /* RockyBalboa.mp3 in Resources */,
