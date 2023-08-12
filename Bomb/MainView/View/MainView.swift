@@ -22,18 +22,18 @@ struct MainView: View {
     let endOffset: CGFloat = 0
     let cornerRadius: CGFloat = 20
     
+    @EnvironmentObject var dataProvider: DataProvider
     @State private var impactHeavy = UIImpactFeedbackGenerator(style: .heavy)
     @State private var showSettings: Bool = false
     @State private var isShowSheet: Bool = false
     @State private var isTapped: Bool = false
     @State private var tapCount: Int = 0
     @State private var dragValue = 0.0
-    @StateObject var vm = MainViewModel()
     @StateObject var categoryVM = CategoryViewModel()
     
     var body: some View {
         NavigationView {
-            ZStack(alignment: .center) {
+            ZStack(alignment: .bottom) {
                 
                 BackgroundOrange()
                 
@@ -58,24 +58,33 @@ struct MainView: View {
                         }
                     
                     Spacer()
-                    
-                    NavigationLink {
-                        GameView()
-                    } label: {
-                        MainButton(title: "Старт игры")
-                    }
-                    NavigationLink {
-                        CategoriesView(vm: categoryVM)
-                    } label: {
-                        MainButton(title: "Категории")
+                    VStack {
+                        NavigationLink {
+                            GameView()
+                        } label: {
+                            MainButton(title: "Старт игры")
+                        }
+                        if dataProvider.gameState.gameFlow != .initial {
+                            NavigationLink {
+                                GameView(state: dataProvider.gameState)
+                            } label: {
+                                MainButton(title: "Продолжить")
+                            }
+                        }
+                        NavigationLink {
+                            CategoriesView(vm: categoryVM)
+                        } label: {
+                            MainButton(title: "Категории")
+                        }
                     }
                 }
+                .navigationBarTitleDisplayMode(.inline)
                 .mainShadow()
                 .padding()
                 .toolbar {
                     ToolbarItem(placement: .navigationBarLeading) {
                         NavigationLink {
-                            SettingsView(vm: vm)
+                            SettingsView()
                         } label: {
                             SettingsButton()
                         }
@@ -90,10 +99,10 @@ struct MainView: View {
                         }
                     }
                 }
-                MainHelpSheet()
+                MainHelpSheet(bottomPadding: 120)
                     .cornerRadius(cornerRadius)
                     .mainShadow()
-                    .animateSheetMain(showHelp: $isShowSheet, dragValueY: $dragValue)
+                    .animateSheet(showHelp: $isShowSheet, dragValueY: $dragValue, pathScreen: 120)
             }
         }
     }
@@ -115,6 +124,7 @@ struct MainView: View {
 
 struct MainView_Previews: PreviewProvider {
     static var previews: some View {
-        MainView(vm: MainViewModel())
+        MainView()
+            .environmentObject(DataProvider())
     }
 }

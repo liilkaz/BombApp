@@ -7,14 +7,18 @@
 
 import Foundation
 
-class CategoryData {
+struct CategoryData {
     
-    static let questions: [Category] = [
-        Category(name: .varied, questions: ["О Разном?"], isSelected: true),
-        Category(name: .sport, questions: ["Спорт и Хобби?"], isSelected: false),
-        Category(name: .life, questions: ["Про жизнь?"], isSelected: false),
-        Category(name: .celebrity, questions: ["Знаменитости?"], isSelected: false),
-        Category(name: .art, questions: ["Искусство и Кино?"], isSelected: false),
-        Category(name: .nature, questions: ["Природа?"], isSelected: false)
+    static var shared = CategoryData()
+    
+    private init() {}
+    
+    lazy var questions: [Category] = [
+        Category(name: .varied, isSelected: true),
+        Category(name: .sport, isSelected: false),
+        Category(name: .life, isSelected: false),
+        Category(name: .celebrity, isSelected: false),
+        Category(name: .art, isSelected: false),
+        Category(name: .nature, isSelected: false)
     ]
 }

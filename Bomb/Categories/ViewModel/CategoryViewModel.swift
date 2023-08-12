@@ -14,13 +14,11 @@ final class CategoryViewModel: ObservableObject {
     @Published var questions = [String]()
     
     init() {
-        categories = CategoryData.questions
-        getQuestions()
+        categories = CategoryData.shared.questions
     }
     
     func save() -> [CategoryName] {
-        getQuestions()
-        return categories.filter(\.isSelected).map(\.name)
+         categories.filter(\.isSelected).map(\.name)
     }
     
     func getCategories(names: [CategoryName]) {
@@ -29,15 +27,5 @@ final class CategoryViewModel: ObservableObject {
             chosen.isSelected = names.contains(category.name) ? true : false
             return chosen
         }
-    }
-    
-    func getQuestions() {
-        if categories.filter(\.isSelected).flatMap(\.questions).isEmpty {
-            if let questions = categories.randomElement()?.questions {
-                self.questions = questions
-                return
-            }
-        }
-        questions = categories.filter(\.isSelected).flatMap(\.questions)
     }
 }

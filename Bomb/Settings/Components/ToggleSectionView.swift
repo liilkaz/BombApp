@@ -19,9 +19,19 @@ struct ToggleSectionView: View {
         }
         .foregroundStyle(Color.secondaryTextColor)
         .modifiedText(size: 18)
+        .tint(.mainBackground)
         .padding()
         .frame(maxWidth: .infinity)
         .background(Color.primaryTextColor)
         .cornerRadius(15)
+    }
+}
+
+struct ToggleSectionView_Previews: PreviewProvider {
+    static var previews: some View {
+        VStack {
+            ToggleSectionView(title: "Вибрация", toggleValue: .constant(false))
+            ToggleSectionView(title: "Вибрация", toggleValue: .constant(true))
+        }
     }
 }
