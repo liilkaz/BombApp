@@ -17,7 +17,7 @@ struct GameDomain {
     
     //MARK: - State
     struct State: Equatable, Codable {
-        var title: String = "Нажмите запустить, чтобы начать игру"
+        var title: String = .init()
         var quest: String = .init()
         var questsArray: [String] = ["Who are you?", "Fuck off."]
         var questionCategory: CategoryName = .varied
@@ -41,25 +41,30 @@ struct GameDomain {
         case anotherPunishmentButtonTap
         case dismissSheet
         case viewDisappear
+        case questionResponse(Result<String, Error>)
+        
+        static func == (lhs: GameDomain.Action, rhs: GameDomain.Action) -> Bool {
+            String(describing: lhs) == String(describing: rhs)
+        }
     }
     
     //MARK: - Dependencies
     private let timerService: TimerProtocol
     private let player: AudioPlayerProtocol
     private let randomNumber: (Int) -> Int
-    private let quests: () -> AnyPublisher<[CategoryQuests], Error>
+    private let questions: () -> AnyPublisher<[CategoryQuests], Error>
     
     //MARK: - init(_:)
     init(
         timerService: TimerProtocol = TimerService(),
         player: AudioPlayerProtocol = AudioPlayer(),
         randomNumber: @escaping (Int) -> Int = { Int.random(in: 0..<$0) },
-        quests: @escaping () -> AnyPublisher<[CategoryQuests], Error> = AppFileManager.live.loadQuestions
+        questions: @escaping () -> AnyPublisher<[CategoryQuests], Error> = AppFileManager.live.loadQuestions
     ) {
         self.timerService = timerService
         self.player = player
         self.randomNumber = randomNumber
-        self.quests = quests
+        self.questions = questions
         
         logger.debug("Initialized")
     }
@@ -81,9 +86,16 @@ struct GameDomain {
             logger.debug("Setup game state to initial")
             state.counter = 0
             state.isShowSheet = false
-            state.title = "Нажмите запустить, чтобы начать игру"
             player.stop()
             state.gameFlow = .initial
+            
+            return questions()
+                .compactMap{ [name = state.questionCategory] in filter(categories: $0, by: name) }
+                .map(\.quests)
+                .compactMap{ $0.randomElement() }
+                .map(transformToSuccessAction)
+                .catch(catchToFailAction)
+                .eraseToAnyPublisher()
             
         case .setGameState(.play):
             logger.debug("Setup game state to play")
@@ -97,20 +109,26 @@ struct GameDomain {
             player.stop()
             timerService.stopTimer()
             state.gameFlow = .pause
-            state.title = "Пауза..."
+            
+        case .setGameState(.explosion):
+            logger.debug("Setup game state to explosion")
+            state.gameFlow = .explosion
+            timerService.stopTimer()
+            player.stop()
+            player.playExplosion(state.explosionSound)
+            
+            return Just(.setGameState(.gameOver))
+                .eraseToAnyPublisher()
             
         case .setGameState(.gameOver):
             logger.debug("Setup game state to gameOver")
-            timerService.stopTimer()
-            player.playExplosion(state.explosionSound)
             state.gameFlow = .gameOver
-            state.title = "Конец игры"
             state.quest = getRandomElement(from: state.questsArray)
             state.isShowSheet = true
             
         case .timerTick:
             guard state.counter < state.estimatedTime else {
-                return Just(.setGameState(.gameOver))
+                return Just(.setGameState(.explosion))
                     .eraseToAnyPublisher()
             }
             state.counter += 1
@@ -137,6 +155,14 @@ struct GameDomain {
             
         case .anotherPunishmentButtonTap:
             state.quest = getRandomElement(from: state.questsArray)
+            
+        case let .questionResponse(.success(quest)):
+            state.quest = quest
+            
+        case let .questionResponse(.failure(error)):
+            state.quest = error.localizedDescription
+            logger.error("Unable to load quest: \(String(describing: error))")
+        
             
         case .viewDisappear:
             defer {
@@ -167,7 +193,7 @@ struct GameDomain {
             estimatedTime: 10,
             gameFlow: .initial
         ),
-        reducer: Self(quests: AppFileManager.preview.loadQuestions)
+        reducer: Self(questions: AppFileManager.preview.loadQuestions)
     )
     
     static let previewStorePlayState = GameStore(
@@ -175,7 +201,7 @@ struct GameDomain {
             title: "Some question",
             gameFlow: .play
         ),
-        reducer: Self(quests: AppFileManager.preview.loadQuestions)
+        reducer: Self(questions: AppFileManager.preview.loadQuestions)
     )
     
     static let previewStorePauseState = GameStore(
@@ -183,7 +209,7 @@ struct GameDomain {
             title: "Pause",
             gameFlow: .pause
         ),
-        reducer: Self(quests: AppFileManager.preview.loadQuestions)
+        reducer: Self(questions: AppFileManager.preview.loadQuestions)
     )
     
     static let previewStoreGameOverState = GameStore(
@@ -193,7 +219,7 @@ struct GameDomain {
             gameFlow: .gameOver,
             isShowSheet: true
         ),
-        reducer: Self(quests: AppFileManager.preview.loadQuestions)
+        reducer: Self(questions: AppFileManager.preview.loadQuestions)
     )
 }
 
@@ -213,6 +239,18 @@ private extension GameDomain {
             return nil
         }
     }
+    
+    func filter(categories: [CategoryQuests], by name: CategoryName) -> CategoryQuests? {
+        categories.first(where: { $0.category == name })
+    }
+    
+    func transformToSuccessAction(_ quest: String) -> Action {
+        .questionResponse(.success(quest))
+    }
+    
+    func catchToFailAction(_ error: Error) -> Just<Action> {
+        Just(.questionResponse(.failure(error)))
+    }
 }
 
 extension GameDomain.State {
@@ -220,6 +258,7 @@ extension GameDomain.State {
         case initial
         case play
         case pause
+        case explosion
         case gameOver
         
         init() {

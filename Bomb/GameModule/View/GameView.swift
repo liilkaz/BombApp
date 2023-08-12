@@ -25,25 +25,14 @@ struct GameView: View {
             BackgroundView()
                 .ignoresSafeArea()
             VStack {
-                Text(store.title)
-                    .font(.gameFont(
-                        weight: store.gameFlow == .play
-                        ? .heavy
-                        : .regular)
-                    )
-                    .multilineTextAlignment(.center)
-                    .transition(fadeTransition)
+                TitleLabel(
+                    flow: store.gameFlow,
+                    question: store.title
+                )
+                .equatable()
                 
-                Group {
-                    switch store.gameFlow == .play {
-                    case true:
-                        AnimatedBombView(duration: store.estimatedTime)
-                            .transition(fadeTransition)
-                    case false:
-                        AssetImage(AssetNames.bombImage)
-                            .transition(fadeTransition)
-                    }
-                }
+                BombContentView(gameFlow: store.gameFlow)
+                    .equatable()
                 
                 if store.gameFlow == .initial {
                     PlainButton(title: Localization.beginButtonTitle) {

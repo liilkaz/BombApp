@@ -75,6 +75,8 @@
 		86D873AD2A88145A00F6A97F /* CategoryQuests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86D873AC2A88145A00F6A97F /* CategoryQuests.swift */; };
 		86D873B12A88146700F6A97F /* AppFileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86D873AF2A88146700F6A97F /* AppFileManager.swift */; };
 		86D873B22A88146700F6A97F /* CategoryQuestions.json in Resources */ = {isa = PBXBuildFile; fileRef = 86D873B02A88146700F6A97F /* CategoryQuestions.json */; };
+		86D873B42A881EB500F6A97F /* TitleLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86D873B32A881EB500F6A97F /* TitleLabel.swift */; };
+		86D873B62A88216A00F6A97F /* BombContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86D873B52A88216A00F6A97F /* BombContentView.swift */; };
 		FDA9F2082A87FFBF0099AE94 /* ButtonSectionModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDA9F1FE2A87FFBF0099AE94 /* ButtonSectionModifier.swift */; };
 		FDA9F2092A87FFBF0099AE94 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDA9F2002A87FFBF0099AE94 /* Settings.swift */; };
 		FDA9F20A2A87FFBF0099AE94 /* SoundPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDA9F2022A87FFBF0099AE94 /* SoundPickerView.swift */; };
@@ -166,6 +168,8 @@
 		86D873AC2A88145A00F6A97F /* CategoryQuests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryQuests.swift; sourceTree = "<group>"; };
 		86D873AF2A88146700F6A97F /* AppFileManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppFileManager.swift; sourceTree = "<group>"; };
 		86D873B02A88146700F6A97F /* CategoryQuestions.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = CategoryQuestions.json; sourceTree = "<group>"; };
+		86D873B32A881EB500F6A97F /* TitleLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleLabel.swift; sourceTree = "<group>"; };
+		86D873B52A88216A00F6A97F /* BombContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BombContentView.swift; sourceTree = "<group>"; };
 		FDA9F1FE2A87FFBF0099AE94 /* ButtonSectionModifier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonSectionModifier.swift; sourceTree = "<group>"; };
 		FDA9F2002A87FFBF0099AE94 /* Settings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		FDA9F2022A87FFBF0099AE94 /* SoundPickerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SoundPickerView.swift; sourceTree = "<group>"; };
@@ -341,6 +345,8 @@
 				8657D33B2A855D6700CECC27 /* LottieView.swift */,
 				8657D33C2A855D6700CECC27 /* AssetImage.swift */,
 				8657D33D2A855D6700CECC27 /* AnimatedBombView.swift */,
+				86D873B32A881EB500F6A97F /* TitleLabel.swift */,
+				86D873B52A88216A00F6A97F /* BombContentView.swift */,
 			);
 			path = Subviews;
 			sourceTree = "<group>";
@@ -692,6 +698,7 @@
 				8657D3802A856AE700CECC27 /* BackgroundView.swift in Sources */,
 				FDA9F20B2A87FFBF0099AE94 /* ToggleSectionView.swift in Sources */,
 				8657D3462A855D6700CECC27 /* BackButton.swift in Sources */,
+				86D873B62A88216A00F6A97F /* BombContentView.swift in Sources */,
 				8657D3482A855D6700CECC27 /* GameOverSheet.swift in Sources */,
 				8657D37F2A856AE700CECC27 /* StaticCategoryGrid.swift in Sources */,
 				8657D37E2A856AE700CECC27 /* DynamicCategoryGrid.swift in Sources */,
@@ -708,6 +715,7 @@
 				86D873AD2A88145A00F6A97F /* CategoryQuests.swift in Sources */,
 				FDA9F20E2A87FFBF0099AE94 /* SettingsView.swift in Sources */,
 				3C1D20D22A850487004D9D4E /* RoundedDivider.swift in Sources */,
+				86D873B42A881EB500F6A97F /* TitleLabel.swift in Sources */,
 				3C7B76582A82951600F29346 /* BackgroundGray.swift in Sources */,
 				3C1D20E42A851D49004D9D4E /* SettingsTimeTitle.swift in Sources */,
 				8657D3792A856AE700CECC27 /* CategoryCell.swift in Sources */,
