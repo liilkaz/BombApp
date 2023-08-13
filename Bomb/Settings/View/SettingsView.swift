@@ -68,7 +68,7 @@ struct SettingsView: View {
             SettingsHelpSheet(bottomPadding: 250)
                 .cornerRadius(cornerRadius)
                 .mainShadow()
-                .animateSheet(showHelp: $isShowSheet, dragValueY: $dragValue, pathScreen: 250)
+                .animateSheet(showHelp: $isShowSheet, dragValueY: $dragValue, pathScreen: 100)
         }
         .navigationBarBackButtonHidden()
     }
