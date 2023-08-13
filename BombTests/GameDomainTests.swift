@@ -247,6 +247,40 @@ final class GameDomainTests: XCTestCase {
         XCTAssertEqual(state.questionCategory, [.art])
     }
     
+    func test_questionsRequestEmitSuccess() {
+        sut = .init(
+            timerService: mockTimer,
+            player: mockPlayer,
+            questions: { [unowned self] _ in
+                Just(testQuests)
+                    .setFailureType(to: Error.self)
+                    .eraseToAnyPublisher()
+            }, randomizer: { _ in "Baz" })
+        
+        spy.schedule(
+            sut.reduce(&state, action: .questionRequest)
+        )
+        
+        XCTAssertEqual(spy.actions.first, .questionResponse(.success("Baz")))
+    }
+    
+    func test_questionsRequestEmitError() {
+        let testError = URLError(.badURL)
+        sut = .init(
+            timerService: mockTimer,
+            player: mockPlayer,
+            questions: { _ in
+                Fail(error: testError)
+                    .eraseToAnyPublisher()
+            })
+        
+        spy.schedule(
+            sut.reduce(&state, action: .questionRequest)
+        )
+        
+        XCTAssertEqual(spy.actions.first, .questionResponse(.failure(testError)))
+    }
+    
 }
 
 final class MockTimer: TimerProtocol {

@@ -51,16 +51,22 @@ struct GameDomain: ReducerProtocol {
     private let timerService: TimerProtocol
     private let player: AudioPlayerProtocol
     private let questions: ([CategoryName]) -> AnyPublisher<[CategoryQuests], Error>
+    private let randomizer: ([String]) -> String?
     
     //MARK: - init(_:)
     init(
         timerService: TimerProtocol = TimerService(),
         player: AudioPlayerProtocol = AudioPlayer(),
-        questions: @escaping ([CategoryName]) -> AnyPublisher<[CategoryQuests], Error> = AppFileManager.live.loadQuestions
+        questions: @escaping ([CategoryName]) -> AnyPublisher<[CategoryQuests], Error> = AppFileManager.live.loadQuestions,
+        randomizer: @escaping ([String]) -> String? = {
+            guard !$0.isEmpty else { return nil }
+            return $0[Int.random(in: 0..<$0.count)]
+        }
     ) {
         self.timerService = timerService
         self.player = player
         self.questions = questions
+        self.randomizer = randomizer
         
         logger.debug("Initialized")
     }
@@ -152,7 +158,7 @@ struct GameDomain: ReducerProtocol {
             logger.debug("Request questions.")
             return questions(state.questionCategory)
                 .map(flatQuestions)
-                .compactMap{ $0.randomElement() }
+                .compactMap(randomizer)
                 .map(transformToSuccessAction)
                 .catch(catchToFailAction)
                 .eraseToAnyPublisher()
