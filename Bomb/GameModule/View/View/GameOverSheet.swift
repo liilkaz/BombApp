@@ -12,13 +12,13 @@ struct GameOverSheet: View {
         static let contentSpacing: CGFloat = 15
     }
     private let heavyImpact = UIImpactFeedbackGenerator(style: .heavy)
-    
+    @Environment(\.dismiss) var dismiss
     @EnvironmentObject var provider: DataProvider
-    @ObservedObject var store: GameStore
+    @StateObject var store: StoreOf<GameOverDomain>
     
     var body: some View {
         VStack(spacing: Drawing.contentSpacing) {
-            Text(store.title)
+            Text(Localization.gameOverTitle)
                 .font(.gameFont(weight: .heavy))
             Spacer()
             AssetImage(AssetNames.explosionImage)
@@ -27,32 +27,35 @@ struct GameOverSheet: View {
                     .font(.gameFont(weight: .medium))
                     .multilineTextAlignment(.center)
                     .padding()
+                    .animation(.spring(), value: store.quest)
                 PlainButton(title: Localization.anotherQuestButtonTitle) {
                     store.send(.anotherPunishmentButtonTap)
                 }
             }
-            PlainButton(title: Localization.restartGameButtonTitle) {
-                store.send(.playAgainButtonTap)
-            }
+            PlainButton(
+                title: Localization.restartGameButtonTitle,
+                action: dismiss.callAsFunction
+            ) 
         }
         .padding()
         .background(BackgroundView())
         .onAppear {
+            store.send(.viewAppeared)
             if provider.settings.vibrationEnabled {
                 heavyImpact.impactOccurred()
             }
         }
     }
     
-    init(store: GameStore) {
-        self.store = store
+    init(store: StoreOf<GameOverDomain> = GameOverDomain.liveStore) {
+        self._store = StateObject(wrappedValue: store)
         self.heavyImpact.prepare()
     }
 }
 
 struct GameOverSheet_Previews: PreviewProvider {
     static var previews: some View {
-        GameOverSheet(store: GameDomain.previewStoreGameOverState)
+        GameOverSheet(store: GameOverDomain.previewStore)
             .environmentObject(DataProvider())
     }
 }

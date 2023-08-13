@@ -10,7 +10,7 @@ import SwiftUI
 struct GameView: View {
     private let fadeTransition: AnyTransition = .opacity
     @EnvironmentObject var provider: DataProvider
-    @StateObject private var store: GameStore
+    @StateObject private var store: StoreOf<GameDomain>
     
     private var bindStore: Binding<Bool> {
         .init(
@@ -25,25 +25,14 @@ struct GameView: View {
             BackgroundView()
                 .ignoresSafeArea()
             VStack {
-                Text(store.title)
-                    .font(.gameFont(
-                        weight: store.gameFlow == .play
-                        ? .heavy
-                        : .regular)
-                    )
-                    .multilineTextAlignment(.center)
-                    .transition(fadeTransition)
+                TitleLabel(
+                    flow: store.gameFlow,
+                    question: store.title
+                )
+                .equatable()
                 
-                Group {
-                    switch store.gameFlow == .play {
-                    case true:
-                        AnimatedBombView(duration: store.estimatedTime)
-                            .transition(fadeTransition)
-                    case false:
-                        AssetImage(AssetNames.bombImage)
-                            .transition(fadeTransition)
-                    }
-                }
+                BombContentView(gameFlow: store.gameFlow)
+                    .equatable()
                 
                 if store.gameFlow == .initial {
                     PlainButton(title: Localization.beginButtonTitle) {
@@ -69,21 +58,24 @@ struct GameView: View {
             onDismiss: dropState,
             content: configureSheet)
         .animation(.easeInOut, value: store.gameFlow)
-        .onAppear { store.send(.setupGame) }
+        .onAppear {
+            store.send(.setQuestionCategories(provider.categories))
+            store.send(.setupGame)
+        }
         .onDisappear {
             provider.gameState = store.state
-            store.send(.viewDisappear)
             store.dispose()
+            store.send(.viewDisappear)
         }
     }
     
     //MARK: - init(_:)
-    init(store: GameStore = GameDomain.liveStore) {
+    init(store: StoreOf<GameDomain> = GameDomain.liveStore) {
         self._store = StateObject(wrappedValue: store)
     }
     
     init(state: GameDomain.State) {
-        let store = GameStore(
+        let store = Store(
             initialState: state,
             reducer: GameDomain()
         )
@@ -99,7 +91,7 @@ private extension GameView {
     }
     
     func configureSheet() -> some View {
-        GameOverSheet(store: store)
+        GameOverSheet()
             .environmentObject(provider)
     }
 }

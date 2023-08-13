@@ -16,13 +16,23 @@ final class GameDomainTests: XCTestCase {
     private var mockTimer: MockTimer!
     private var mockPlayer: MockPlayer!
     private var spy: Spy<GameDomain.Action>!
+    private var testQuests: [CategoryQuests]!
     
     override func setUp() async throws {
         try await super.setUp()
         
+        testQuests = [.init(category: .art, questions: ["Baz", "Bar"])]
+        
         mockTimer = MockTimer()
         mockPlayer = MockPlayer()
-        sut = .init(timerService: mockTimer, player: mockPlayer)
+        sut = .init(
+            timerService: mockTimer,
+            player: mockPlayer,
+            questions: { [unowned self] _ in
+                Just(testQuests)
+                    .setFailureType(to: Error.self)
+                    .eraseToAnyPublisher()
+            })
         state = .init()
         spy = .init()
     }
@@ -33,6 +43,7 @@ final class GameDomainTests: XCTestCase {
         mockTimer = nil
         mockPlayer = nil
         spy = nil
+        testQuests = nil
         
         try await super.tearDown()
     }
@@ -45,7 +56,7 @@ final class GameDomainTests: XCTestCase {
         _ = sut.reduce(&state, action: .setGameState(.initial))
         
         XCTAssertEqual(state.gameFlow, .initial)
-        XCTAssertEqual(state.title, "Нажмите запустить, чтобы начать игру")
+        XCTAssertEqual(state.title, "Baz")
         XCTAssertEqual(state.counter, 0)
         XCTAssertFalse(state.isShowSheet)
     }
@@ -61,30 +72,32 @@ final class GameDomainTests: XCTestCase {
     }
     
     func test_reducePauseGameState() {
+        state.title = "Baz"
+        
         _ = sut.reduce(&state, action: .setGameState(.pause))
         
         XCTAssertEqual(state.gameFlow, .pause)
-        XCTAssertEqual(state.title, "Пауза...")
+        XCTAssertEqual(state.title, "Baz")
         XCTAssertTrue(mockTimer.isRequestSend)
         XCTAssertTrue(mockPlayer.isStopSend)
         XCTAssertFalse(state.isShowSheet)
     }
     
+    func test_reduceExplosionState() {
+        _ = sut.reduce(&state, action: .setGameState(.explosion))
+        
+        XCTAssertTrue(mockTimer.isRequestSend)
+        XCTAssertTrue(mockPlayer.isStopSend)
+        XCTAssertTrue(mockPlayer.isPlayBlow)
+    }
+    
     func test_reduceGameOverState() {
-        state.questsArray = ["Baz", "Bar"]
-        sut = .init(
-            timerService: mockTimer,
-            player: mockPlayer,
-            randomNumber: { _ in 1 }
-        )
+        state.title = "Baz"
         
         _ = sut.reduce(&state, action: .setGameState(.gameOver))
         
         XCTAssertEqual(state.gameFlow, .gameOver)
-        XCTAssertEqual(state.title, "Конец игры")
-        XCTAssertEqual(state.quest, "Bar")
-        XCTAssertTrue(mockPlayer.isPlayBlow)
-        XCTAssertTrue(mockTimer.isRequestSend)
+        XCTAssertEqual(state.title, "Baz")
         XCTAssertTrue(state.isShowSheet)
     }
     
@@ -153,13 +166,13 @@ final class GameDomainTests: XCTestCase {
         XCTAssertEqual(state.counter, 3)
     }
     
-    func test_timerTickActionEmitGameOverState() {
+    func test_timerTickActionEmitExplosionState() {
         state.counter = 30
         spy.schedule(
             sut.reduce(&state, action: .timerTick)
         )
         
-        XCTAssertEqual(spy.actions.first, .setGameState(.gameOver))
+        XCTAssertEqual(spy.actions.first, .setGameState(.explosion))
     }
     
     func test_pauseButtonTapEmitPauseState() {
@@ -190,24 +203,6 @@ final class GameDomainTests: XCTestCase {
         XCTAssertTrue(spy.actions.isEmpty)
     }
     
-    func test_playAgainButtonTapEmitSetupGameAction() {
-        spy.schedule(
-            sut.reduce(&state, action: .playAgainButtonTap)
-        )
-        
-        XCTAssertEqual(spy.actions.first, .setGameState(.initial))
-    }
-    
-    func test_anotherPunishmentButtonTap() {
-        sut = .init(randomNumber: {_ in 1 })
-        state.quest = "Baz"
-        state.questsArray = ["Baz", "Bar"]
-        
-        _ = sut.reduce(&state, action: .anotherPunishmentButtonTap)
-        
-        XCTAssertEqual(state.quest, "Bar")
-    }
-    
     func test_reduceDismissSheetAction() {
         state.isShowSheet = true
         
@@ -221,6 +216,69 @@ final class GameDomainTests: XCTestCase {
         
         XCTAssertTrue(mockTimer.isRequestSend)
         XCTAssertTrue(mockPlayer.isStopSend)
+    }
+    
+    func test_initialGameStateProduceQuestRequest() {
+        spy.schedule(
+            sut.reduce(&state, action: .setGameState(.initial))
+        )
+        
+        XCTAssertEqual(spy.actions.first, .questionRequest)
+    }
+    
+    func test_reduceSuccessQuestionResponse() {
+        _ = sut.reduce(&state, action: .questionResponse(.success("Baz")))
+        
+        XCTAssertEqual(state.title, "Baz")
+    }
+    
+    func test_reduceFailQuestionResponse() {
+        let testError: Error = URLError(.badURL)
+        _ = sut.reduce(&state, action: .questionResponse(.failure(testError)))
+        
+        XCTAssertEqual(state.title, testError.localizedDescription)
+    }
+    
+    func test_setQuestionCategories() {
+        state.questionCategory = []
+        
+        _ = sut.reduce(&state, action: .setQuestionCategories([.art]))
+        
+        XCTAssertEqual(state.questionCategory, [.art])
+    }
+    
+    func test_questionsRequestEmitSuccess() {
+        sut = .init(
+            timerService: mockTimer,
+            player: mockPlayer,
+            questions: { [unowned self] _ in
+                Just(testQuests)
+                    .setFailureType(to: Error.self)
+                    .eraseToAnyPublisher()
+            }, randomizer: { _ in "Baz" })
+        
+        spy.schedule(
+            sut.reduce(&state, action: .questionRequest)
+        )
+        
+        XCTAssertEqual(spy.actions.first, .questionResponse(.success("Baz")))
+    }
+    
+    func test_questionsRequestEmitError() {
+        let testError = URLError(.badURL)
+        sut = .init(
+            timerService: mockTimer,
+            player: mockPlayer,
+            questions: { _ in
+                Fail(error: testError)
+                    .eraseToAnyPublisher()
+            })
+        
+        spy.schedule(
+            sut.reduce(&state, action: .questionRequest)
+        )
+        
+        XCTAssertEqual(spy.actions.first, .questionResponse(.failure(testError)))
     }
     
 }

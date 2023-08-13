@@ -9,7 +9,7 @@ import Foundation
 import Combine
 import OSLog
 
-struct GameDomain {
+struct GameDomain: ReducerProtocol {
     private let logger = Logger(
         subsystem: Bundle.main.bundleIdentifier!,
         category: String(describing: Self.self)
@@ -17,9 +17,8 @@ struct GameDomain {
     
     //MARK: - State
     struct State: Equatable, Codable {
-        var title: String = "Нажмите запустить, чтобы начать игру"
-        var quest: String = .init()
-        var questsArray: [String] = ["Who are you?", "Fuck off."]
+        var title: String = .init()
+        var questionCategory: [CategoryName] = .init()
         var counter: Int = .init()
         var estimatedTime: Int = 10
         var gameFlow: GameFlow = .init()
@@ -27,35 +26,47 @@ struct GameDomain {
         var tickSound: Settings.Melody = .melody1
         var explosionSound: Settings.Melody = .melody1
         var isShowSheet = false
+        var isMusicEnabled = true
     }
     
     //MARK: - Action
     enum Action: Equatable {
         case setupGame
         case setGameState(State.GameFlow)
+        case setQuestionCategories([CategoryName])
         case launchButtonTap(Settings)
         case pauseButtonTap
         case timerTick
-        case playAgainButtonTap
-        case anotherPunishmentButtonTap
         case dismissSheet
         case viewDisappear
+        case questionRequest
+        case questionResponse(Result<String, Error>)
+        
+        static func == (lhs: GameDomain.Action, rhs: GameDomain.Action) -> Bool {
+            String(describing: lhs) == String(describing: rhs)
+        }
     }
     
     //MARK: - Dependencies
     private let timerService: TimerProtocol
     private let player: AudioPlayerProtocol
-    private let randomNumber: (Int) -> Int
+    private let questions: ([CategoryName]) -> AnyPublisher<[CategoryQuests], Error>
+    private let randomizer: ([String]) -> String?
     
     //MARK: - init(_:)
     init(
         timerService: TimerProtocol = TimerService(),
         player: AudioPlayerProtocol = AudioPlayer(),
-        randomNumber: @escaping (Int) -> Int = { Int.random(in: 0..<$0) }
+        questions: @escaping ([CategoryName]) -> AnyPublisher<[CategoryQuests], Error> = AppFileManager.live.loadQuestions,
+        randomizer: @escaping ([String]) -> String? = {
+            guard !$0.isEmpty else { return nil }
+            return $0[Int.random(in: 0..<$0.count)]
+        }
     ) {
         self.timerService = timerService
         self.player = player
-        self.randomNumber = randomNumber
+        self.questions = questions
+        self.randomizer = randomizer
         
         logger.debug("Initialized")
     }
@@ -67,24 +78,33 @@ struct GameDomain {
             let currentState = state
             logger.debug("Setup game. Current state: \(String(reflecting: currentState))")
             
-            return Publishers.Concatenate(
-                prefix: Just(Action.setGameState(state.gameFlow)),
-                suffix: timerService.timerTick.map { _ in .timerTick }
+            return Publishers.Merge(
+                Just(Action.setGameState(state.gameFlow)),
+                timerService.timerTick.map { _ in .timerTick }
             )
             .eraseToAnyPublisher()
+            
+        case let .setQuestionCategories(categories):
+            if state.gameFlow == .initial {
+                state.questionCategory = categories
+            }
             
         case .setGameState(.initial):
             logger.debug("Setup game state to initial")
             state.counter = 0
             state.isShowSheet = false
-            state.title = "Нажмите запустить, чтобы начать игру"
             player.stop()
             state.gameFlow = .initial
             
+            return Just(.questionRequest)
+                .eraseToAnyPublisher()
+            
         case .setGameState(.play):
             logger.debug("Setup game state to play")
+            if state.isMusicEnabled {
+                player.playBackgroundMusic(state.backgroundMelody)
+            }
             player.playTicking(state.tickSound)
-            player.playBackgroundMusic(state.backgroundMelody)
             timerService.startTimer()
             state.gameFlow = .play
             
@@ -93,20 +113,26 @@ struct GameDomain {
             player.stop()
             timerService.stopTimer()
             state.gameFlow = .pause
-            state.title = "Пауза..."
+            
+        case .setGameState(.explosion):
+            logger.debug("Setup game state to explosion")
+            state.gameFlow = .explosion
+            timerService.stopTimer()
+            player.stop()
+            player.playExplosion(state.explosionSound)
+            
+            return Just(.setGameState(.gameOver))
+                .delay(for: 2, scheduler: RunLoop.main)
+                .eraseToAnyPublisher()
             
         case .setGameState(.gameOver):
             logger.debug("Setup game state to gameOver")
-            timerService.stopTimer()
-            player.playExplosion(state.explosionSound)
             state.gameFlow = .gameOver
-            state.title = "Конец игры"
-            state.quest = getRandomElement(from: state.questsArray)
             state.isShowSheet = true
             
         case .timerTick:
             guard state.counter < state.estimatedTime else {
-                return Just(.setGameState(.gameOver))
+                return Just(.setGameState(.explosion))
                     .eraseToAnyPublisher()
             }
             state.counter += 1
@@ -116,6 +142,7 @@ struct GameDomain {
             state.backgroundMelody = settings.backgroundMelody
             state.tickSound = settings.tickSound
             state.explosionSound = settings.explosionSound
+            state.isMusicEnabled = settings.musicEnable
             
             return Just(.setGameState(.play))
                 .eraseToAnyPublisher()
@@ -127,16 +154,28 @@ struct GameDomain {
                 .compactMap { $0 }
                 .eraseToAnyPublisher()
             
-        case .playAgainButtonTap:
-            return Just(.setGameState(.initial))
+        case .questionRequest:
+            logger.debug("Request questions.")
+            return questions(state.questionCategory)
+                .map(flatQuestions)
+                .compactMap(randomizer)
+                .map(transformToSuccessAction)
+                .catch(catchToFailAction)
                 .eraseToAnyPublisher()
             
-        case .anotherPunishmentButtonTap:
-            state.quest = getRandomElement(from: state.questsArray)
+        case let .questionResponse(.success(question)):
+            state.title = question
+            
+        case let .questionResponse(.failure(error)):
+            state.title = error.localizedDescription
+            logger.error("Unable to load quest: \(String(describing: error))")
+        
             
         case .viewDisappear:
-            timerService.stopTimer()
-            player.stop()
+            defer {
+                timerService.stopTimer()
+                player.stop()
+            }
             
             return Just(.setGameState(.initial))
                 .eraseToAnyPublisher()
@@ -149,54 +188,48 @@ struct GameDomain {
     }
     
     //MARK: - Live store
-    static let liveStore = GameStore(
+    static let liveStore = Store(
         initialState: Self.State(),
         reducer: Self()
     )
     
     //MARK: - Preview stores
-    static let previewStoreInitialState = GameStore(
+    static let previewStoreInitialState = Store(
         initialState: Self.State(
             title: "Нажмите запустить, чтобы начать игру",
             estimatedTime: 10,
             gameFlow: .initial
         ),
-        reducer: Self()
+        reducer: Self(questions: AppFileManager.preview.loadQuestions)
     )
     
-    static let previewStorePlayState = GameStore(
+    static let previewStorePlayState = Store(
         initialState: Self.State(
             title: "Some question",
             gameFlow: .play
         ),
-        reducer: Self()
+        reducer: Self(questions: AppFileManager.preview.loadQuestions)
     )
     
-    static let previewStorePauseState = GameStore(
+    static let previewStorePauseState = Store(
         initialState: Self.State(
             title: "Pause",
             gameFlow: .pause
         ),
-        reducer: Self()
+        reducer: Self(questions: AppFileManager.preview.loadQuestions)
     )
     
-    static let previewStoreGameOverState = GameStore(
+    static let previewStoreGameOverState = Store(
         initialState: Self.State(
             title: "Конец игры",
-            quest: "В следующем раунде, после каждого ответа, хлопать в ладоши",
             gameFlow: .gameOver,
             isShowSheet: true
         ),
-        reducer: Self()
+        reducer: Self(questions: AppFileManager.preview.loadQuestions)
     )
 }
 
 private extension GameDomain {
-    func getRandomElement(from collection: [String]) -> String {
-        let randomIndex = randomNumber(collection.count)
-        return collection[randomIndex]
-    }
-    
     func togglePause(_ gameFlow: State.GameFlow) -> Action? {
         switch gameFlow {
         case .play:
@@ -207,6 +240,24 @@ private extension GameDomain {
             return nil
         }
     }
+    
+    func filter(categories: [CategoryQuests], by name: CategoryName) -> CategoryQuests? {
+        categories.first(where: { $0.category == name })
+    }
+    
+    func transformToSuccessAction(_ quest: String) -> Action {
+        .questionResponse(.success(quest))
+    }
+    
+    func catchToFailAction(_ error: Error) -> Just<Action> {
+        Just(.questionResponse(.failure(error)))
+    }
+    
+    func flatQuestions(_ categories: [CategoryQuests]) -> [String] {
+        categories
+            .map(\.questions)
+            .flatMap{ $0 }
+    }
 }
 
 extension GameDomain.State {
@@ -214,6 +265,7 @@ extension GameDomain.State {
         case initial
         case play
         case pause
+        case explosion
         case gameOver
         
         init() {

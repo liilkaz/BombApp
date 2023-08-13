@@ -75,7 +75,6 @@ final class AudioPlayer: AudioPlayerProtocol {
     }
     
     func playExplosion(_ melody: Settings.Melody) {
-        stop()
         guard melody.rawValue < explosionPlayers.count else {
             logger.fault("Index of player out of range")
             return

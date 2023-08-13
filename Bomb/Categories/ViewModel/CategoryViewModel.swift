@@ -18,7 +18,11 @@ final class CategoryViewModel: ObservableObject {
     }
     
     func save() -> [CategoryName] {
-         categories.filter(\.isSelected).map(\.name)
+        let chosenCategories = categories.filter(\.isSelected).map(\.name)
+        if chosenCategories.isEmpty {
+            return [.varied]
+        }
+        return chosenCategories
     }
     
     func getCategories(names: [CategoryName]) {

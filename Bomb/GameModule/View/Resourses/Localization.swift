@@ -12,4 +12,5 @@ struct Localization {
     static let beginButtonTitle = "Запустить"
     static let anotherQuestButtonTitle = "Другое задание"
     static let restartGameButtonTitle = "Начать заново"
+    static let gameOverTitle = "Конец игры"
 }
