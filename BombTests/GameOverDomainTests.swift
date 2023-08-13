@@ -15,6 +15,7 @@ final class GameOverDomainTests: XCTestCase {
     private var state: GameOverDomain.State!
     private var spy: Spy<GameOverDomain.Action>!
     private var testActions: [String]!
+    private var testError: Error!
     
     override func setUp() async throws {
         try await super.setUp()
@@ -27,6 +28,7 @@ final class GameOverDomainTests: XCTestCase {
         })
         state = .init()
         spy = .init()
+        testError = URLError(.badURL)
     }
     
     override func tearDown() async throws {
@@ -44,6 +46,27 @@ final class GameOverDomainTests: XCTestCase {
         XCTAssertEqual(spy.actions.first, .actionsRequest)
     }
     
+    func test_requestEmitSuccess() {
+        spy.schedule(
+            sut.reduce(&state, action: .actionsRequest)
+        )
+        
+        XCTAssertEqual(spy.actions.first, .actionsResponse(.success(testActions)))
+    }
+    
+    func test_requestEmitError() {
+        sut = .init(loadActions: { [unowned self] in
+            Fail(error: testError)
+                .eraseToAnyPublisher()
+        })
+        
+        spy.schedule(
+            sut.reduce(&state, action: .actionsRequest)
+        )
+        
+        XCTAssertEqual(spy.actions.first, .actionsResponse(.failure(testError)))
+    }
+    
     func test_requestQuestsEndWithSuccess() {
         sut = .init(randomNumber: {_ in 1 })
         
@@ -54,8 +77,6 @@ final class GameOverDomainTests: XCTestCase {
     }
     
     func test_requestQuestsEndWithError() {
-        let testError: Error = URLError(.badURL)
-        
         _ = sut.reduce(&state, action: .actionsResponse(.failure(testError)))
         
         XCTAssertEqual(state.quest, testError.localizedDescription)
